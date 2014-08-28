@@ -26,6 +26,7 @@
 @property PFFile* file;
 @property UIActionSheet *actionSheet;
 @property NSString* errorMessage;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property URBSegmentedControl *sexualityControl;
 @end
 
@@ -55,7 +56,7 @@
 	[self.view addSubview:self.sexualityControl];
 
     self.genderSegmentedControl = [[URBSegmentedControl alloc] initWithItems:genders];
-	self.genderSegmentedControl.frame = CGRectMake(10.0, 280.0, 295.0, 40.0);
+	self.genderSegmentedControl.frame = CGRectMake(10.0, 310.0, 295.0, 40.0);
 	self.genderSegmentedControl.segmentBackgroundColor = [UIColor blueColor];
 	[self.genderSegmentedControl setSegmentBackgroundColor:[UIColor purpleColor] atIndex:1];
 	[self.view addSubview:self.genderSegmentedControl];
@@ -172,6 +173,7 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     self.file = [PFFile fileWithData:UIImagePNGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage])];
+    self.profileImageView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [self.file saveInBackground];
 }
 

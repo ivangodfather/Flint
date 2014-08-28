@@ -85,5 +85,8 @@
 
 }
 
+- (IBAction)logOut:(id)sender {
+    [UserParse logOut];
+}
 
 @end
