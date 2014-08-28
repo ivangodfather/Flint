@@ -8,12 +8,11 @@
 
 #import "SidebarTableViewController.h"
 #import "SWRevealViewController.h"
+#import "UserParse.h"
 
-#define DICTIONARY_SECTION 1
-#define QUIZ_SECTION 2
-#define SEARCHES_SECTION 3
 
 @interface SidebarTableViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @end
 
 @implementation SidebarTableViewController
@@ -21,6 +20,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    PFQuery *query = [UserParse query];
+    [query whereKey:@"objectId" equalTo:[UserParse currentUser].objectId];
+    [query getObjectInBackgroundWithId:[UserParse currentUser].objectId
+                                 block:^(PFObject *object, NSError *error) {
+
+                                     UserParse *theUser = (UserParse *)object;
+                                     [theUser[@"photo"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                                         if (!error) {
+                                             self.profileImageView.image = [UIImage imageWithData:data];
+                                             self.profileImageView.layer.cornerRadius = 60;
+                                             self.profileImageView.clipsToBounds = YES;
+                                         }
+                                     }];
+                                 }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,6 +61,25 @@
         };
     }
     
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *sectionName;
+    switch (section)
+    {
+        case 0:
+            sectionName = [UserParse currentUser].username;
+            break;
+        case 1:
+            sectionName = NSLocalizedString(@"Messages", @"Messages");
+            break;
+            // ...
+        default:
+            sectionName = @"Profile";
+            break;
+    }
+    return sectionName;
 }
 
 @end

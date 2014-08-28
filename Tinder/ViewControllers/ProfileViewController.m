@@ -8,6 +8,7 @@
 
 #import "ProfileViewController.h"
 #import "SWRevealViewController.h"
+#import "UserParse.h"
 
 @interface ProfileViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
@@ -34,47 +35,53 @@
 
 -(void) populateProfile
 {
-    PFUser* theUser = [PFUser currentUser];
-    NSNumber* sexuality = theUser[@"sexuality"];
-    BOOL isMale = (BOOL)theUser[@"isMale"];
-    self.navigationItem.title = theUser[@"username"];
-    [theUser[@"photo"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        if (!error) {
-            self.profilePhoto.image = [UIImage imageWithData:data];
-        }
-    }];
-    self.ageLabel.text = [NSString stringWithFormat:@"Age: %@", theUser[@"age"]];
-    if (isMale) {
-        if (sexuality == [NSNumber numberWithInt:0]) {
-            self.sexualityLabel.text = @"Sexuality: Homosexual";
-            self.sexualityLabel.textColor = [UIColor blueColor];
-        }
-        if (sexuality == [NSNumber numberWithInt:1]) {
-            self.sexualityLabel.text = @"Sexuality: Heterosexual";
-            self.sexualityLabel.textColor = [UIColor purpleColor];
-        }
-        if (sexuality == [NSNumber numberWithInt:2]) {
-            self.sexualityLabel.text = @"Sexuality: Bisexual";
-            self.sexualityLabel.textColor = [UIColor greenColor];
-        }
-        self.genderLabel.text = [NSString stringWithFormat:@"Gender: Male"];
-        self.genderLabel.textColor = [UIColor blueColor];
-    } else {
-        if (sexuality == [NSNumber numberWithInt:0]) {
-            self.sexualityLabel.text = @"Sexuality: Heterosexual";
-            self.sexualityLabel.textColor = [UIColor blueColor];
-        }
-        if (sexuality == [NSNumber numberWithInt:1]) {
-            self.sexualityLabel.text = @"Sexuality: Homosexual";
-            self.sexualityLabel.textColor = [UIColor purpleColor];
-        }
-        if (sexuality == [NSNumber numberWithInt:2]) {
-            self.sexualityLabel.text = @"Sexuality: Bisexual";
-            self.sexualityLabel.textColor = [UIColor greenColor];
-        }
-        self.genderLabel.text = [NSString stringWithFormat:@"Gender: Female"];
-        self.genderLabel.textColor = [UIColor purpleColor];
-    }
+    PFQuery *query = [UserParse query];
+    [query whereKey:@"objectId" equalTo:[UserParse currentUser].objectId];
+    [query getObjectInBackgroundWithId:[UserParse currentUser].objectId
+                                 block:^(PFObject *object, NSError *error) {
+                                     UserParse *theUser = (UserParse *)object;
+                                     NSNumber* sexuality = theUser[@"sexuality"];
+                                     BOOL isMale = (BOOL)theUser[@"isMale"];
+                                     self.navigationItem.title = theUser[@"username"];
+                                     [theUser[@"photo"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                                         if (!error) {
+                                             self.profilePhoto.image = [UIImage imageWithData:data];
+                                         }
+                                     }];
+                                     self.ageLabel.text = [NSString stringWithFormat:@"Age: %@", theUser[@"age"]];
+                                     if (isMale) {
+                                         if (sexuality == [NSNumber numberWithInt:0]) {
+                                             self.sexualityLabel.text = @"Sexuality: Homosexual";
+                                             self.sexualityLabel.textColor = [UIColor blueColor];
+                                         }
+                                         if (sexuality == [NSNumber numberWithInt:1]) {
+                                             self.sexualityLabel.text = @"Sexuality: Heterosexual";
+                                             self.sexualityLabel.textColor = [UIColor purpleColor];
+                                         }
+                                         if (sexuality == [NSNumber numberWithInt:2]) {
+                                             self.sexualityLabel.text = @"Sexuality: Bisexual";
+                                             self.sexualityLabel.textColor = [UIColor greenColor];
+                                         }
+                                         self.genderLabel.text = [NSString stringWithFormat:@"Gender: Male"];
+                                         self.genderLabel.textColor = [UIColor blueColor];
+                                     } else {
+                                         if (sexuality == [NSNumber numberWithInt:0]) {
+                                             self.sexualityLabel.text = @"Sexuality: Heterosexual";
+                                             self.sexualityLabel.textColor = [UIColor blueColor];
+                                         }
+                                         if (sexuality == [NSNumber numberWithInt:1]) {
+                                             self.sexualityLabel.text = @"Sexuality: Homosexual";
+                                             self.sexualityLabel.textColor = [UIColor purpleColor];
+                                         }
+                                         if (sexuality == [NSNumber numberWithInt:2]) {
+                                             self.sexualityLabel.text = @"Sexuality: Bisexual";
+                                             self.sexualityLabel.textColor = [UIColor greenColor];
+                                         }
+                                         self.genderLabel.text = [NSString stringWithFormat:@"Gender: Female"];
+                                         self.genderLabel.textColor = [UIColor purpleColor];
+                                     }
+
+                                 }];
 
 }
 

@@ -27,6 +27,7 @@
 @property UserParse* currShowingProfile;
 @property UserParse* backgroundUserProfile;
 @property NSMutableArray *posibleMatchesArray;
+@property BOOL firstTime;
 @end
 
 @implementation MainViewController
@@ -36,6 +37,8 @@
     [super viewDidLoad];
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
+    self.posibleMatchesArray = [NSMutableArray new];
+    self.firstTime = YES;
     [self getMatches];
 }
 
@@ -45,9 +48,12 @@
     PFQuery *query = [UserParse query];
     [query whereKey:@"objectId" notEqualTo:[UserParse currentUser].objectId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        self.posibleMatchesArray = [objects mutableCopy];
+        [self.posibleMatchesArray addObjectsFromArray:objects];
         //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-        [self getProfileAndApplyToView];
+        if (self.firstTime) {
+            [self getProfileAndApplyToView];
+            self.firstTime = NO;
+        }
     }];
 }
 
@@ -83,6 +89,9 @@
 
 -(void) placeBackgroundProfile
 {
+    if (self.posibleMatchesArray.count == 1) {
+        [self getMatches];
+    }
 
     UserParse* aUser = self.posibleMatchesArray.firstObject;
     [self.posibleMatchesArray removeObject:aUser];
@@ -107,7 +116,6 @@
         nameLabel.text = [NSString stringWithFormat:@"Hey %@, %@", username, age];
         [nameLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
         [self.backgroundView addSubview:nameLabel];
-        NSLog(@"subviews %@", self.backgroundView.subviews);
     }];
 }
 

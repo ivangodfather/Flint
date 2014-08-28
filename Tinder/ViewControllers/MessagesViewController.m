@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray *usersParseArray;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
 @end
 
@@ -25,6 +26,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _sidebarButton.target = self.revealViewController;
+    _sidebarButton.action = @selector(revealToggle:);
+    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+
     [self loadChatPersons];
     self.usersParseArray = [NSMutableArray new];
     // Do any additional setup after loading the view.
@@ -95,6 +100,8 @@
     UserParse *user = [self.usersParseArray objectAtIndex:indexPath.row];
     cell.nameTextLabel.text = user.username;
     cell.ageTextLabel.text = user.age.description;
+    cell.userImageView.layer.cornerRadius = 25;
+    cell.userImageView.clipsToBounds = YES;
     [user.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         cell.userImageView.image = [UIImage imageWithData:data];
     }];

@@ -172,7 +172,7 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     self.file = [PFFile fileWithData:UIImagePNGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage])];
-    [self.file save];
+    [self.file saveInBackground];
 }
 
 #pragma mark - create user
