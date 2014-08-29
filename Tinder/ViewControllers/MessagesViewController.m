@@ -96,8 +96,6 @@
     UserParse *user = [self.usersParseArray objectAtIndex:indexPath.row];
     cell.nameTextLabel.text = user.username;
     cell.ageTextLabel.text = user.age.description;
-    cell.userImageView.layer.cornerRadius = 25;
-    cell.userImageView.clipsToBounds = YES;
     [user.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         cell.userImageView.image = [UIImage imageWithData:data];
     }];

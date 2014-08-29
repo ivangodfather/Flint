@@ -119,15 +119,15 @@
     self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
 
     [self.genderSelect.layer setBorderWidth:1];
-    [self.genderSelect.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.genderSelect.layer setBorderColor:RED_COLOR.CGColor];
     [self.genderLikeSelect.layer setBorderWidth:1];
-    [self.genderLikeSelect.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.genderLikeSelect.layer setBorderColor:RED_COLOR.CGColor];
     [self.pickerSelect.layer setBorderWidth:1];
-    [self.pickerSelect.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.pickerSelect.layer setBorderColor:RED_COLOR.CGColor];
     [self.signUpButton.layer setBorderWidth:1];
     [self.signUpButton.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.profileImageView.layer setBorderWidth:1];
-    [self.profileImageView.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.profileImageView.layer setBorderColor:RED_COLOR.CGColor];
 
 
 }
@@ -390,6 +390,21 @@
 
 - (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {
 	//self.infoLabel.text = [NSString stringWithFormat:@"Selected index %d", index];
+}
+
++ (UIImage *)ipMaskedImageNamed:(NSString *)name color:(UIColor *)color
+{
+    UIImage *image = [UIImage imageNamed:name];
+    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, image.scale);
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    [image drawInRect:rect];
+    CGContextSetFillColorWithColor(c, [color CGColor]);
+    CGContextSetBlendMode(c, kCGBlendModeSourceAtop);
+    CGContextFillRect(c, rect);
+    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return result;
 }
 
 - (IBAction)nameBegin:(id)sender {

@@ -88,6 +88,7 @@
 		42F5B27E19AF919E0036938B /* sentSucess.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F5B25519AF919E0036938B /* sentSucess.png */; };
 		42F5B27F19AF919E0036938B /* sentSucess@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F5B25619AF919E0036938B /* sentSucess@2x.png */; };
 		42F5B28419B019FA0036938B /* V8HorizontalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F5B28219B019FA0036938B /* V8HorizontalPickerView.m */; };
+		42F5B28619B0C4CB0036938B /* Chat.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42F5B28519B0C4CB0036938B /* Chat.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -209,6 +210,7 @@
 		42F5B28119B019FA0036938B /* V8HorizontalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V8HorizontalPickerView.h; sourceTree = "<group>"; };
 		42F5B28219B019FA0036938B /* V8HorizontalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V8HorizontalPickerView.m; sourceTree = "<group>"; };
 		42F5B28319B019FA0036938B /* V8HorizontalPickerViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V8HorizontalPickerViewProtocol.h; sourceTree = "<group>"; };
+		42F5B28519B0C4CB0036938B /* Chat.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Chat.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +339,7 @@
 				42DBCC7E19AC2F8100CE6C93 /* ViewControllers */,
 				42DBCC3C19AC20BB00CE6C93 /* Main.storyboard */,
 				42DBCC4219AC20BB00CE6C93 /* Images.xcassets */,
+				42F5B28519B0C4CB0036938B /* Chat.xcassets */,
 				42DBCC3119AC20BB00CE6C93 /* Supporting Files */,
 			);
 			path = Tinder;
@@ -603,6 +606,7 @@
 				42F5B26C19AF919E0036938B /* ImageBubble@2x~iphone.png in Resources */,
 				42DBCC4319AC20BB00CE6C93 /* Images.xcassets in Resources */,
 				42DBCC3519AC20BB00CE6C93 /* InfoPlist.strings in Resources */,
+				42F5B28619B0C4CB0036938B /* Chat.xcassets in Resources */,
 				42F5B27C19AF919E0036938B /* sentFailed.png in Resources */,
 				42DBCC3E19AC20BB00CE6C93 /* Main.storyboard in Resources */,
 				42F5B26319AF919E0036938B /* Footer_Chat@2x.png in Resources */,

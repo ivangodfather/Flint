@@ -19,3 +19,5 @@
     #import <Parse/PFObject+Subclass.h>
     #import "SWRevealViewController.h"
 #endif
+
+#define RED_COLOR [UIColor colorWithRed:0.796 green:0 blue:0.282 alpha:1] /*#cb0048*/
