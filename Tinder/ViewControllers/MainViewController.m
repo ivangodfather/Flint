@@ -27,6 +27,7 @@
 @property UserParse* currShowingProfile;
 @property UserParse* backgroundUserProfile;
 @property NSMutableArray *posibleMatchesArray;
+@property NSMutableArray* willBeMatches;
 @property BOOL firstTime;
 @end
 
@@ -45,14 +46,27 @@
 
 - (void)getMatches
 {
-    PFQuery *query = [UserParse query];
-    [query whereKey:@"objectId" notEqualTo:[UserParse currentUser].objectId];
+    PFQuery *query = [PFQuery queryWithClassName:@"PossibleMatch"];
+    [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
+    [query whereKey:@"noMatch" notEqualTo:@"YES"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.posibleMatchesArray addObjectsFromArray:objects];
+        [self.willBeMatches addObjectsFromArray:objects];
+        NSLog(@"will be match - %@", objects);
         //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-        if (self.firstTime) {
-            [self getProfileAndApplyToView];
-            self.firstTime = NO;
+        if (objects.count == 0) {
+            PFQuery *query = [PFQuery queryWithClassName:@"PossibleMatch"];
+            [query whereKey:@"fromUser" notEqualTo:[UserParse currentUser]];
+            PFQuery *userQuery = [UserParse query];
+            [userQuery whereKey:@"username" notEqualTo:[UserParse currentUser].username];
+            [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                [self.posibleMatchesArray addObjectsFromArray:objects];
+                NSLog(@"new matches - %@", objects);
+                if (self.firstTime) {
+                    [self getProfileAndApplyToView];
+                    self.firstTime = NO;
+                }
+            }];
         }
     }];
 }
@@ -101,7 +115,6 @@
     NSString* username = aUser[@"username"];
     NSLog(@"background user %@", aUser.username);
     NSNumber* age = aUser[@"age"];
-    int nameCushion = (int)[username length];
     self.backgroundView = [[UIView alloc] initWithFrame:[self createMatchRect]];
     self.backgroundView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:self.backgroundView];
@@ -169,10 +182,23 @@
         self.profileView.gestureRecognizers = [NSArray new];
         [self.profileView removeFromSuperview];
         self.profileView = self.backgroundView;
+        self.currShowingProfile = self.backgroundUserProfile;
         [self setPanGestureRecognizer];
         [self placeBackgroundProfile];
-
-
+        if ([self.willBeMatches containsObject:self.currShowingProfile]) {
+            PFObject* match = [PFObject objectWithClassName:@"Match"];
+            match[@"fromUser"] = self.currShowingProfile;
+            match[@"toUser"] = [UserParse currentUser];
+        } else {
+            PFObject* possibleMatch = [PFObject objectWithClassName:@"PossibleMatch"];
+            possibleMatch[@"fromUser"] = [UserParse currentUser];
+            possibleMatch[@"toUser"] = self.currShowingProfile;
+            [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    NSLog(@"here");
+                }
+            }];
+        }
         //        [self removeProfileFromViewAndSetNextProfile];
     }
     if (point.x < 90) {
@@ -180,14 +206,18 @@
         self.profileView.gestureRecognizers = [NSArray new];
         [self.profileView removeFromSuperview];
         self.profileView = self.backgroundView;
+        self.currShowingProfile = self.backgroundUserProfile;
         [self setPanGestureRecognizer];
         [self placeBackgroundProfile];
-
-
-
-
-
-
+        PFObject* possibleMatch = [PFObject objectWithClassName:@"PossibleMatch"];
+        possibleMatch[@"fromUser"] = [UserParse currentUser];
+        possibleMatch[@"toUser"] = self.currShowingProfile;
+        possibleMatch[@"noMatch"] = @"YES";
+        [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"save this no match");
+            }
+        }];
         //        [self removeProfileFromViewAndSetNextProfile];
     }
 }
