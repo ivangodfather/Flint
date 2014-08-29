@@ -12,6 +12,7 @@
 
 #define labelHeight 30
 #define labelCushion 20
+#define MARGIN 50
 
 #define buttonWidth 40
 #define buttonHeight 50
@@ -48,17 +49,18 @@
 {
     PFQuery *query = [PFQuery queryWithClassName:@"PossibleMatch"];
     [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
-    [query whereKey:@"noMatch" notEqualTo:@"YES"];
+    [query whereKey:@"match" equalTo:@"YES"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.posibleMatchesArray addObjectsFromArray:objects];
         [self.willBeMatches addObjectsFromArray:objects];
         NSLog(@"will be match - %@", objects);
         //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
         if (objects.count == 0) {
-            PFQuery *query = [PFQuery queryWithClassName:@"PossibleMatch"];
-            [query whereKey:@"fromUser" notEqualTo:[UserParse currentUser]];
-            PFQuery *userQuery = [UserParse query];
-            [userQuery whereKey:@"username" notEqualTo:[UserParse currentUser].username];
+            PFQuery *query = [PFQuery queryWithClassName:@"PossibleMatch"]; //matches
+            [query whereKey:@"fromUser" equalTo:[UserParse currentUser]]; //people you've seen
+            PFQuery* userQuery = [UserParse query];
+            [userQuery whereKey:@"objectId" notEqualTo:[UserParse currentUser].objectId];
+            [userQuery whereKey:@"email" doesNotMatchKey:@"toUserId" inQuery:query];
             [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 [self.posibleMatchesArray addObjectsFromArray:objects];
                 NSLog(@"new matches - %@", objects);
@@ -169,48 +171,55 @@
 #pragma mark - pan gesture helper methods
 - (void) checkPointsForLike:(CGPoint)point
 {
-    if (point.x > 270) {
+    if (point.x > self.view.frame.size.width - MARGIN) {
 
         NSLog(@"like");
         self.profileView.gestureRecognizers = [NSArray new];
         [self.profileView removeFromSuperview];
         self.profileView = self.backgroundView;
-        self.currShowingProfile = self.backgroundUserProfile;
-        [self setPanGestureRecognizer];
-        [self placeBackgroundProfile];
         if ([self.willBeMatches containsObject:self.currShowingProfile]) {
             PFObject* match = [PFObject objectWithClassName:@"Match"];
             match[@"fromUser"] = self.currShowingProfile;
             match[@"toUser"] = [UserParse currentUser];
             [match saveEventually:^(BOOL succeeded, NSError *error) {
                 NSLog(@"match made in heaven");
-
+                self.currShowingProfile = self.backgroundUserProfile;
+                [self setPanGestureRecognizer];
+                [self placeBackgroundProfile];
             }];
         } else {
             PFObject* possibleMatch = [PFObject objectWithClassName:@"PossibleMatch"];
             possibleMatch[@"fromUser"] = [UserParse currentUser];
             possibleMatch[@"toUser"] = self.currShowingProfile;
+            possibleMatch[@"toUserId"] = self.currShowingProfile.email;
+            possibleMatch[@"match"] = @"YES";
             [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     NSLog(@"here");
+                    self.currShowingProfile = self.backgroundUserProfile;
+                    [self setPanGestureRecognizer];
+                    [self placeBackgroundProfile];
                 }
             }];
         }
     }
-    if (point.x < 90) {
+    if (point.x < MARGIN) {
         NSLog(@"doesn't like");
         self.profileView.gestureRecognizers = [NSArray new];
         [self.profileView removeFromSuperview];
         self.profileView = self.backgroundView;
-        self.currShowingProfile = self.backgroundUserProfile;
-        [self setPanGestureRecognizer];
-        [self placeBackgroundProfile];
         PFObject* possibleMatch = [PFObject objectWithClassName:@"PossibleMatch"];
         possibleMatch[@"fromUser"] = [UserParse currentUser];
+        possibleMatch[@"fromUserId"] = [UserParse currentUser].email;
+        possibleMatch[@"toUserId"] = self.currShowingProfile.email;
+        NSLog(@"%@", self.currShowingProfile.email);
         possibleMatch[@"toUser"] = self.currShowingProfile;
-        possibleMatch[@"noMatch"] = @"YES";
+        possibleMatch[@"match"] = @"NO";
         [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
+                self.currShowingProfile = self.backgroundUserProfile;
+                [self setPanGestureRecognizer];
+                [self placeBackgroundProfile];
                 NSLog(@"save this no match");
             }
         }];
