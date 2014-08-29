@@ -35,6 +35,9 @@
 @property NSMutableArray *ages;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UIView *pickerSelect;
+@property UserParse *theUser;
+@property NSNumber* sexuality;
+@property BOOL isMale;
 @end
 
 @implementation CustomSignUpViewController
@@ -45,6 +48,8 @@
     UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background"]];
     [self.view addSubview:backgroundImage];
     [self.view sendSubviewToBack:backgroundImage];
+    self.sexuality = [NSNumber numberWithInt:0];
+    self.isMale = YES;
     [self customizeView];
     [self setTextDelegates];
     [self populateArray];
@@ -54,7 +59,7 @@
 - (void)createAgePickerView
 {
     self.ages = [NSMutableArray new];
-    for (int i = 18; i < 70; i++) {
+    for (int i = MIN_AGE; i <= MAX_AGE; i++) {
         [self.ages addObject:[NSNumber numberWithInt:i]];
     }
 	self.agePickerView.backgroundColor   = [UIColor clearColor];
@@ -132,48 +137,51 @@
 
 }
 
+
+
 - (IBAction)maleSelect:(id)sender
 {
+    self.isMale = YES;
     [UIView animateWithDuration:1 animations:^{
         self.genderSelect.frame = CGRectMake(80, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
     } completion:^(BOOL finished) {
-
     }];
 }
 
 - (IBAction)femaleSelect:(id)sender
 {
+    self.isMale = NO;
     [UIView animateWithDuration:1 animations:^{
         self.genderSelect.frame = CGRectMake(173, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
     } completion:^(BOOL finished) {
-
     }];
 }
 
 - (IBAction)maleLikeSelect:(id)sender
 {
+    self.sexuality = [NSNumber numberWithInt:0];
     [UIView animateWithDuration:1 animations:^{
         self.genderLikeSelect.frame = CGRectMake(28, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
     } completion:^(BOOL finished) {
-
     }];
 }
 
 - (IBAction)femaleLikeSelect:(id)sender
 {
+    self.sexuality = [NSNumber numberWithInt:1];
     [UIView animateWithDuration:1 animations:^{
         self.genderLikeSelect.frame = CGRectMake(118, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
     } completion:^(BOOL finished) {
-
     }];
 }
 
 - (IBAction)bothLikeSelect:(id)sender
 {
+    self.sexuality = [NSNumber numberWithInt:2];
     [UIView animateWithDuration:1 animations:^{
         self.genderLikeSelect.frame = CGRectMake(210, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+        self.theUser.sexuality = [NSNumber numberWithInt:2];
     } completion:^(BOOL finished) {
-
     }];
 }
 
@@ -316,16 +324,18 @@
 -(void) onValidSignUpCreateUser
 {
     NSInteger row = [self.picker selectedRowInComponent:0];
-    UserParse* aUser = [UserParse object];
-    aUser.username = self.nameTextField.text;
-    aUser.email = self.emailTextField.text;
-    aUser.age = [self.ageArray objectAtIndex:row];
-    aUser.password = self.passwordTextField.text;
-    aUser.photo = self.file;
+    self.theUser = [UserParse object];
+    self.theUser.username = self.nameTextField.text;
+    self.theUser.email = self.emailTextField.text;
+    self.theUser.age = [self.ageArray objectAtIndex:row];
+    self.theUser.password = self.passwordTextField.text;
+    self.theUser.photo = self.file;
+    self.theUser.isMale = self.isMale;
+    self.theUser.sexuality = self.sexuality;
 
-    [aUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [self.theUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            NSLog(@"age %@\n name %@\n email %@\n password %@\n photo %@\n sexuality %@\n isMale %hhd", aUser.age, aUser.username, aUser.email, aUser.password, aUser.photo, aUser.sexuality, aUser.isMale);
+            NSLog(@"age %@\n name %@\n email %@\n password %@\n photo %@\n sexuality %@\n isMale %d", self.theUser.age, self.theUser.username, self.theUser.email, self.theUser.password, self.theUser.photo, self.theUser.sexuality, self.theUser.isMale);
             [self performSegueWithIdentifier:@"signup" sender:self];
         } else {
             if (error.code == 202) {
