@@ -11,6 +11,9 @@
 #import "SPH_PARAM_List.h"
 #import  "MessageParse.h"
 
+#define  TIME_COLOR [UIColor whiteColor]
+
+
 #import "SPHTextBubbleView.h"
 #import "SPHImageBubbleView.h"
 
@@ -40,7 +43,7 @@ static NSString *CellIdentifier = @"cellIdentifier";
 
 #define GRAY_TEXT_BUBBLE_COLOR [UIColor colorWithRed:0.866667 green:0.866667 blue:0.866667 alpha:1]
 #define LIGHT_GRAY_TEXT_BUBBLE_COLOR [UIColor whiteColor]
-#define GREEN_TEXT_BUBBLE_COLOR [UIColor colorWithRed:0.439216 green:0.854902 blue:0.223529 alpha:1]
+#define GREEN_TEXT_BUBBLE_COLOR [UIColor greenColor]
 #define LIGHT_GREEN_TEXT_BUBBLE_COLOR [UIColor colorWithHue:130.0f / 360.0f saturation:0.68f brightness:0.80f alpha:1.0f]
 #define BLUE_TEXT_HIGHLIGHT_COLOR [UIColor colorWithRed:0.270588 green:0.545098 blue:1.000000 alpha:1]
 
@@ -431,7 +434,7 @@ static NSString *CellIdentifier = @"cellIdentifier";
                                UILabel *timeLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, cell.frame.size.height-30, 55, 20)];
                                timeLabel.text=feed_data.chat_date_time;
                                timeLabel.font=[UIFont systemFontOfSize:9];
-                               timeLabel.textColor=[UIColor blackColor];
+                               timeLabel.textColor= TIME_COLOR;
                                [cell.contentView addSubview:timeLabel];
 
 
@@ -487,7 +490,7 @@ static NSString *CellIdentifier = @"cellIdentifier";
                                    UILabel *timeLabel=[[UILabel alloc]initWithFrame:CGRectMake(260, cell.frame.size.height-30, 55, 20)];
                                    timeLabel.text=feed_data.chat_date_time;
                                    timeLabel.font=[UIFont systemFontOfSize:9];
-                                   timeLabel.textColor=[UIColor blackColor];
+                                   timeLabel.textColor= TIME_COLOR;
                                    [cell.contentView addSubview:timeLabel];
 
 
@@ -523,7 +526,7 @@ static NSString *CellIdentifier = @"cellIdentifier";
                                        UILabel *timeLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, cell.frame.size.height-30, 55, 20)];
                                        timeLabel.text=feed_data.chat_date_time;
                                        timeLabel.font=[UIFont systemFontOfSize:9];
-                                       timeLabel.textColor=[UIColor blackColor];
+                                       timeLabel.textColor= TIME_COLOR;
                                        [cell.contentView addSubview:timeLabel];
 
 
@@ -575,7 +578,7 @@ static NSString *CellIdentifier = @"cellIdentifier";
                                        UILabel *timeLabel=[[UILabel alloc]initWithFrame:CGRectMake(260, cell.frame.size.height-30, 55, 20)];
                                        timeLabel.text=feed_data.chat_date_time;
                                        timeLabel.font=[UIFont systemFontOfSize:9];
-                                       timeLabel.textColor=[UIColor blackColor];
+                                       timeLabel.textColor= TIME_COLOR;
                                        [cell.contentView addSubview:timeLabel];
                                        NSLog(@"entro!");
 
@@ -669,7 +672,7 @@ static NSString *CellIdentifier = @"cellIdentifier";
         [PFPush sendPushMessageToQueryInBackground:query
                                        withMessage:self.messageField.text];
         
-        
+        self.messageField.text = @"";
         
         
         //        if (isfromMe)

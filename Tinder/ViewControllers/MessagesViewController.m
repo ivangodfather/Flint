@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSMutableArray *usersParseArray;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 
 @end
 
@@ -29,6 +30,9 @@
     _sidebarButton.action = @selector(revealToggle:);
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     [[self.navigationController.navigationBar.subviews lastObject] setTintColor:[UIColor whiteColor]];
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 55, 20)];
+    self.searchTextField.leftView = paddingView;
+    self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
 
 
     [self loadChatPersons];
@@ -123,9 +127,23 @@
 
     [self.navigationController pushViewController:vc animated:YES];
 }
+- (IBAction)searchEnd:(UITextField *)searchTextField {
+    [searchTextField resignFirstResponder];
+}
+- (IBAction)endSearch2:(UITextField *)searchTextField {
+        [searchTextField resignFirstResponder];
+
+
+}
 
 - (IBAction)startChat:(id)sender {
 
 
+}
+- (IBAction)sendPhoto:(id)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    [self presentViewController:picker animated:YES completion:^{
+        
+    }];
 }
 @end

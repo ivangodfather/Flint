@@ -21,3 +21,5 @@
 #endif
 
 #define RED_COLOR [UIColor colorWithRed:0.82 green:0.15 blue:0.39 alpha:1] /*#cb0048*/
+#define LIGHTGRAY_COLOR [UIColor colorWithRed:0.2 green:0.22 blue:0.24 alpha:1]
+#define BLUE_COLOR [UIColor colorWithRed:130/256.0 green:169/256.0 blue:171/256.0 alpha:1.0]

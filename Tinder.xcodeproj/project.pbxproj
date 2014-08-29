@@ -22,6 +22,7 @@
 		42091FFF19AE798F0092775D /* SPHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42091FCD19AE798F0092775D /* SPHViewController.xib */; };
 		4209200119AE79F90092775D /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4209200019AE79F90092775D /* View.xib */; };
 		424E0E7D19AE8B580078B343 /* ChatImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 424E0E7C19AE8B580078B343 /* ChatImages.xcassets */; };
+		4281F25319B11CF7007724C6 /* Menu.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4281F25219B11CF7007724C6 /* Menu.xcassets */; };
 		42BD2AFE19AE5A1B00FCC817 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */; };
 		42DBCC2B19AC20BB00CE6C93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC2A19AC20BB00CE6C93 /* Foundation.framework */; };
 		42DBCC2D19AC20BB00CE6C93 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC2C19AC20BB00CE6C93 /* CoreGraphics.framework */; };
@@ -129,6 +130,7 @@
 		42091FCD19AE798F0092775D /* SPHViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPHViewController.xib; sourceTree = "<group>"; };
 		4209200019AE79F90092775D /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		424E0E7C19AE8B580078B343 /* ChatImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ChatImages.xcassets; sourceTree = "<group>"; };
+		4281F25219B11CF7007724C6 /* Menu.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Menu.xcassets; sourceTree = "<group>"; };
 		42BD2AFC19AE5A1B00FCC817 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserTableViewCell.h; path = View/UserTableViewCell.h; sourceTree = "<group>"; };
 		42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserTableViewCell.m; path = View/UserTableViewCell.m; sourceTree = "<group>"; };
 		42DBCC2719AC20BB00CE6C93 /* Tinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -339,6 +341,7 @@
 				42DBCC7E19AC2F8100CE6C93 /* ViewControllers */,
 				42DBCC3C19AC20BB00CE6C93 /* Main.storyboard */,
 				42DBCC4219AC20BB00CE6C93 /* Images.xcassets */,
+				4281F25219B11CF7007724C6 /* Menu.xcassets */,
 				42F5B28519B0C4CB0036938B /* Chat.xcassets */,
 				42DBCC3119AC20BB00CE6C93 /* Supporting Files */,
 			);
@@ -614,6 +617,7 @@
 				42F5B26819AF919E0036938B /* icon-76.png in Resources */,
 				42F5B26919AF919E0036938B /* icon-76@2x.png in Resources */,
 				42F5B26719AF919E0036938B /* icon-60@2x.png in Resources */,
+				4281F25319B11CF7007724C6 /* Menu.xcassets in Resources */,
 				42F5B27019AF919E0036938B /* ImageBubble~iphone.png in Resources */,
 				42F5B27E19AF919E0036938B /* sentSucess.png in Resources */,
 				42F5B27F19AF919E0036938B /* sentSucess@2x.png in Resources */,
