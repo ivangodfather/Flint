@@ -28,6 +28,8 @@
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    [[self.navigationController.navigationBar.subviews lastObject] setTintColor:[UIColor whiteColor]];
+
 
     [self loadChatPersons];
     self.usersParseArray = [NSMutableArray new];
@@ -95,7 +97,14 @@
     UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     UserParse *user = [self.usersParseArray objectAtIndex:indexPath.row];
     cell.nameTextLabel.text = user.username;
+    cell.userImageView.layer.cornerRadius = 26;
+    cell.userImageView.clipsToBounds = YES;
+    cell.userImageView.layer.borderWidth = 2.0,
+    cell.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     cell.ageTextLabel.text = user.age.description;
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = RED_COLOR;
+    [cell setSelectedBackgroundView:bgColorView];
     [user.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         cell.userImageView.image = [UIImage imageWithData:data];
     }];

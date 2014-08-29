@@ -21,6 +21,7 @@
 {
     [super viewDidLoad];
     PFQuery *query = [UserParse query];
+    [[self.navigationController.navigationBar.subviews lastObject] setTintColor:[UIColor whiteColor]];
     [query whereKey:@"objectId" equalTo:[UserParse currentUser].objectId];
     [query getObjectInBackgroundWithId:[UserParse currentUser].objectId
                                  block:^(PFObject *object, NSError *error) {

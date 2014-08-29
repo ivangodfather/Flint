@@ -611,6 +611,7 @@ const int FrontViewPositionNone = 0xff;
     if ( self )
     {
         [self _initDefaultProperties];
+        [[self.navigationController.navigationBar.subviews lastObject] setTintColor:[UIColor whiteColor]];
         [self _setRearViewController:rearViewController animated:NO];
         [self _setFrontViewController:frontViewController animated:NO];
     }

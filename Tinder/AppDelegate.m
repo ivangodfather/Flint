@@ -21,6 +21,14 @@
      UIRemoteNotificationTypeAlert |
      UIRemoteNotificationTypeSound];
 
+    [[UINavigationBar appearance] setBarTintColor:RED_COLOR];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+     setTitleTextAttributes:[NSDictionary
+                             dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil]
+     forState:UIControlStateNormal];
+
+
     return YES;
 }
 

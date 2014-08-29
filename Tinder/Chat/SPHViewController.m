@@ -57,7 +57,9 @@ static NSString *CellIdentifier = @"cellIdentifier";
 
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     self.title = self.toUserParse.username;
-
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
+    barButton.title = @"";
+    self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
     sphBubbledata =[[NSMutableArray alloc]init];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNewMessage:) name:receivedMessage object:nil];

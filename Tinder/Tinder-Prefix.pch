@@ -20,4 +20,4 @@
     #import "SWRevealViewController.h"
 #endif
 
-#define RED_COLOR [UIColor colorWithRed:0.796 green:0 blue:0.282 alpha:1] /*#cb0048*/
+#define RED_COLOR [UIColor colorWithRed:0.82 green:0.15 blue:0.39 alpha:1] /*#cb0048*/
