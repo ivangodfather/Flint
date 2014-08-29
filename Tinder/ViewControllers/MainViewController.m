@@ -63,42 +63,35 @@
                 [self.posibleMatchesArray addObjectsFromArray:objects];
                 NSLog(@"new matches - %@", objects);
                 if (self.firstTime) {
-                    [self getProfileAndApplyToView];
-                    self.firstTime = NO;
+                    UserParse* aUser = self.posibleMatchesArray.firstObject;
+                    [self.posibleMatchesArray removeObject:aUser];
+                    self.currShowingProfile = aUser;
+                    self.profileView.tag = profileViewTag;
+                    [self placeBackgroundProfile];
+                    PFFile* file = aUser[@"photo"];
+                    NSString* username = aUser[@"username"];
+                    NSLog(@"top username %@", aUser.username);
+                    NSNumber* age = aUser[@"age"];
+                    int nameCushion = (int)[username length];
+                    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                        self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
+                        self.profileView.backgroundColor = [UIColor grayColor];
+                        [self.view addSubview:self.profileView];
+                        UIImageView* profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
+                        profileImage.image = [UIImage imageWithData:data];
+                        [self.profileView addSubview:profileImage];
+                        UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.profileView.frame.size.width/2)-labelCushion-nameCushion, self.profileView.frame.size.height-labelHeight, profileImage.frame.size.width, labelHeight)];
+                        nameLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
+                        [nameLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
+                        [self.profileView addSubview:nameLabel];
+                        [self setPanGestureRecognizer];
+                        self.firstTime = NO;
+
+                    }];
                 }
             }];
         }
     }];
-}
-
-#pragma mark - Apply a profile to the view
-- (void) getProfileAndApplyToView
-{
-    UserParse* aUser = self.posibleMatchesArray.firstObject;
-    [self.posibleMatchesArray removeObject:aUser];
-    self.currShowingProfile = aUser;
-    self.profileView.tag = profileViewTag;
-    [self placeBackgroundProfile];
-    PFFile* file = aUser[@"photo"];
-    NSString* username = aUser[@"username"];
-    NSLog(@"top username %@", aUser.username);
-    NSNumber* age = aUser[@"age"];
-    int nameCushion = (int)[username length];
-    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
-        self.profileView.backgroundColor = [UIColor grayColor];
-        [self.view addSubview:self.profileView];
-        UIImageView* profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
-        profileImage.image = [UIImage imageWithData:data];
-        [self.profileView addSubview:profileImage];
-        UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.profileView.frame.size.width/2)-labelCushion-nameCushion, self.profileView.frame.size.height-labelHeight, profileImage.frame.size.width, labelHeight)];
-        nameLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
-        [nameLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
-        [self.profileView addSubview:nameLabel];
-        [self setPanGestureRecognizer];
-
-    }];
-
 }
 
 -(void) placeBackgroundProfile
@@ -117,10 +110,10 @@
     NSNumber* age = aUser[@"age"];
     self.backgroundView = [[UIView alloc] initWithFrame:[self createMatchRect]];
     self.backgroundView.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:self.backgroundView];
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         UIImageView* profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.backgroundView.frame.size.width, self.backgroundView.frame.size.height-labelHeight)];
         profileImage.image = [UIImage imageWithData:data];
+        [self.view addSubview:self.backgroundView];
         [self.backgroundView addSubview:profileImage];
         [self.view sendSubviewToBack:self.backgroundView];
         UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.backgroundView.frame.size.height-labelHeight, profileImage.frame.size.width, labelHeight)];
@@ -203,7 +196,6 @@
                 }
             }];
         }
-        //        [self removeProfileFromViewAndSetNextProfile];
     }
     if (point.x < 90) {
         NSLog(@"doesn't like");
@@ -222,18 +214,7 @@
                 NSLog(@"save this no match");
             }
         }];
-        //        [self removeProfileFromViewAndSetNextProfile];
     }
-}
-
-- (void) removeProfileFromViewAndSetNextProfile
-{
-    for (UIView* view in self.view.subviews) {
-        if (view.tag == profileViewTag) {
-            [view removeFromSuperview];
-        }
-    }
-    [self getProfileAndApplyToView];
 }
 
 - (void) addLikeView
