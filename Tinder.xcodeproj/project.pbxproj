@@ -10,7 +10,6 @@
 		0BA4ECAD19ACEBED00302E92 /* CustomSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECAC19ACEBED00302E92 /* CustomSignUpViewController.m */; };
 		0BA4ECB219AE1EE200302E92 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB119AE1EE200302E92 /* SidebarTableViewController.m */; };
 		0BA4ECB519AE1F0A00302E92 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB419AE1F0A00302E92 /* SWRevealViewController.m */; };
-		0BA4ECB819AE203F00302E92 /* URBSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB719AE203F00302E92 /* URBSegmentedControl.m */; };
 		0BA4ECBB19AE232600302E92 /* CustomSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECBA19AE232600302E92 /* CustomSignInViewController.m */; };
 		42091FF719AE798F0092775D /* SPH_PARAM_List.m in Sources */ = {isa = PBXBuildFile; fileRef = 42091FBD19AE798F0092775D /* SPH_PARAM_List.m */; };
 		42091FF819AE798F0092775D /* CopyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42091FC019AE798F0092775D /* CopyLabel.m */; };
@@ -23,7 +22,6 @@
 		42091FFF19AE798F0092775D /* SPHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42091FCD19AE798F0092775D /* SPHViewController.xib */; };
 		4209200119AE79F90092775D /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4209200019AE79F90092775D /* View.xib */; };
 		424E0E7D19AE8B580078B343 /* ChatImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 424E0E7C19AE8B580078B343 /* ChatImages.xcassets */; };
-		42BD2AFB19AE42DB00FCC817 /* DAKeyboardControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BD2AFA19AE42DB00FCC817 /* DAKeyboardControl.m */; };
 		42BD2AFE19AE5A1B00FCC817 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */; };
 		42DBCC2B19AC20BB00CE6C93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC2A19AC20BB00CE6C93 /* Foundation.framework */; };
 		42DBCC2D19AC20BB00CE6C93 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC2C19AC20BB00CE6C93 /* CoreGraphics.framework */; };
@@ -52,13 +50,10 @@
 		42DBCC7A19AC2CCC00CE6C93 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC7919AC2CCC00CE6C93 /* libz.dylib */; };
 		42DBCC7B19AC2DE200CE6C93 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC6519AC2B8000CE6C93 /* Social.framework */; };
 		42DBCC7D19AC2EC500CE6C93 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC7C19AC2EC500CE6C93 /* Bolts.framework */; };
-		42DBCCC319AC4E4200CE6C93 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCBE19AC4E4200CE6C93 /* LoginViewController.m */; };
-		42DBCCC419AC4E4200CE6C93 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCC019AC4E4200CE6C93 /* SignupViewController.m */; };
 		42DBCCC519AC4E4200CE6C93 /* StarterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCC219AC4E4200CE6C93 /* StarterViewController.m */; };
 		42DBCCC819AC4E4B00CE6C93 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCC719AC4E4B00CE6C93 /* MainViewController.m */; };
 		42DBCCD219ACCD9A00CE6C93 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCD119ACCD9A00CE6C93 /* ProfileViewController.m */; };
 		42DBCCD619ACD87000CE6C93 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCD519ACD87000CE6C93 /* MessagesViewController.m */; };
-		42DBCCD919ACDCB600CE6C93 /* UserMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCD819ACDCB600CE6C93 /* UserMessagesViewController.m */; };
 		42DBCCDD19ACDD9C00CE6C93 /* MessageParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCDC19ACDD9C00CE6C93 /* MessageParse.m */; };
 		42DBCCE019ACDF7000CE6C93 /* UserParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCDF19ACDF7000CE6C93 /* UserParse.m */; };
 		42DBCCE419AD01F100CE6C93 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCE319AD01F100CE6C93 /* MessageTableViewCell.m */; };
@@ -92,6 +87,7 @@
 		42F5B27D19AF919E0036938B /* sentFailed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F5B25419AF919E0036938B /* sentFailed@2x.png */; };
 		42F5B27E19AF919E0036938B /* sentSucess.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F5B25519AF919E0036938B /* sentSucess.png */; };
 		42F5B27F19AF919E0036938B /* sentSucess@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F5B25619AF919E0036938B /* sentSucess@2x.png */; };
+		42F5B28419B019FA0036938B /* V8HorizontalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F5B28219B019FA0036938B /* V8HorizontalPickerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,8 +107,6 @@
 		0BA4ECB119AE1EE200302E92 /* SidebarTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SidebarTableViewController.m; path = ViewControllers/SidebarTableViewController.m; sourceTree = "<group>"; };
 		0BA4ECB319AE1F0A00302E92 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = Libraries/SWRevealViewController.h; sourceTree = "<group>"; };
 		0BA4ECB419AE1F0A00302E92 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Libraries/SWRevealViewController.m; sourceTree = "<group>"; };
-		0BA4ECB619AE203F00302E92 /* URBSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URBSegmentedControl.h; sourceTree = "<group>"; };
-		0BA4ECB719AE203F00302E92 /* URBSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URBSegmentedControl.m; sourceTree = "<group>"; };
 		0BA4ECB919AE232600302E92 /* CustomSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomSignInViewController.h; path = ViewControllers/CustomSignInViewController.h; sourceTree = "<group>"; };
 		0BA4ECBA19AE232600302E92 /* CustomSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomSignInViewController.m; path = ViewControllers/CustomSignInViewController.m; sourceTree = "<group>"; };
 		42091FBC19AE798F0092775D /* SPH_PARAM_List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPH_PARAM_List.h; sourceTree = "<group>"; };
@@ -134,8 +128,6 @@
 		42091FCD19AE798F0092775D /* SPHViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPHViewController.xib; sourceTree = "<group>"; };
 		4209200019AE79F90092775D /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		424E0E7C19AE8B580078B343 /* ChatImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ChatImages.xcassets; sourceTree = "<group>"; };
-		42BD2AF919AE42DB00FCC817 /* DAKeyboardControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAKeyboardControl.h; sourceTree = "<group>"; };
-		42BD2AFA19AE42DB00FCC817 /* DAKeyboardControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAKeyboardControl.m; sourceTree = "<group>"; };
 		42BD2AFC19AE5A1B00FCC817 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserTableViewCell.h; path = View/UserTableViewCell.h; sourceTree = "<group>"; };
 		42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserTableViewCell.m; path = View/UserTableViewCell.m; sourceTree = "<group>"; };
 		42DBCC2719AC20BB00CE6C93 /* Tinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,10 +162,6 @@
 		42DBCC7719AC2C0E00CE6C93 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		42DBCC7919AC2CCC00CE6C93 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		42DBCC7C19AC2EC500CE6C93 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		42DBCCBD19AC4E4200CE6C93 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = ViewControllers/LoginViewController.h; sourceTree = "<group>"; };
-		42DBCCBE19AC4E4200CE6C93 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = ViewControllers/LoginViewController.m; sourceTree = "<group>"; };
-		42DBCCBF19AC4E4200CE6C93 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignupViewController.h; path = ViewControllers/SignupViewController.h; sourceTree = "<group>"; };
-		42DBCCC019AC4E4200CE6C93 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignupViewController.m; path = ViewControllers/SignupViewController.m; sourceTree = "<group>"; };
 		42DBCCC119AC4E4200CE6C93 /* StarterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarterViewController.h; path = ViewControllers/StarterViewController.h; sourceTree = "<group>"; };
 		42DBCCC219AC4E4200CE6C93 /* StarterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarterViewController.m; path = ViewControllers/StarterViewController.m; sourceTree = "<group>"; };
 		42DBCCC619AC4E4B00CE6C93 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = ViewControllers/MainViewController.h; sourceTree = "<group>"; };
@@ -182,8 +170,6 @@
 		42DBCCD119ACCD9A00CE6C93 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = ViewControllers/ProfileViewController.m; sourceTree = "<group>"; };
 		42DBCCD419ACD87000CE6C93 /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagesViewController.h; path = ViewControllers/MessagesViewController.h; sourceTree = "<group>"; };
 		42DBCCD519ACD87000CE6C93 /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagesViewController.m; path = ViewControllers/MessagesViewController.m; sourceTree = "<group>"; };
-		42DBCCD719ACDCB600CE6C93 /* UserMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserMessagesViewController.h; path = ViewControllers/UserMessagesViewController.h; sourceTree = "<group>"; };
-		42DBCCD819ACDCB600CE6C93 /* UserMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserMessagesViewController.m; path = ViewControllers/UserMessagesViewController.m; sourceTree = "<group>"; };
 		42DBCCDB19ACDD9C00CE6C93 /* MessageParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageParse.h; path = Model/MessageParse.h; sourceTree = "<group>"; };
 		42DBCCDC19ACDD9C00CE6C93 /* MessageParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageParse.m; path = Model/MessageParse.m; sourceTree = "<group>"; };
 		42DBCCDE19ACDF7000CE6C93 /* UserParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserParse.h; path = Model/UserParse.h; sourceTree = "<group>"; };
@@ -220,6 +206,9 @@
 		42F5B25419AF919E0036938B /* sentFailed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sentFailed@2x.png"; sourceTree = "<group>"; };
 		42F5B25519AF919E0036938B /* sentSucess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sentSucess.png; sourceTree = "<group>"; };
 		42F5B25619AF919E0036938B /* sentSucess@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sentSucess@2x.png"; sourceTree = "<group>"; };
+		42F5B28119B019FA0036938B /* V8HorizontalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V8HorizontalPickerView.h; sourceTree = "<group>"; };
+		42F5B28219B019FA0036938B /* V8HorizontalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V8HorizontalPickerView.m; sourceTree = "<group>"; };
+		42F5B28319B019FA0036938B /* V8HorizontalPickerViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V8HorizontalPickerViewProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,15 +249,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0BA4ECAF19AE1DDD00302E92 /* CustomSegementedControl */ = {
-			isa = PBXGroup;
-			children = (
-				0BA4ECB619AE203F00302E92 /* URBSegmentedControl.h */,
-				0BA4ECB719AE203F00302E92 /* URBSegmentedControl.m */,
-			);
-			name = CustomSegementedControl;
-			sourceTree = "<group>";
-		};
 		42091F9019AE798F0092775D /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,15 +281,6 @@
 				42091FC819AE798F0092775D /* UIImage+Utils.m */,
 			);
 			path = SPHcollectionCell;
-			sourceTree = "<group>";
-		};
-		42BD2AF819AE42DB00FCC817 /* DAKeyboardControl */ = {
-			isa = PBXGroup;
-			children = (
-				42BD2AF919AE42DB00FCC817 /* DAKeyboardControl.h */,
-				42BD2AFA19AE42DB00FCC817 /* DAKeyboardControl.m */,
-			);
-			path = DAKeyboardControl;
 			sourceTree = "<group>";
 		};
 		42DBCC1E19AC20BB00CE6C93 = {
@@ -415,10 +386,6 @@
 		42DBCC8519AC2FAC00CE6C93 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				42DBCCBD19AC4E4200CE6C93 /* LoginViewController.h */,
-				42DBCCBE19AC4E4200CE6C93 /* LoginViewController.m */,
-				42DBCCBF19AC4E4200CE6C93 /* SignupViewController.h */,
-				42DBCCC019AC4E4200CE6C93 /* SignupViewController.m */,
 				42DBCCC119AC4E4200CE6C93 /* StarterViewController.h */,
 				42DBCCC219AC4E4200CE6C93 /* StarterViewController.m */,
 				0BA4ECAB19ACEBED00302E92 /* CustomSignUpViewController.h */,
@@ -445,9 +412,8 @@
 		42DBCC8A19AC3DE700CE6C93 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				42F5B28019B019DD0036938B /* V8HorizontalPickerView */,
 				42091F9019AE798F0092775D /* Chat */,
-				42BD2AF819AE42DB00FCC817 /* DAKeyboardControl */,
-				0BA4ECAF19AE1DDD00302E92 /* CustomSegementedControl */,
 				42DBCCC919ACC4D600CE6C93 /* SWRevealViewController */,
 				424E0E7C19AE8B580078B343 /* ChatImages.xcassets */,
 			);
@@ -468,8 +434,6 @@
 			children = (
 				42DBCCD419ACD87000CE6C93 /* MessagesViewController.h */,
 				42DBCCD519ACD87000CE6C93 /* MessagesViewController.m */,
-				42DBCCD719ACDCB600CE6C93 /* UserMessagesViewController.h */,
-				42DBCCD819ACDCB600CE6C93 /* UserMessagesViewController.m */,
 			);
 			name = Messages;
 			sourceTree = "<group>";
@@ -531,6 +495,16 @@
 				42F5B25619AF919E0036938B /* sentSucess@2x.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		42F5B28019B019DD0036938B /* V8HorizontalPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				42F5B28119B019FA0036938B /* V8HorizontalPickerView.h */,
+				42F5B28219B019FA0036938B /* V8HorizontalPickerView.m */,
+				42F5B28319B019FA0036938B /* V8HorizontalPickerViewProtocol.h */,
+			);
+			name = V8HorizontalPickerView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -665,14 +639,11 @@
 			files = (
 				42091FFB19AE798F0092775D /* TLSpringFlowLayout.m in Sources */,
 				42DBCCDD19ACDD9C00CE6C93 /* MessageParse.m in Sources */,
-				42BD2AFB19AE42DB00FCC817 /* DAKeyboardControl.m in Sources */,
 				0BA4ECAD19ACEBED00302E92 /* CustomSignUpViewController.m in Sources */,
 				0BA4ECB519AE1F0A00302E92 /* SWRevealViewController.m in Sources */,
-				42DBCCD919ACDCB600CE6C93 /* UserMessagesViewController.m in Sources */,
 				42DBCCD219ACCD9A00CE6C93 /* ProfileViewController.m in Sources */,
 				42091FF919AE798F0092775D /* SPHImageBubbleView.m in Sources */,
 				42DBCC3B19AC20BB00CE6C93 /* AppDelegate.m in Sources */,
-				0BA4ECB819AE203F00302E92 /* URBSegmentedControl.m in Sources */,
 				42DBCCE019ACDF7000CE6C93 /* UserParse.m in Sources */,
 				42DBCCC819AC4E4B00CE6C93 /* MainViewController.m in Sources */,
 				42DBCC3719AC20BB00CE6C93 /* main.m in Sources */,
@@ -683,13 +654,12 @@
 				42DBCCD619ACD87000CE6C93 /* MessagesViewController.m in Sources */,
 				0BA4ECBB19AE232600302E92 /* CustomSignInViewController.m in Sources */,
 				42091FF819AE798F0092775D /* CopyLabel.m in Sources */,
-				42DBCCC419AC4E4200CE6C93 /* SignupViewController.m in Sources */,
 				42091FF719AE798F0092775D /* SPH_PARAM_List.m in Sources */,
 				42DBCCC519AC4E4200CE6C93 /* StarterViewController.m in Sources */,
 				42091FFA19AE798F0092775D /* SPHTextBubbleView.m in Sources */,
+				42F5B28419B019FA0036938B /* V8HorizontalPickerView.m in Sources */,
 				42091FFE19AE798F0092775D /* SPHViewController.m in Sources */,
 				42091FFD19AE798F0092775D /* SPHCollectionViewcell.m in Sources */,
-				42DBCCC319AC4E4200CE6C93 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

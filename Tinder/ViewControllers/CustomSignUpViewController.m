@@ -8,26 +8,33 @@
 
 #import "CustomSignUpViewController.h"
 #import "UserParse.h"
-#import "URBSegmentedControl.h"
+#import "V8HorizontalPickerView.h"
 
- 
+
 #define MAX_AGE 99+1
 #define MIN_AGE 18
 
-@interface CustomSignUpViewController () <UIPickerViewDataSource, UIPickerViewDelegate, PFSignUpViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate>
+@interface CustomSignUpViewController () <UIPickerViewDataSource, UIPickerViewDelegate, PFSignUpViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate, V8HorizontalPickerViewDataSource, V8HorizontalPickerViewDelegate>
+@property (weak, nonatomic) IBOutlet UIImageView *nameImageView;
+@property (weak, nonatomic) IBOutlet UIButton *signUpButton;
+@property (weak, nonatomic) IBOutlet UIImageView *emailImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *passwordImageView;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet V8HorizontalPickerView *agePickerView;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (strong, nonatomic) IBOutlet UIPickerView *picker;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property NSMutableArray* ageArray;
-@property URBSegmentedControl* genderSegmentedControl;
 @property (weak, nonatomic) IBOutlet UIButton* ageButton;
+@property (weak, nonatomic) IBOutlet UIView *genderSelect;
+@property (weak, nonatomic) IBOutlet UIView *genderLikeSelect;
 @property UIImage* photo;
 @property PFFile* file;
 @property UIActionSheet *actionSheet;
 @property NSString* errorMessage;
+@property NSMutableArray *ages;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
-@property URBSegmentedControl *sexualityControl;
+@property (weak, nonatomic) IBOutlet UIView *pickerSelect;
 @end
 
 @implementation CustomSignUpViewController
@@ -35,44 +42,141 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setUpSegmentedControl];
+    UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background"]];
+    [self.view addSubview:backgroundImage];
+    [self.view sendSubviewToBack:backgroundImage];
+    [self customizeView];
     [self setTextDelegates];
     [self populateArray];
+    [self createAgePickerView];
 }
 
--(void) setUpSegmentedControl
+- (void)createAgePickerView
 {
-    [[URBSegmentedControl appearance] setSegmentBackgroundColor:[UIColor greenColor]];
-    NSArray *genders = [NSArray arrayWithObjects:[@"MALE" uppercaseString], [@"FEMALE" uppercaseString],nil];
-    NSArray *titles = [NSArray arrayWithObjects:[@"MALES" uppercaseString], [@"FEMALES" uppercaseString], [@"BISEXUAL" uppercaseString], nil];
+    self.ages = [NSMutableArray new];
+    for (int i = 18; i < 70; i++) {
+        [self.ages addObject:[NSNumber numberWithInt:i]];
+    }
+	self.agePickerView.backgroundColor   = [UIColor clearColor];
+	self.agePickerView.selectedTextColor = [UIColor whiteColor];
+	self.agePickerView.textColor   = [UIColor lightGrayColor];
+	self.agePickerView.delegate    = self;
+	self.agePickerView.dataSource  = self;
+	self.agePickerView.elementFont = [UIFont boldSystemFontOfSize:14.0f];
+	self.agePickerView.selectionPoint = CGPointMake(self.view.frame.size.width/2.3, 0);
 
-    //	NSArray *icons = [NSArray arrayWithObjects:[UIImage imageNamed:@"mountains.png"], [UIImage imageNamed:@"snowboarder.png"], [UIImage imageNamed:@"biker.png"], nil];
-    
-    self.sexualityControl = [[URBSegmentedControl alloc] initWithItems:titles];
-	self.sexualityControl.frame = CGRectMake(10.0, 360.0, 295.0, 40.0);
-	self.sexualityControl.segmentBackgroundColor = [UIColor blueColor];
-    [self.sexualityControl setSegmentBackgroundColor:[UIColor purpleColor] atIndex:1];
-	[self.sexualityControl setSegmentBackgroundColor:[UIColor greenColor] atIndex:2];
-	[self.view addSubview:self.sexualityControl];
+	// add carat or other view to indicate selected element
+	UIImageView *indicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"indicator"]];
+	self.agePickerView.selectionIndicatorView = indicator;
+    //	pickerView.indicatorPosition = V8HorizontalPickerIndicatorTop; // specify indicator's location
 
-    self.genderSegmentedControl = [[URBSegmentedControl alloc] initWithItems:genders];
-	self.genderSegmentedControl.frame = CGRectMake(10.0, 310.0, 295.0, 40.0);
-	self.genderSegmentedControl.segmentBackgroundColor = [UIColor blueColor];
-	[self.genderSegmentedControl setSegmentBackgroundColor:[UIColor purpleColor] atIndex:1];
-	[self.view addSubview:self.genderSegmentedControl];
+	// add gradient images to left and right of view if desired
+    //	UIImageView *leftFade = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"left_fade"]];
+    //	pickerView.leftEdgeView = leftFade;
+    //
+    //	UIImageView *rightFade = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right_fade"]];
+    //	pickerView.rightEdgeView = rightFade;
 
-	[self.sexualityControl addTarget:self action:@selector(handleSelection:) forControlEvents:UIControlEventValueChanged];
-	[self.sexualityControl setControlEventBlock:^(NSInteger index, URBSegmentedControl *segmentedControl) {
-	}];
+	// add image to left of scroll area
+    //	UIImageView *leftImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loopback"]];
+    //	pickerView.leftScrollEdgeView = leftImage;
+    //	pickerView.scrollEdgeViewPadding = 20.0f;
+    //
+    //	UIImageView *rightImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"airplane"]];
+    //	pickerView.rightScrollEdgeView = rightImage;
 
-    [self.genderSegmentedControl addTarget:self action:@selector(handleSelection:) forControlEvents:UIControlEventValueChanged];
-	[self.genderSegmentedControl setControlEventBlock:^(NSInteger index, URBSegmentedControl *segmentedControl) {
-		NSLog(@"URBSegmentedControl: control block - index=%i", index);
-	}];
+    //
+    //	self.nextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    //	y = y + tmpFrame.size.height + spacing;
+    //	tmpFrame = CGRectMake(x, y, width, 50.0f);
+    //	self.nextButton.frame = tmpFrame;
+    //	[self.nextButton addTarget:self action:@selector(nextButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    //	[self.nextButton	setTitle:@"Center Element 0" forState:UIControlStateNormal];
+    //	self.nextButton.titleLabel.textColor = [UIColor blackColor];
+    //	[self.view addSubview:self.nextButton];
+    //
+    //	self.reloadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    //	y = y + tmpFrame.size.height + spacing;
+    //	tmpFrame = CGRectMake(x, y, width, 50.0f);
+    //	self.reloadButton.frame = tmpFrame;
+    //	[self.reloadButton addTarget:self action:@selector(reloadButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    //	[self.reloadButton setTitle:@"Reload Data" forState:UIControlStateNormal];
+    //	[self.view addSubview:self.reloadButton];
+    //
+    //	y = y + tmpFrame.size.height + spacing;
+    //	tmpFrame = CGRectMake(x, y, width, 50.0f);
+    //	self.infoLabel = [[UILabel alloc] initWithFrame:tmpFrame];
+    //	self.infoLabel.backgroundColor = [UIColor blackColor];
+    //	self.infoLabel.textColor = [UIColor whiteColor];
+    //	self.infoLabel.textAlignment = UITextAlignmentCenter;
+    //	[self.view addSubview:self.infoLabel];
 }
 
-- (void)handleSelection:(id)sender {
+- (void)customizeView
+{
+    self.nameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    self.emailTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+
+    [self.genderSelect.layer setBorderWidth:1];
+    [self.genderSelect.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.genderLikeSelect.layer setBorderWidth:1];
+    [self.genderLikeSelect.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.pickerSelect.layer setBorderWidth:1];
+    [self.pickerSelect.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.signUpButton.layer setBorderWidth:1];
+    [self.signUpButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.profileImageView.layer setBorderWidth:1];
+    [self.profileImageView.layer setBorderColor:[UIColor whiteColor].CGColor];
+
+
 }
+
+- (IBAction)maleSelect:(id)sender
+{
+    [UIView animateWithDuration:1 animations:^{
+        self.genderSelect.frame = CGRectMake(80, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
+    } completion:^(BOOL finished) {
+
+    }];
+}
+
+- (IBAction)femaleSelect:(id)sender
+{
+    [UIView animateWithDuration:1 animations:^{
+        self.genderSelect.frame = CGRectMake(173, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
+    } completion:^(BOOL finished) {
+
+    }];
+}
+
+- (IBAction)maleLikeSelect:(id)sender
+{
+    [UIView animateWithDuration:1 animations:^{
+        self.genderLikeSelect.frame = CGRectMake(28, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+    } completion:^(BOOL finished) {
+
+    }];
+}
+
+- (IBAction)femaleLikeSelect:(id)sender
+{
+    [UIView animateWithDuration:1 animations:^{
+        self.genderLikeSelect.frame = CGRectMake(118, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+    } completion:^(BOOL finished) {
+
+    }];
+}
+
+- (IBAction)bothLikeSelect:(id)sender
+{
+    [UIView animateWithDuration:1 animations:^{
+        self.genderLikeSelect.frame = CGRectMake(210, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+    } completion:^(BOOL finished) {
+
+    }];
+}
+
 
 #pragma mark - textField delegates
 -(void)endTheEditing
@@ -218,12 +322,7 @@
     aUser.age = [self.ageArray objectAtIndex:row];
     aUser.password = self.passwordTextField.text;
     aUser.photo = self.file;
-    if (self.genderSegmentedControl.selectedSegmentIndex == 0) {
-        aUser.isMale = YES;
-    } else {
-        aUser.isMale = NO;
-    }
-    aUser.sexuality = [NSNumber numberWithInteger:self.sexualityControl.selectedSegmentIndex];
+
     [aUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"age %@\n name %@\n email %@\n password %@\n photo %@\n sexuality %@\n isMale %hhd", aUser.age, aUser.username, aUser.email, aUser.password, aUser.photo, aUser.sexuality, aUser.isMale);
@@ -268,17 +367,61 @@
     [self.actionSheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
-#pragma mark - ActionSheet delegate
-- (void)willPresentActionSheet:(UIActionSheet *)actionSheet
+#pragma mark - V8 picker
+
+#pragma mark - HorizontalPickerView DataSource Methods
+- (NSInteger)numberOfElementsInHorizontalPickerView:(V8HorizontalPickerView *)picker
 {
-    self.picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 40, 320, 216)];
-    self.picker.backgroundColor = [UIColor grayColor];
-    //Add picker to action sheet
-    [actionSheet addSubview:self.picker];
-    //Gets an array af all of the subviews of our actionSheet
-    NSArray *subviews = [actionSheet subviews];
-    [[subviews objectAtIndex:0] setFrame:CGRectMake(20, 366, 280, 46)];
-    [[subviews objectAtIndex:2] setFrame:CGRectMake(20, 317, 280, 46)];
+	return [self.ages count];
 }
+
+#pragma mark - HorizontalPickerView Delegate Methods
+
+- (NSString *)horizontalPickerView:(V8HorizontalPickerView *)picker titleForElementAtIndex:(NSInteger)index
+{
+    NSNumber *num = [self.ages objectAtIndex:index];
+	return num.description;
+}
+
+- (NSInteger) horizontalPickerView:(V8HorizontalPickerView *)picker widthForElementAtIndex:(NSInteger)index
+{
+    return 42;
+}
+
+- (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {
+	//self.infoLabel.text = [NSString stringWithFormat:@"Selected index %d", index];
+}
+
+- (IBAction)nameBegin:(id)sender {
+    self.nameTextField.alpha = 1;
+    self.emailTextField.alpha = 0.5;
+    self.passwordTextField.alpha = 0.5;
+    self.nameImageView.alpha = 1.0;
+    self.emailImageView.alpha = 0.5;
+    self.passwordImageView.alpha = 0.5;
+}
+- (IBAction)nameEnd:(id)sender {
+}
+- (IBAction)emailBegin:(id)sender {
+    self.nameTextField.alpha = 0.5;
+    self.emailTextField.alpha = 1;
+    self.passwordTextField.alpha = 0.5;
+    self.nameImageView.alpha = 0.5;
+    self.emailImageView.alpha = 1.0;
+    self.passwordImageView.alpha = 0.5;
+}
+- (IBAction)emailEnd:(id)sender {
+}
+- (IBAction)passwordBegin:(id)sender {
+    self.nameTextField.alpha = 0.5;
+    self.emailTextField.alpha = 0.5;
+    self.passwordTextField.alpha = 1;
+    self.nameImageView.alpha = 0.5;
+    self.emailImageView.alpha = 0.5;
+    self.passwordImageView.alpha = 1;
+}
+- (IBAction)passwordEnd:(id)sender {
+}
+
 
 @end

@@ -13,6 +13,12 @@
 @interface CustomSignInViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UIButton *signInButton;
+@property (weak, nonatomic) IBOutlet UIButton *registerButton;
+@property (weak, nonatomic) IBOutlet UIImageView *userImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *keyImageView;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIView *containerViewPassword;
 
 @end
 
@@ -21,6 +27,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background"]];
+    [self.view addSubview:backgroundImage];
+    [self.view sendSubviewToBack:backgroundImage];
+    [self customizeView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillHideNotification object:nil];
+
 }
 
 #pragma mark - Resign the textField's keyboard
@@ -56,4 +69,63 @@
     [alert show];
 }
 
+#pragma mark - customize view
+
+- (void)customizeView
+{
+    self.emailTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+        self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    [self.signInButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [[self.signInButton layer] setBorderWidth:1.0f];
+
+    [self.containerView.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.containerView.layer setBorderWidth:1.0f];
+    [self.containerViewPassword.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [self.containerViewPassword.layer setBorderWidth:1.0f];
+    
+}
+
+
+- (IBAction)passBegin:(UITextField *)textfield
+{
+    textfield.alpha = 1;
+    self.keyImageView.alpha = 1;
+
+}
+- (IBAction)endPassword:(UITextField *)textField {
+    textField.alpha = 0.5;
+    self.keyImageView.alpha = 0.5;
+
+
+}
+
+- (IBAction)endUsername:(UITextField *)textField {
+
+    textField.alpha = 0.5;
+    self.userImageView.alpha = 0.5;
+
+}
+
+- (IBAction)usernameBegin:(UITextField *)textfield {
+    textfield.alpha = 1;
+    self.userImageView.alpha = 1;
+}
+
+- (void)keyboardDidShow:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.view setFrame:CGRectMake(0,-80,320,460)];
+    } completion:^(BOOL finished) {
+
+    }];
+}
+
+-(void)keyboardDidHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.view setFrame:CGRectMake(0,0,320,460)];
+    } completion:^(BOOL finished) {
+
+    }];
+}
 @end

@@ -10,7 +10,6 @@
 #import "UserParse.h"
 #import "MessageParse.h"
 #import "UserTableViewCell.h"
-#import "UserMessagesViewController.h"
 #import "SPHViewController.h"
 
 @interface MessagesViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -86,10 +85,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"UserMessages"]) {
-        UserMessagesViewController *vc = segue.destinationViewController;
-        vc.toUserParse = [self.usersParseArray objectAtIndex:self.tableView.indexPathForSelectedRow.row];
-    }
+
 }
 
 #pragma mark UItableView Delegate
