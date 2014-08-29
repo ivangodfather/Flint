@@ -189,6 +189,10 @@
             PFObject* match = [PFObject objectWithClassName:@"Match"];
             match[@"fromUser"] = self.currShowingProfile;
             match[@"toUser"] = [UserParse currentUser];
+            [match saveEventually:^(BOOL succeeded, NSError *error) {
+                NSLog(@"match made in heaven");
+
+            }];
         } else {
             PFObject* possibleMatch = [PFObject objectWithClassName:@"PossibleMatch"];
             possibleMatch[@"fromUser"] = [UserParse currentUser];
