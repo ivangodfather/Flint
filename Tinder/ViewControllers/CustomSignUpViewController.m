@@ -332,6 +332,7 @@
     self.theUser.photo = self.file;
     self.theUser.isMale = self.isMale;
     self.theUser.sexuality = self.sexuality;
+    self.theUser.matches = [NSMutableArray new];
 
     [self.theUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
