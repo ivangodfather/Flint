@@ -45,6 +45,14 @@
     self.view.backgroundColor = BLUE_COLOR;
     self.collectionView.backgroundColor = BLUE_COLOR;
     self.messagesView.backgroundColor = BLUEDARK_COLOR;
+    UIImage *temp = [[UIImage imageNamed:@"x"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:temp style:UIBarButtonItemStyleBordered target:self action:@selector(popVC)];
+    self.navigationItem.leftBarButtonItem = barButtonItem;
+}
+
+- (void)popVC
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)sendPressed:(id)sender

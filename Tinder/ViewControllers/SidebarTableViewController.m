@@ -117,26 +117,14 @@
         self.cellMessage.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
-//        self.cellMatch.contentView.alpha = 1;
-//        self.cellMessage.contentView.alpha = 0.5;
-//        self.profileCell.contentView.alpha = 0.5;
-//        self.cellShare.contentView.alpha = 0.5;
     }
     if (indexPath.row == 2) {
         self.cellMessage.backgroundColor = RED_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
-//        self.cellMessage.contentView.alpha = 1;
-//        self.profileCell.contentView.alpha = 0.5;
-//        self.cellMatch.contentView.alpha = 0.5;
-//        self.cellShare.contentView.alpha = 0.5;
     }
     if (indexPath.row == 3) {
-//        self.cellMatch.contentView.alpha = 0.5;
-//        self.cellMessage.contentView.alpha = 0.5;
-//        self.cellShare.contentView.alpha = 0.5;
-//        self.profileCell.contentView.alpha = 1;
         self.profileCell.backgroundColor = RED_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
@@ -144,10 +132,6 @@
 
     }
     if (indexPath.row == 4) {
-//        self.cellMatch.contentView.alpha = 0.5;
-//        self.cellMessage.contentView.alpha = 0.5;
-//        self.cellShare.contentView.alpha = 1;
-//        self.profileCell.contentView.alpha = 0.5;
         self.cellShare.backgroundColor = RED_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
@@ -170,6 +154,17 @@
     
 }
 
+- (IBAction)shareButton:(id)sender
+{
+    NSString *text = @"Discover people that likes you nearby!";
+    NSURL *url = [NSURL URLWithString:@"http://www.google.es"];
+    UIImage *image = [UIImage imageNamed:@"camera"];
+
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[text, url, image] applicationActivities:nil];
+
+    [self presentViewController:controller animated:YES completion:nil];
+
+}
 
 
 @end
