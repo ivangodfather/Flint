@@ -11,8 +11,7 @@
 #import "V8HorizontalPickerView.h"
 
 
-#define MAX_AGE 99+1
-#define MIN_AGE 18
+
 
 @interface CustomSignUpViewController () <UIPickerViewDataSource, UIPickerViewDelegate, PFSignUpViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate, V8HorizontalPickerViewDataSource, V8HorizontalPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *nameImageView;
@@ -401,21 +400,6 @@
 
 - (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {
 	//self.infoLabel.text = [NSString stringWithFormat:@"Selected index %d", index];
-}
-
-+ (UIImage *)ipMaskedImageNamed:(NSString *)name color:(UIColor *)color
-{
-    UIImage *image = [UIImage imageNamed:name];
-    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, image.scale);
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    [image drawInRect:rect];
-    CGContextSetFillColorWithColor(c, [color CGColor]);
-    CGContextSetBlendMode(c, kCGBlendModeSourceAtop);
-    CGContextFillRect(c, rect);
-    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return result;
 }
 
 - (IBAction)nameBegin:(id)sender {

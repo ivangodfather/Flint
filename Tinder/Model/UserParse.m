@@ -12,7 +12,12 @@
 
 @dynamic age;
 @dynamic photo;
+@dynamic photo1;
+@dynamic photo2;
+@dynamic photo3;
+@dynamic photo4;
 @dynamic isMale;
+@dynamic description;
 @dynamic sexuality;
 @dynamic matches;
 

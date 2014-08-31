@@ -198,6 +198,7 @@
 
 - (IBAction)searchTextFieldChanged:(UITextField *)textfield
 {
+    NSLog(@"frame %@", NSStringFromCGRect(self.cameraButton.frame));
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"username CONTAINS %@",textfield.text];
     self.filteredUsersArray = [self.usersParseArray filteredArrayUsingPredicate:predicate];
     [self.tableView reloadData];

@@ -12,6 +12,11 @@
 @property NSNumber* age;
 @property BOOL isMale;
 @property PFFile* photo;
+@property PFFile* photo1;
+@property PFFile* photo2;
+@property PFFile* photo3;
+@property PFFile* photo4;
+@property NSString *description;
 @property NSNumber* sexuality;
 @property NSMutableArray* matches;
 @end

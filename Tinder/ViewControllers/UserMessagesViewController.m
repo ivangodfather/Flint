@@ -26,6 +26,8 @@
 {
     [super viewDidLoad];
     [self getPhotos];
+    [self getMessages];
+
 
     self.title = self.toUserParse.username;
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
@@ -196,7 +198,7 @@
              self.fromPhoto = [UIImage imageWithData:data];
              count++;
              if (count == 2) {
-                 [self getMessages];
+                 [self.collectionView reloadData];
              }
          }];
      }];
@@ -210,7 +212,7 @@
              self.toPhoto = [UIImage imageWithData:data];
              count++;
              if (count == 2) {
-                 [self getMessages];
+                 [self.collectionView reloadData];
              }
          }];
      }];
