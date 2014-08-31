@@ -14,9 +14,11 @@
 @dynamic photo;
 @dynamic isMale;
 @dynamic sexuality;
+@dynamic matches;
 
 + (void)load {
     [self registerSubclass];
+    
 }
 
 - (NSUInteger)hash

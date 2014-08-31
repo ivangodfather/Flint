@@ -13,5 +13,5 @@
 @property BOOL isMale;
 @property PFFile* photo;
 @property NSNumber* sexuality;
-
+@property NSMutableArray* matches;
 @end

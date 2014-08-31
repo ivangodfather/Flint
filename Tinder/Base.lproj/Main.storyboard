@@ -185,9 +185,13 @@
                                     <action selector="signUpHit:" destination="6Cj-Sv-ykn" eventType="touchUpInside" id="LPk-G9-dID"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="userSpace" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-KW-VHF">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="userSpace" translatesAutoresizingMaskIntoConstraints="NO" id="TQT-KW-VHF">
                                 <rect key="frame" x="105" y="44" width="110" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="7Hf-sz-VQO" appends="YES" id="1ag-N7-enp"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.72156862749999995" green="0.91372549020000005" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -209,6 +213,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pQ9-En-Vcd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="7Hf-sz-VQO">
+                    <connections>
+                        <action selector="pickImage:" destination="6Cj-Sv-ykn" id="kI6-d5-xcg"/>
+                        <outlet property="delegate" destination="6Cj-Sv-ykn" id="1RK-5k-D7M"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-10" y="-865"/>
         </scene>
@@ -315,7 +325,7 @@
                         <outlet property="registerButton" destination="GR6-Ta-WpG" id="bRl-bo-Zw4"/>
                         <outlet property="signInButton" destination="6pN-0J-iDc" id="RzJ-KU-Fvm"/>
                         <outlet property="userImageView" destination="Jc7-Dv-pqC" id="4EY-j7-zFL"/>
-                        <segue destination="V6n-jb-GGN" kind="modal" identifier="login" id="VlF-20-DHW"/>
+                        <segue destination="V6n-jb-GGN" kind="modal" identifier="login" modalTransitionStyle="crossDissolve" id="VlF-20-DHW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U7u-u4-E6Z" userLabel="First Responder" sceneMemberID="firstResponder"/>

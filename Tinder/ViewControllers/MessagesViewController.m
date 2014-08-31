@@ -10,7 +10,6 @@
 #import "UserParse.h"
 #import "MessageParse.h"
 #import "UserTableViewCell.h"
-#import "SPHViewController.h"
 #import "UserMessagesViewController.h"
 
 #define SECONDS_DAY 24*60*60

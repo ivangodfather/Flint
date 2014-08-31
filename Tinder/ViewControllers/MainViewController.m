@@ -40,69 +40,79 @@
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
     self.posibleMatchesArray = [NSMutableArray new];
+    self.willBeMatches = [NSMutableArray new];
     self.firstTime = YES;
     [self getMatches];
     self.view.backgroundColor = BLACK_COLOR;
 
 }
 
+- (NSMutableArray*)populateUsersAlreadyMatch
+{
+    NSLog(@"matches and stuff %@", [UserParse currentUser].matches);
+    return [UserParse currentUser].matches;
+}
 
 - (void)getMatches
 {
+    NSLog(@"current showing profile %@", self.currShowingProfile);
     PFQuery *query = [PFQuery queryWithClassName:@"PossibleMatch"];
     [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
     [query whereKey:@"match" equalTo:@"YES"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    PFQuery* userQuery = [UserParse query];
+    [userQuery whereKey:@"username" notContainedIn:[self populateUsersAlreadyMatch]];
+    [userQuery whereKey:@"email" matchesKey:@"fromUserId" inQuery:query];
+    [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.posibleMatchesArray addObjectsFromArray:objects];
         [self.willBeMatches addObjectsFromArray:objects];
         NSLog(@"will be match - %@", objects);
         //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-        if (objects.count == 0) {
-            PFQuery *query = [PFQuery queryWithClassName:@"PossibleMatch"]; //matches
-            [query whereKey:@"fromUser" equalTo:[UserParse currentUser]]; //people you've seen
-            PFQuery* userQuery = [UserParse query];
-            [userQuery whereKey:@"objectId" notEqualTo:[UserParse currentUser].objectId];
-            [userQuery whereKey:@"email" doesNotMatchKey:@"toUserId" inQuery:query];
-            [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                [self.posibleMatchesArray addObjectsFromArray:objects];
-                NSLog(@"new matches - %@", objects);
-                if (self.firstTime) {
-                    UserParse* aUser = self.posibleMatchesArray.firstObject;
-                    [self.posibleMatchesArray removeObject:aUser];
-                    self.currShowingProfile = aUser;
-                    self.profileView.tag = profileViewTag;
-                    [self placeBackgroundProfile];
-                    PFFile* file = aUser[@"photo"];
-                    NSString* username = aUser[@"username"];
-                    NSLog(@"top username %@", aUser.username);
-                    NSNumber* age = aUser[@"age"];
-                    int nameCushion = (int)[username length];
-                    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                        self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
-                        self.profileView.backgroundColor = [UIColor grayColor];
-                        [self.view addSubview:self.profileView];
-                        UIImageView* profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
-                        profileImage.image = [UIImage imageWithData:data];
-                        [self.profileView addSubview:profileImage];
-                        UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.profileView.frame.size.width/2)-labelCushion-nameCushion, self.profileView.frame.size.height-labelHeight, profileImage.frame.size.width, labelHeight)];
-                        nameLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
-                        [nameLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
-                        [self.profileView addSubview:nameLabel];
-                        [self setPanGestureRecognizer];
-                        self.firstTime = NO;
 
-                    }];
-                }
-            }];
-        }
+        PFQuery *query = [PFQuery queryWithClassName:@"PossibleMatch"]; //matches
+        [query whereKey:@"fromUser" equalTo:[UserParse currentUser]]; //people you've seen
+        PFQuery* userQuery = [UserParse query];
+        [userQuery whereKey:@"objectId" notEqualTo:[UserParse currentUser].objectId];
+        [userQuery whereKey:@"email" doesNotMatchKey:@"toUserId" inQuery:query];
+        [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            [self.posibleMatchesArray addObjectsFromArray:objects];
+            NSLog(@"new matches - %@", objects);
+            if (self.firstTime) {
+                UserParse* aUser = self.posibleMatchesArray.firstObject;
+                [self.posibleMatchesArray removeObject:aUser];
+                self.currShowingProfile = aUser;
+                self.profileView.tag = profileViewTag;
+                [self placeBackgroundProfile];
+                PFFile* file = aUser[@"photo"];
+                NSString* username = aUser[@"username"];
+                NSLog(@"top username %@", aUser.username);
+                NSNumber* age = aUser[@"age"];
+                int nameCushion = (int)[username length];
+                [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
+                    self.profileView.backgroundColor = [UIColor grayColor];
+                    [self.view addSubview:self.profileView];
+                    UIImageView* profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
+                    profileImage.image = [UIImage imageWithData:data];
+                    [self.profileView addSubview:profileImage];
+                    UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.profileView.frame.size.width/2)-labelCushion-nameCushion, self.profileView.frame.size.height-labelHeight, profileImage.frame.size.width, labelHeight)];
+                    nameLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
+                    [nameLabel setFont:[UIFont fontWithName:@"Arial" size:14]];
+                    [self.profileView addSubview:nameLabel];
+                    [self setPanGestureRecognizer];
+                    self.firstTime = NO;
+
+                }];
+            }
+        }];
+
     }];
 }
 
 -(void) placeBackgroundProfile
 {
-    if (self.posibleMatchesArray.count == 1) {
-        [self getMatches];
-    }
+//    if (self.posibleMatchesArray.count == 1) {
+//        [self getMatches];
+//    }
 
     UserParse* aUser = self.posibleMatchesArray.firstObject;
     [self.posibleMatchesArray removeObject:aUser];
@@ -180,20 +190,35 @@
         [self.profileView removeFromSuperview];
         self.profileView = self.backgroundView;
         if ([self.willBeMatches containsObject:self.currShowingProfile]) {
-            PFObject* match = [PFObject objectWithClassName:@"Match"];
-            match[@"fromUser"] = self.currShowingProfile;
-            match[@"toUser"] = [UserParse currentUser];
+            PFObject* match = [PFObject objectWithClassName:@"MessageParse"];
+            match[@"fromUserParse"] = self.currShowingProfile;
+            match[@"fromUserId"] = self.currShowingProfile.email;
+            match[@"toUserParse"] = [UserParse currentUser];
+            match[@"toUserId"] = [UserParse currentUser].email;
+            match[@"text"] = @"";
+            [self.currShowingProfile.matches addObject:[UserParse currentUser]];
+            [[UserParse currentUser].matches addObject:self.currShowingProfile.username];
+            [self.currShowingProfile saveEventually];
+            [[UserParse currentUser] saveEventually];
             [match saveEventually:^(BOOL succeeded, NSError *error) {
                 NSLog(@"match made in heaven");
                 self.currShowingProfile = self.backgroundUserProfile;
                 [self setPanGestureRecognizer];
                 [self placeBackgroundProfile];
+                PFQuery* query = [PFQuery queryWithClassName:@"PossibleMatch"];
+                [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
+                [query whereKey:@"fromUser" equalTo:self.currShowingProfile];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                    PFObject* posMatch = objects.firstObject;
+                    [posMatch deleteEventually];
+                }];
             }];
         } else {
             PFObject* possibleMatch = [PFObject objectWithClassName:@"PossibleMatch"];
             possibleMatch[@"fromUser"] = [UserParse currentUser];
             possibleMatch[@"toUser"] = self.currShowingProfile;
             possibleMatch[@"toUserId"] = self.currShowingProfile.email;
+            possibleMatch[@"fromUserId"] = [UserParse currentUser].email;
             possibleMatch[@"match"] = @"YES";
             [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {

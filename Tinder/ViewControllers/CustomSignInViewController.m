@@ -139,9 +139,8 @@
           initialSpringVelocity:0.2
                         options:UIViewAnimationOptionCurveEaseIn animations:^{
                             CGRect rect = self.view.frame;
-                            rect.size.height -= KEYBOARD_HEIGHT;
-                            [self.view setFrame:CGRectMake(0,-80,320,460)];
-                            NSLog(@"entro1");
+                            rect.origin.y -= 80;
+                            [self.view setFrame:rect];
                         } completion:^(BOOL finished) {
 
                         }];
@@ -155,10 +154,8 @@
           initialSpringVelocity:0.2
                         options:UIViewAnimationOptionCurveEaseIn animations:^{
                             CGRect rect = self.view.frame;
-                            NSLog(@"%@",NSStringFromCGRect(rect));
-                            rect.size.height += KEYBOARD_HEIGHT;
-                            NSLog(@"%@",NSStringFromCGRect(rect));
-                            [self.view setFrame:CGRectMake(0,0,320,460)];
+                            rect.origin.y += 80;
+                            [self.view setFrame:rect];
                             NSLog(@"entro2");
 
                         } completion:^(BOOL finished) {
