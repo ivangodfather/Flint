@@ -705,7 +705,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Yesterday" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrI-8R-gCZ">
-                                                    <rect key="frame" x="215" y="24" width="71" height="21"/>
+                                                    <rect key="frame" x="215" y="22" width="71" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -748,6 +748,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="cameraButton" destination="mwZ-O4-FJU" id="bco-oR-z9t"/>
                         <outlet property="searchTextField" destination="G8i-XH-NJK" id="Vn7-gD-6wx"/>
                         <outlet property="sidebarButton" destination="BRw-C8-r6D" id="7uL-rp-Rje"/>
                         <outlet property="tableView" destination="hlF-YJ-jnu" id="vbM-iM-Atc"/>

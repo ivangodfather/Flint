@@ -10,7 +10,6 @@
 #import "MessageParse.h"
 #import "UserParse.h"
 
-#define KEYBOARD_HEIGHT 216.0
 
 @interface UserMessagesViewController : UIViewController
 

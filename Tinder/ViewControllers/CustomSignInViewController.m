@@ -111,21 +111,58 @@
     self.userImageView.alpha = 1;
 }
 
+//- (void)keyboardDidShow:(NSNotification *)notification
+//{
+//    [UIView animateWithDuration:0.5 animations:^{
+//        [self.view setFrame:CGRectMake(0,-80,320,460)];
+//    } completion:^(BOOL finished) {
+//
+//    }];
+//}
+//
+//-(void)keyboardDidHide:(NSNotification *)notification
+//{
+//    [UIView animateWithDuration:0.5 animations:^{
+//        [self.view setFrame:CGRectMake(0,0,320,460)];
+//    } completion:^(BOOL finished) {
+//
+//    }];
+//
+//    
+//}
+
 - (void)keyboardDidShow:(NSNotification *)notification
 {
-    [UIView animateWithDuration:0.5 animations:^{
-        [self.view setFrame:CGRectMake(0,-80,320,460)];
-    } completion:^(BOOL finished) {
+    [UIView animateWithDuration:1.5
+                          delay:0
+         usingSpringWithDamping:0.5
+          initialSpringVelocity:0.2
+                        options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            CGRect rect = self.view.frame;
+                            rect.size.height -= KEYBOARD_HEIGHT;
+                            [self.view setFrame:CGRectMake(0,-80,320,460)];
+                            NSLog(@"entro1");
+                        } completion:^(BOOL finished) {
 
-    }];
+                        }];
 }
 
 -(void)keyboardDidHide:(NSNotification *)notification
 {
-    [UIView animateWithDuration:0.5 animations:^{
-        [self.view setFrame:CGRectMake(0,0,320,460)];
-    } completion:^(BOOL finished) {
+    [UIView animateWithDuration:1.5
+                          delay:0
+         usingSpringWithDamping:0.5
+          initialSpringVelocity:0.2
+                        options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            CGRect rect = self.view.frame;
+                            NSLog(@"%@",NSStringFromCGRect(rect));
+                            rect.size.height += KEYBOARD_HEIGHT;
+                            NSLog(@"%@",NSStringFromCGRect(rect));
+                            [self.view setFrame:CGRectMake(0,0,320,460)];
+                            NSLog(@"entro2");
 
-    }];
+                        } completion:^(BOOL finished) {
+                            
+                        }];
 }
 @end

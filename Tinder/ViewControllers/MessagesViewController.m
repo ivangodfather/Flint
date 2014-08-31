@@ -23,6 +23,7 @@
 
 @property NSMutableArray *usersParseArray;
 @property NSArray *filteredUsersArray;
+@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @property NSMutableArray *messages;
 @end
 
@@ -209,19 +210,31 @@
 
 - (void)keyboardDidShow:(NSNotification *)notification
 {
-    [UIView animateWithDuration:0.5 animations:^{
-        [self.view setFrame:CGRectMake(0,-80,320,460)];
-    } completion:^(BOOL finished) {
+    [UIView animateWithDuration:1.5
+                          delay:0
+         usingSpringWithDamping:0.5
+          initialSpringVelocity:0.2
+                        options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            CGRect rect = self.cameraButton.frame;
+                            rect.origin.y -= 200;
+                            self.cameraButton.frame = rect;
+                        } completion:^(BOOL finished) {
 
-    }];
+                        }];
 }
 
 -(void)keyboardDidHide:(NSNotification *)notification
 {
-    [UIView animateWithDuration:0.5 animations:^{
-        [self.view setFrame:CGRectMake(0,0,320,460)];
-    } completion:^(BOOL finished) {
+    [UIView animateWithDuration:1.5
+                          delay:0
+         usingSpringWithDamping:0.5
+          initialSpringVelocity:0.2
+                        options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            CGRect rect = self.cameraButton.frame;
+                            rect.origin.y += 200;
+                            self.cameraButton.frame = rect;
+                        } completion:^(BOOL finished) {
 
-    }];
+                        }];
 }
 @end

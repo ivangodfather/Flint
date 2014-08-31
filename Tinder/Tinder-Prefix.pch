@@ -25,3 +25,6 @@
 #define BLUE_COLOR [UIColor colorWithRed:0.3 green:0.74 blue:0.91 alpha:1]
 #define BLUEDARK_COLOR [UIColor colorWithRed:0.15 green:0.68 blue:0.89 alpha:1]
 
+#define KEYBOARD_HEIGHT 216.0
+
+
