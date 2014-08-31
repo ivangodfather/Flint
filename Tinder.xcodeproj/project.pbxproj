@@ -11,6 +11,8 @@
 		0BA4ECB219AE1EE200302E92 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB119AE1EE200302E92 /* SidebarTableViewController.m */; };
 		0BA4ECB519AE1F0A00302E92 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB419AE1F0A00302E92 /* SWRevealViewController.m */; };
 		0BA4ECBB19AE232600302E92 /* CustomSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECBA19AE232600302E92 /* CustomSignInViewController.m */; };
+		426107DA19B2D37A0000536C /* Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = 426107D719B2D37A0000536C /* Animator.m */; };
+		426107DB19B2D37A0000536C /* NavigationControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 426107D919B2D37A0000536C /* NavigationControllerDelegate.m */; };
 		4281F25319B11CF7007724C6 /* Menu.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4281F25219B11CF7007724C6 /* Menu.xcassets */; };
 		4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25519B22D0D007724C6 /* UserMessagesViewController.m */; };
 		4281F25C19B22F72007724C6 /* UserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25B19B22F72007724C6 /* UserCollectionViewCell.m */; };
@@ -71,6 +73,10 @@
 		0BA4ECB419AE1F0A00302E92 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Libraries/SWRevealViewController.m; sourceTree = "<group>"; };
 		0BA4ECB919AE232600302E92 /* CustomSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomSignInViewController.h; path = ViewControllers/CustomSignInViewController.h; sourceTree = "<group>"; };
 		0BA4ECBA19AE232600302E92 /* CustomSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomSignInViewController.m; path = ViewControllers/CustomSignInViewController.m; sourceTree = "<group>"; };
+		426107D619B2D37A0000536C /* Animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animator.h; sourceTree = "<group>"; };
+		426107D719B2D37A0000536C /* Animator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animator.m; sourceTree = "<group>"; };
+		426107D819B2D37A0000536C /* NavigationControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationControllerDelegate.h; sourceTree = "<group>"; };
+		426107D919B2D37A0000536C /* NavigationControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationControllerDelegate.m; sourceTree = "<group>"; };
 		4281F25219B11CF7007724C6 /* Menu.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Menu.xcassets; sourceTree = "<group>"; };
 		4281F25419B22D0D007724C6 /* UserMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserMessagesViewController.h; path = ViewControllers/UserMessagesViewController.h; sourceTree = "<group>"; };
 		4281F25519B22D0D007724C6 /* UserMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserMessagesViewController.m; path = ViewControllers/UserMessagesViewController.m; sourceTree = "<group>"; };
@@ -166,6 +172,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		426107D519B2D35E0000536C /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				426107D619B2D37A0000536C /* Animator.h */,
+				426107D719B2D37A0000536C /* Animator.m */,
+				426107D819B2D37A0000536C /* NavigationControllerDelegate.h */,
+				426107D919B2D37A0000536C /* NavigationControllerDelegate.m */,
+			);
+			name = Transitions;
+			sourceTree = "<group>";
+		};
 		42DBCC1E19AC20BB00CE6C93 = {
 			isa = PBXGroup;
 			children = (
@@ -297,6 +314,7 @@
 		42DBCC8A19AC3DE700CE6C93 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				426107D519B2D35E0000536C /* Transitions */,
 				42F5B28019B019DD0036938B /* V8HorizontalPickerView */,
 				42DBCCC919ACC4D600CE6C93 /* SWRevealViewController */,
 			);
@@ -462,7 +480,9 @@
 				42DBCCE019ACDF7000CE6C93 /* UserParse.m in Sources */,
 				42DBCCC819AC4E4B00CE6C93 /* MainViewController.m in Sources */,
 				42DBCC3719AC20BB00CE6C93 /* main.m in Sources */,
+				426107DB19B2D37A0000536C /* NavigationControllerDelegate.m in Sources */,
 				0BA4ECB219AE1EE200302E92 /* SidebarTableViewController.m in Sources */,
+				426107DA19B2D37A0000536C /* Animator.m in Sources */,
 				4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */,
 				42BD2AFE19AE5A1B00FCC817 /* UserTableViewCell.m in Sources */,
 				42DBCCD619ACD87000CE6C93 /* MessagesViewController.m in Sources */,

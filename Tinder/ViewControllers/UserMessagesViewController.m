@@ -42,6 +42,7 @@
 
 - (void)customize
 {
+    self.view.backgroundColor = BLUE_COLOR;
     self.collectionView.backgroundColor = BLUE_COLOR;
     self.messagesView.backgroundColor = BLUEDARK_COLOR;
 }
@@ -230,10 +231,17 @@
     messagesViewFrame.origin.y = self.view.frame.size.height - KEYBOARD_HEIGHT - messagesViewFrame.size.height;
     collectionViewFrame.size.height = messagesViewFrame.origin.y;
 
-    [UIView animateWithDuration:0.25 animations:^{
-        self.collectionView.frame=collectionViewFrame;
-        self.messagesView.frame=messagesViewFrame;
-    }];
+    [UIView animateWithDuration:1
+                          delay:0
+         usingSpringWithDamping:0.7
+          initialSpringVelocity:0.2
+                        options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            self.messagesView.frame = messagesViewFrame;
+                            self.collectionView.frame = collectionViewFrame;
+
+                        } completion:^(BOOL finished) {
+                            
+                        }];
 
 }
 
@@ -252,10 +260,17 @@
     messagesViewFrame.origin.y = self.view.frame.size.height - messagesViewFrame.size.height;
     collectionViewFrame.size.height = self.view.frame.size.height - messagesViewFrame.size.height;
 
-    [UIView animateWithDuration:0.25 animations:^{
-        self.messagesView.frame = messagesViewFrame;
-        self.collectionView.frame = collectionViewFrame;
-    }];
+    [UIView animateWithDuration:1
+                          delay:0
+         usingSpringWithDamping:0.7
+          initialSpringVelocity:0.2
+                        options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            self.messagesView.frame = messagesViewFrame;
+                            self.collectionView.frame = collectionViewFrame;
+
+                        } completion:^(BOOL finished) {
+
+                        }];
 }
 
 

@@ -99,7 +99,12 @@
                 [users addObject:message.fromUserParse];
                 if (users.count > count) {
                     [self.messages addObject:message];
-                    [self.usersParseArray addObject:message.fromUserParse];
+                    [message.fromUserParse fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                        [self.usersParseArray addObject:message.fromUserParse];
+                        NSInteger position = [self.usersParseArray indexOfObject:message.fromUserParse];
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:position inSection:0];
+                        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    }];
                 }
             }
             if(![message.toUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
@@ -107,7 +112,12 @@
                 [users addObject:message.toUserParse];
                 if (users.count > count) {
                     [self.messages addObject:message];
-                    [self.usersParseArray addObject:message.toUserParse];
+                    [message.toUserParse fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                        [self.usersParseArray addObject:message.toUserParse];
+                        NSInteger position = [self.usersParseArray indexOfObject:message.toUserParse];
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:position inSection:0];
+                        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    }];
                 }
             }
         }
@@ -129,7 +139,6 @@
         user = [self.usersParseArray objectAtIndex:indexPath.row];
     }
 
-    [user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         cell.nameTextLabel.text = user.username;
         cell.userImageView.layer.cornerRadius = 26;
         cell.userImageView.clipsToBounds = YES;
@@ -164,9 +173,6 @@
             cell.userImageView.image = [UIImage imageWithData:data];
         }];
 
-
-    }];
-
     return cell;
 }
 
@@ -182,7 +188,11 @@
 {
     if ([segue.identifier isEqualToString:@"chat"]) {
         UserMessagesViewController *vc = segue.destinationViewController;
-        vc.toUserParse = [self.usersParseArray objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        if (self.filteredUsersArray.count) {
+            vc.toUserParse = [self.filteredUsersArray objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        } else {
+            vc.toUserParse = [self.usersParseArray objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        }
     }
 }
 

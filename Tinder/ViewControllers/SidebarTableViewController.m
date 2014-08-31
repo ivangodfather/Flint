@@ -93,10 +93,10 @@
         cellFrame.origin.x -= cellFrame.size.width;
         cell.frame = cellFrame;
 
-        [UIView animateWithDuration:0.7
+        [UIView animateWithDuration:0.4
                               delay:i*0.2
              usingSpringWithDamping:0.5
-              initialSpringVelocity:0.2
+              initialSpringVelocity:0.8
                             options:UIViewAnimationOptionCurveEaseIn animations:^{
                                 UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
                                 CGRect cellFrame = cell.frame;
