@@ -17,6 +17,7 @@
 #define buttonWidth 40
 #define buttonHeight 50
 
+#define currentProfileImage 4
 #define profileViewTag 3
 #define likeViewTag 2
 #define dislikeViewTag 1
@@ -31,6 +32,8 @@
 @property UserParse* backgroundUserProfile;
 @property NSMutableArray *posibleMatchesArray;
 @property NSMutableArray* willBeMatches;
+@property UIImageView* profileImage;
+@property UIImageView* backgroundImage;
 @property BOOL firstTime;
 @property BOOL isRotating;
 @end
@@ -90,16 +93,17 @@
                     self.profileView.clipsToBounds = YES;
                     self.profileView.layer.cornerRadius = cornRadius;
                     [self.view addSubview:self.profileView];
-                    UIImageView* profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
-                    profileImage.image = [UIImage imageWithData:data];
-                    profileImage.clipsToBounds = YES;
-                    profileImage.layer.cornerRadius = cornRadius;
-                    [self.profileView addSubview:profileImage];
-                    UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.backgroundView.frame.size.height-labelHeight, profileImage.frame.size.width, labelHeight)];
+                    self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
+                    self.profileImage.tag = currentProfileImage;
+                    self.profileImage.image = [UIImage imageWithData:data];
+                    self.profileImage.clipsToBounds = YES;
+                    self.profileImage.layer.cornerRadius = cornRadius;
+                    [self.profileView addSubview:self.profileImage];
+                    UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.backgroundView.frame.size.height-labelHeight, self.profileImage.frame.size.width, labelHeight)];
                     nameLabel.textAlignment = NSTextAlignmentCenter;
                     nameLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
                     nameLabel.textColor = [UIColor whiteColor];
-                    nameLabel.backgroundColor = [UIColor blackColor];
+                    nameLabel.backgroundColor = RED_COLOR;
                     nameLabel.clipsToBounds = YES;
                     nameLabel.layer.cornerRadius = cornRadius;
                     [nameLabel setFont:[UIFont fontWithName:@"Helvetica" size:20]];
@@ -135,18 +139,18 @@
     self.backgroundView.clipsToBounds = YES;
     self.backgroundView.layer.cornerRadius = cornRadius;
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        UIImageView* profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.backgroundView.frame.size.width, self.backgroundView.frame.size.height-labelHeight)];
-        profileImage.image = [UIImage imageWithData:data];
-        profileImage.clipsToBounds = YES;
-        profileImage.layer.cornerRadius = cornRadius;
+        self.backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.backgroundView.frame.size.width, self.backgroundView.frame.size.height-labelHeight)];
+        self.backgroundImage.image = [UIImage imageWithData:data];
+        self.backgroundImage.clipsToBounds = YES;
+        self.backgroundImage.layer.cornerRadius = cornRadius;
         [self.view addSubview:self.backgroundView];
-        [self.backgroundView addSubview:profileImage];
+        [self.backgroundView addSubview:self.backgroundImage];
         [self.view sendSubviewToBack:self.backgroundView];
-        UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.backgroundView.frame.size.height-labelHeight, profileImage.frame.size.width, labelHeight)];
+        UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.backgroundView.frame.size.height-labelHeight, self.backgroundImage.frame.size.width, labelHeight)];
         nameLabel.textAlignment = NSTextAlignmentCenter;
         nameLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
         nameLabel.textColor = [UIColor whiteColor];
-        nameLabel.backgroundColor = [UIColor blackColor];
+        nameLabel.backgroundColor = RED_COLOR;
         nameLabel.clipsToBounds = YES;
         nameLabel.layer.cornerRadius = cornRadius;
         [nameLabel setFont:[UIFont fontWithName:@"Helvetica" size:20]];
@@ -158,10 +162,10 @@
 
 - (CGRect)createMatchRect
 {
-    int x = 30;
+    int x = 10;
     int width = 320 - (x*2);
-    int y = 60;
-    int height = 480 - (y*2);
+    int y = 10;
+    int height = 480;
     return CGRectMake(x, y, width, height);
 }
 
@@ -181,7 +185,53 @@
 {
     [self.profileView setUserInteractionEnabled:YES];
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [self.profileView addGestureRecognizer:pan];
+    [self.profileView addGestureRecognizer:tap];
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)tap
+{
+    self.profileImage.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.profileImage.layer.shadowOpacity = 0.75;
+    self.profileImage.layer.shadowRadius = 15.0;
+    self.profileImage.layer.shadowOffset = (CGSize){0.0,20.0};
+
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^(void) {
+                         self.profileImage.transform = CGAffineTransformMakeScale(-1, 1);
+                     }
+                     completion:^(BOOL b) {
+                         self.profileView.layer.shadowColor = [UIColor clearColor].CGColor;
+                         self.profileView.layer.shadowOpacity = 0.0;
+                         self.profileView.layer.shadowRadius = 0.0;
+                         self.profileView.layer.shadowOffset = (CGSize){0.0, 0.0};
+                         [self removeOldProfileImage];
+                     }];
+}
+
+- (void)addNewProfileImage
+{
+    PFFile* file = self.currShowingProfile[@"photo"];
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        [self.view addSubview:self.profileView];
+        self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
+        self.profileImage.tag = currentProfileImage;
+        self.profileImage.image = [UIImage imageWithData:data];
+        self.profileImage.clipsToBounds = YES;
+        self.profileImage.layer.cornerRadius = cornRadius;
+        [self.profileView addSubview:self.profileImage];
+    }];
+
+}
+
+- (void)removeOldProfileImage
+{
+    for (UIView* view in self.profileView.subviews) {
+        if (view.tag == currentProfileImage) {
+            [view removeFromSuperview];
+        }
+    }
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)pan
@@ -223,7 +273,7 @@
     //    [self placeBackgroundProfile];
     [self checkPointsForLike:point];
     if (pan.state == UIGestureRecognizerStateEnded) {
-        [UIView animateWithDuration:1 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             self.profileView.transform = CGAffineTransformMakeTranslation(0, 0);
             self.profileView.alpha = 1;
 
@@ -241,6 +291,8 @@
         self.profileView.gestureRecognizers = [NSArray new];
         [self.profileView removeFromSuperview];
         self.profileView = self.backgroundView;
+        self.profileImage = self.backgroundImage;
+        self.profileImage.tag = currentProfileImage;
         if ([self.willBeMatches containsObject:self.currShowingProfile]) {
             PFObject* match = [PFObject objectWithClassName:@"MessageParse"];
             match[@"fromUserParse"] = self.currShowingProfile;
@@ -284,6 +336,8 @@
         self.profileView.gestureRecognizers = [NSArray new];
         [self.profileView removeFromSuperview];
         self.profileView = self.backgroundView;
+        self.profileImage = self.backgroundImage;
+        self.profileImage.tag = currentProfileImage;
         if ([self.willBeMatches containsObject:self.currShowingProfile]) {
             PFQuery* query = [PFQuery queryWithClassName:@"PossibleMatch"];
             [query whereKey:@"fromUser" equalTo:self.currShowingProfile];
