@@ -43,7 +43,7 @@ static NSString *CellIdentifier = @"cellIdentifier";
 
 #define GRAY_TEXT_BUBBLE_COLOR [UIColor colorWithRed:0.866667 green:0.866667 blue:0.866667 alpha:1]
 #define LIGHT_GRAY_TEXT_BUBBLE_COLOR [UIColor whiteColor]
-#define GREEN_TEXT_BUBBLE_COLOR [UIColor greenColor]
+#define GREEN_TEXT_BUBBLE_COLOR [UIColor colorWithRed:130/256.0 green:169/256.0 blue:171/256.0 alpha:1.0]
 #define LIGHT_GREEN_TEXT_BUBBLE_COLOR [UIColor colorWithHue:130.0f / 360.0f saturation:0.68f brightness:0.80f alpha:1.0f]
 #define BLUE_TEXT_HIGHLIGHT_COLOR [UIColor colorWithRed:0.270588 green:0.545098 blue:1.000000 alpha:1]
 

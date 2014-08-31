@@ -19,6 +19,14 @@
     [self registerSubclass];
 }
 
+- (NSUInteger)hash
+{
+    return self.objectId.intValue;
+}
 
+- (BOOL)isEqual:(UserParse *)user
+{
+    return [self.objectId isEqualToString:user.objectId];
+}
 
 @end

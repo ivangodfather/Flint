@@ -7,5 +7,7 @@
 @property (nonatomic, strong) UserParse *toUserParse;
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) PFFile *image;
+@property (nonatomic, strong) NSDate *createdAt;
+@property (nonatomic) BOOL read;
 
 @end

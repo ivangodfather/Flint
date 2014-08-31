@@ -23,6 +23,8 @@
 		4209200119AE79F90092775D /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4209200019AE79F90092775D /* View.xib */; };
 		424E0E7D19AE8B580078B343 /* ChatImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 424E0E7C19AE8B580078B343 /* ChatImages.xcassets */; };
 		4281F25319B11CF7007724C6 /* Menu.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4281F25219B11CF7007724C6 /* Menu.xcassets */; };
+		4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25519B22D0D007724C6 /* UserMessagesViewController.m */; };
+		4281F25C19B22F72007724C6 /* UserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25B19B22F72007724C6 /* UserCollectionViewCell.m */; };
 		42BD2AFE19AE5A1B00FCC817 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */; };
 		42DBCC2B19AC20BB00CE6C93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC2A19AC20BB00CE6C93 /* Foundation.framework */; };
 		42DBCC2D19AC20BB00CE6C93 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC2C19AC20BB00CE6C93 /* CoreGraphics.framework */; };
@@ -131,6 +133,10 @@
 		4209200019AE79F90092775D /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		424E0E7C19AE8B580078B343 /* ChatImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ChatImages.xcassets; sourceTree = "<group>"; };
 		4281F25219B11CF7007724C6 /* Menu.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Menu.xcassets; sourceTree = "<group>"; };
+		4281F25419B22D0D007724C6 /* UserMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserMessagesViewController.h; path = ViewControllers/UserMessagesViewController.h; sourceTree = "<group>"; };
+		4281F25519B22D0D007724C6 /* UserMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserMessagesViewController.m; path = ViewControllers/UserMessagesViewController.m; sourceTree = "<group>"; };
+		4281F25A19B22F72007724C6 /* UserCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserCollectionViewCell.h; path = View/UserCollectionViewCell.h; sourceTree = "<group>"; };
+		4281F25B19B22F72007724C6 /* UserCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserCollectionViewCell.m; path = View/UserCollectionViewCell.m; sourceTree = "<group>"; };
 		42BD2AFC19AE5A1B00FCC817 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserTableViewCell.h; path = View/UserTableViewCell.h; sourceTree = "<group>"; };
 		42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserTableViewCell.m; path = View/UserTableViewCell.m; sourceTree = "<group>"; };
 		42DBCC2719AC20BB00CE6C93 /* Tinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -440,6 +446,8 @@
 			children = (
 				42DBCCD419ACD87000CE6C93 /* MessagesViewController.h */,
 				42DBCCD519ACD87000CE6C93 /* MessagesViewController.m */,
+				4281F25419B22D0D007724C6 /* UserMessagesViewController.h */,
+				4281F25519B22D0D007724C6 /* UserMessagesViewController.m */,
 			);
 			name = Messages;
 			sourceTree = "<group>";
@@ -462,6 +470,8 @@
 				42DBCCE319AD01F100CE6C93 /* MessageTableViewCell.m */,
 				42BD2AFC19AE5A1B00FCC817 /* UserTableViewCell.h */,
 				42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */,
+				4281F25A19B22F72007724C6 /* UserCollectionViewCell.h */,
+				4281F25B19B22F72007724C6 /* UserCollectionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -658,6 +668,7 @@
 				42DBCCE419AD01F100CE6C93 /* MessageTableViewCell.m in Sources */,
 				42091FFC19AE798F0092775D /* UIImage+Utils.m in Sources */,
 				0BA4ECB219AE1EE200302E92 /* SidebarTableViewController.m in Sources */,
+				4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */,
 				42BD2AFE19AE5A1B00FCC817 /* UserTableViewCell.m in Sources */,
 				42DBCCD619ACD87000CE6C93 /* MessagesViewController.m in Sources */,
 				0BA4ECBB19AE232600302E92 /* CustomSignInViewController.m in Sources */,
@@ -668,6 +679,7 @@
 				42F5B28419B019FA0036938B /* V8HorizontalPickerView.m in Sources */,
 				42091FFE19AE798F0092775D /* SPHViewController.m in Sources */,
 				42091FFD19AE798F0092775D /* SPHCollectionViewcell.m in Sources */,
+				4281F25C19B22F72007724C6 /* UserCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

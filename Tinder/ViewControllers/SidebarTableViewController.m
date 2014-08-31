@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *profileLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *messagesImageView;
 @property (weak, nonatomic) IBOutlet UILabel *messagesLabel;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellShare;
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *matchLabel;
@@ -40,8 +41,9 @@
     self.cellMatch.backgroundColor = RED_COLOR;
     self.cellMessage.contentView.alpha = 0.5;
     self.profileCell.contentView.alpha = 0.5;
+    self.cellShare.contentView.alpha = 0.5;
     PFQuery *query = [UserParse query];
-    self.view.backgroundColor = LIGHTGRAY_COLOR;
+    self.view.backgroundColor = BLUEDARK_COLOR;
 
     UIView *backgroundSelectedCell = [[UIView alloc] init];
     [backgroundSelectedCell setBackgroundColor:RED_COLOR];
@@ -101,27 +103,41 @@
         self.cellMatch.backgroundColor = RED_COLOR;
         self.cellMessage.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
+        self.cellShare.backgroundColor = [UIColor clearColor];
         self.cellMatch.contentView.alpha = 1;
         self.cellMessage.contentView.alpha = 0.5;
         self.profileCell.contentView.alpha = 0.5;
+        self.cellShare.contentView.alpha = 0.5;
     }
     if (indexPath.row == 2) {
         self.cellMessage.backgroundColor = RED_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
+        self.cellShare.backgroundColor = [UIColor clearColor];
         self.cellMessage.contentView.alpha = 1;
         self.profileCell.contentView.alpha = 0.5;
         self.cellMatch.contentView.alpha = 0.5;
-
-
-
+        self.cellShare.contentView.alpha = 0.5;
     }
     if (indexPath.row == 3) {
         self.cellMatch.contentView.alpha = 0.5;
         self.cellMessage.contentView.alpha = 0.5;
+        self.cellShare.contentView.alpha = 0.5;
         self.profileCell.contentView.alpha = 1;
         self.profileCell.backgroundColor = RED_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
+        self.cellShare.backgroundColor = [UIColor clearColor];
+        self.cellMessage.backgroundColor = [UIColor clearColor];
+
+    }
+    if (indexPath.row == 4) {
+        self.cellMatch.contentView.alpha = 0.5;
+        self.cellMessage.contentView.alpha = 0.5;
+        self.cellShare.contentView.alpha = 1;
+        self.profileCell.contentView.alpha = 0.5;
+        self.cellShare.backgroundColor = RED_COLOR;
+        self.cellMatch.backgroundColor = [UIColor clearColor];
+        self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellMessage.backgroundColor = [UIColor clearColor];
 
     }

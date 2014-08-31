@@ -11,14 +11,19 @@
 #import "MessageParse.h"
 #import "UserTableViewCell.h"
 #import "SPHViewController.h"
+#import "UserMessagesViewController.h"
+
+#define SECONDS_DAY 24*60*60
 
 @interface MessagesViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property NSMutableArray *usersParseArray;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 
+@property NSMutableArray *usersParseArray;
+@property NSArray *filteredUsersArray;
+@property NSMutableArray *messages;
 @end
 
 @implementation MessagesViewController
@@ -28,122 +33,195 @@
     [super viewDidLoad];
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
+
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-    [[self.navigationController.navigationBar.subviews lastObject] setTintColor:[UIColor whiteColor]];
-    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 55, 20)];
+
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 48, 20)];
     self.searchTextField.leftView = paddingView;
     self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNotification:) name:receivedMessage object:nil];
 
     [self loadChatPersons];
-    self.usersParseArray = [NSMutableArray new];
-    // Do any additional setup after loading the view.
+
+    [self customize];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillHideNotification object:nil];
+
+
+
 #warning Move to signin delegate
     if ([PFUser currentUser]) {
         PFInstallation *currentInstallation = [PFInstallation currentInstallation];
         [currentInstallation setObject:[PFUser currentUser] forKey:@"user"];
-        [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-
-        }];
+        [currentInstallation saveInBackground];
     }
+}
+
+- (void)customize
+{
+    self.tableView.backgroundColor = BLUE_COLOR;
+    self.tableView.separatorColor = BLUEDARK_COLOR;
+    self.searchTextField.backgroundColor = BLUEDARK_COLOR;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.tableView reloadData];
+}
+
+- (void)receivedNotification:(NSNotification *)notification
+{
+    [self.usersParseArray removeAllObjects];
+    [self.messages removeAllObjects];
+    [self loadChatPersons];
 }
 
 - (void)loadChatPersons
 {
+    self.usersParseArray = [NSMutableArray new];
+    self.messages = [NSMutableArray new];
+    self.filteredUsersArray = [NSArray new];
+
     PFQuery *messageQueryFrom = [MessageParse query];
-    NSLog(@"%@",[PFUser currentUser].objectId);
     [messageQueryFrom whereKey:@"fromUserParse" equalTo:[UserParse currentUser]];
     PFQuery *messageQueryTo = [MessageParse query];
     [messageQueryTo whereKey:@"toUserParse" equalTo:[UserParse currentUser]];
     PFQuery *both = [PFQuery orQueryWithSubqueries:@[messageQueryFrom, messageQueryTo]];
+    [both orderByDescending:@"createdAt"];
 
-    __block int count = 0;
     [both findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        NSMutableSet *usersIDs = [NSMutableSet new];
+        NSMutableSet *users = [NSMutableSet new];
         for (MessageParse *message in objects) {
-            [message.fromUserParse fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-                [message.toUserParse fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-
-                    [usersIDs addObject:message.fromUserParse.objectId];
-                    [usersIDs addObject:message.toUserParse.objectId];
-                    count++;
-                    if (count == objects.count) {
-                        [usersIDs removeObject:[PFUser currentUser].objectId];
-                        NSLog(@"IDS %d:%@", (int)usersIDs.count, usersIDs);
-                        __block int count2 = 0;
-                        for (NSString *userID in usersIDs) {
-                            PFQuery *userParse = [UserParse query];
-                            [userParse getObjectInBackgroundWithId:userID block:^(PFObject *object, NSError *error) {
-                                count2++;
-                                [self.usersParseArray addObject:object];
-                                if (count2 == usersIDs.count) {
-                                    [self.tableView reloadData];
-                                }
-                            }];
-                        }
-                    }
-                }];
-            }];
+            if(![message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
+                NSUInteger count = users.count;
+                [users addObject:message.fromUserParse];
+                if (users.count > count) {
+                    [self.messages addObject:message];
+                    [self.usersParseArray addObject:message.fromUserParse];
+                }
+            }
+            if(![message.toUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
+                NSUInteger count = users.count;
+                [users addObject:message.toUserParse];
+                if (users.count > count) {
+                    [self.messages addObject:message];
+                    [self.usersParseArray addObject:message.toUserParse];
+                }
+            }
         }
+        [self.tableView reloadData];
     }];
 }
 
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-
-}
-
-#pragma mark UItableView Delegate
+#pragma mark TableView Delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    UserParse *user = [self.usersParseArray objectAtIndex:indexPath.row];
-    cell.nameTextLabel.text = user.username;
-    cell.userImageView.layer.cornerRadius = 26;
-    cell.userImageView.clipsToBounds = YES;
-    cell.userImageView.layer.borderWidth = 2.0,
-    cell.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-    cell.ageTextLabel.text = user.age.description;
-    UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = RED_COLOR;
-    [cell setSelectedBackgroundView:bgColorView];
-    [user.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        cell.userImageView.image = [UIImage imageWithData:data];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    UserParse *user;
+    if (self.filteredUsersArray.count) {
+        user = [self.filteredUsersArray objectAtIndex:indexPath.row];
+    } else {
+        user = [self.usersParseArray objectAtIndex:indexPath.row];
+    }
+
+    [user fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        cell.nameTextLabel.text = user.username;
+        cell.userImageView.layer.cornerRadius = 26;
+        cell.userImageView.clipsToBounds = YES;
+        cell.userImageView.layer.borderWidth = 2.0,
+        cell.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+
+        UIImageView *accesory = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accesory"]];
+        accesory.frame = CGRectMake(15, 0, 15, 15);
+        accesory.contentMode = UIViewContentModeScaleAspectFit;
+        cell.accessoryView = accesory;
+
+        MessageParse *message = [self.messages objectAtIndex:indexPath.row];
+        cell.lastMessageLabel.text = message.text;
+        if (!message.read) {
+            cell.lastMessageLabel.textColor = RED_COLOR;
+        } else {
+            cell.lastMessageLabel.textColor = BLACK_COLOR;
+        }
+        cell.dateLabel.textColor = BLACK_COLOR;
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        [dateFormatter setDoesRelativeDateFormatting:YES];
+        if ([[message createdAt] timeIntervalSinceNow] * -1 < SECONDS_DAY) {
+            dateFormatter.timeStyle = NSDateFormatterShortStyle;
+        } else {
+            dateFormatter.dateStyle = NSDateFormatterShortStyle;
+        }
+        cell.dateLabel.text = [dateFormatter stringFromDate:[message createdAt]];
+        UIView *bgColorView = [[UIView alloc] init];
+        bgColorView.backgroundColor = RED_COLOR;
+        [cell setSelectedBackgroundView:bgColorView];
+        [user.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            cell.userImageView.image = [UIImage imageWithData:data];
+        }];
+
+
     }];
+
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (self.filteredUsersArray.count) {
+        return self.filteredUsersArray.count;
+    }
     return self.usersParseArray.count;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    SPHViewController *vc = [[SPHViewController alloc] initWithNibName:@"SPHViewController" bundle:nil];
-    vc.toUserParse = [self.usersParseArray objectAtIndex:self.tableView.indexPathForSelectedRow.row];
-
-    [self.navigationController pushViewController:vc animated:YES];
-}
-- (IBAction)searchEnd:(UITextField *)searchTextField {
-    [searchTextField resignFirstResponder];
-}
-- (IBAction)endSearch2:(UITextField *)searchTextField {
-        [searchTextField resignFirstResponder];
-
-
+    if ([segue.identifier isEqualToString:@"chat"]) {
+        UserMessagesViewController *vc = segue.destinationViewController;
+        vc.toUserParse = [self.usersParseArray objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    }
 }
 
-- (IBAction)startChat:(id)sender {
-
-
+- (IBAction)searchTextFieldChanged:(UITextField *)textfield
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"username CONTAINS %@",textfield.text];
+    self.filteredUsersArray = [self.usersParseArray filteredArrayUsingPredicate:predicate];
+    [self.tableView reloadData];
 }
-- (IBAction)sendPhoto:(id)sender {
+
+- (IBAction)searchTextFieldEnd:(id)sender {
+    [sender resignFirstResponder];
+}
+
+- (IBAction)sendPhoto:(id)sender
+{
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     [self presentViewController:picker animated:YES completion:^{
         
+    }];
+}
+
+#pragma mark KeyBoard Notifications
+
+- (void)keyboardDidShow:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.view setFrame:CGRectMake(0,-80,320,460)];
+    } completion:^(BOOL finished) {
+
+    }];
+}
+
+-(void)keyboardDidHide:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.view setFrame:CGRectMake(0,0,320,460)];
+    } completion:^(BOOL finished) {
+
     }];
 }
 @end

@@ -42,6 +42,8 @@
     self.posibleMatchesArray = [NSMutableArray new];
     self.firstTime = YES;
     [self getMatches];
+    self.view.backgroundColor = BLACK_COLOR;
+
 }
 
 
