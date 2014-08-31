@@ -32,16 +32,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.matchImageView.alpha = [SidebarTableViewController ipMaskedImageNamed:@"burn" color:RED_COLOR];
-//    self.messagesImageView.image = [UIImage imageNamed:@"messages"];
-//    self.avatarImageView.image = [UIImage imageNamed:@"avatar"];
-//    self.matchLabel.alpha = 1;
-//    self.messagesLabel.alpha = 0.5;
-//    self.profileLabel.alpha = 0.5;
     self.cellMatch.backgroundColor = RED_COLOR;
-    self.cellMessage.contentView.alpha = 0.5;
-    self.profileCell.contentView.alpha = 0.5;
-    self.cellShare.contentView.alpha = 0.5;
+//    self.cellMessage.contentView.alpha = 0.5;
+//    self.profileCell.contentView.alpha = 0.5;
+//    self.cellShare.contentView.alpha = 0.5;
     PFQuery *query = [UserParse query];
     self.view.backgroundColor = BLUEDARK_COLOR;
 
@@ -74,26 +68,45 @@
                                  }];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-
-+ (UIImage *)ipMaskedImageNamed:(NSString *)name color:(UIColor *)color
+- (void)viewWillAppear:(BOOL)animated
 {
-    UIImage *image = [UIImage imageNamed:name];
-    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, image.scale);
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    [image drawInRect:rect];
-    CGContextSetFillColorWithColor(c, [color CGColor]);
-    CGContextSetBlendMode(c, kCGBlendModeSourceAtop);
-    CGContextFillRect(c, rect);
-    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return result;
+    CGRect frame = self.profileImageView.frame;
+    frame.origin.y -= 100;
+    self.profileImageView.frame = frame;
+    [super viewWillAppear:animated];
+    [UIView animateWithDuration:2.5
+                          delay:0
+         usingSpringWithDamping:0.5
+          initialSpringVelocity:0.2
+                        options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            CGRect frame = self.profileImageView.frame;
+                            frame.origin.y += 100;
+                            self.profileImageView.frame = frame;
+                        } completion:^(BOOL finished) {
+
+                        }];
+
+    for (int i = 1; i < 5; i++) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
+        CGRect cellFrame = cell.frame;
+        cellFrame.origin.x -= cellFrame.size.width;
+        cell.frame = cellFrame;
+
+        [UIView animateWithDuration:0.7
+                              delay:i*0.2
+             usingSpringWithDamping:0.5
+              initialSpringVelocity:0.2
+                            options:UIViewAnimationOptionCurveEaseIn animations:^{
+                                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
+                                CGRect cellFrame = cell.frame;
+                                cellFrame.origin.x += cellFrame.size.width;
+                                cell.frame = cellFrame;
+                            } completion:^(BOOL finished) {
+
+                            }];
+    }
+
 }
 
 - (void) prepareForSegue: (UIStoryboardSegue *) segue sender: (id) sender
@@ -104,26 +117,26 @@
         self.cellMessage.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
-        self.cellMatch.contentView.alpha = 1;
-        self.cellMessage.contentView.alpha = 0.5;
-        self.profileCell.contentView.alpha = 0.5;
-        self.cellShare.contentView.alpha = 0.5;
+//        self.cellMatch.contentView.alpha = 1;
+//        self.cellMessage.contentView.alpha = 0.5;
+//        self.profileCell.contentView.alpha = 0.5;
+//        self.cellShare.contentView.alpha = 0.5;
     }
     if (indexPath.row == 2) {
         self.cellMessage.backgroundColor = RED_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
-        self.cellMessage.contentView.alpha = 1;
-        self.profileCell.contentView.alpha = 0.5;
-        self.cellMatch.contentView.alpha = 0.5;
-        self.cellShare.contentView.alpha = 0.5;
+//        self.cellMessage.contentView.alpha = 1;
+//        self.profileCell.contentView.alpha = 0.5;
+//        self.cellMatch.contentView.alpha = 0.5;
+//        self.cellShare.contentView.alpha = 0.5;
     }
     if (indexPath.row == 3) {
-        self.cellMatch.contentView.alpha = 0.5;
-        self.cellMessage.contentView.alpha = 0.5;
-        self.cellShare.contentView.alpha = 0.5;
-        self.profileCell.contentView.alpha = 1;
+//        self.cellMatch.contentView.alpha = 0.5;
+//        self.cellMessage.contentView.alpha = 0.5;
+//        self.cellShare.contentView.alpha = 0.5;
+//        self.profileCell.contentView.alpha = 1;
         self.profileCell.backgroundColor = RED_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
@@ -131,10 +144,10 @@
 
     }
     if (indexPath.row == 4) {
-        self.cellMatch.contentView.alpha = 0.5;
-        self.cellMessage.contentView.alpha = 0.5;
-        self.cellShare.contentView.alpha = 1;
-        self.profileCell.contentView.alpha = 0.5;
+//        self.cellMatch.contentView.alpha = 0.5;
+//        self.cellMessage.contentView.alpha = 0.5;
+//        self.cellShare.contentView.alpha = 1;
+//        self.profileCell.contentView.alpha = 0.5;
         self.cellShare.backgroundColor = RED_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
@@ -147,7 +160,7 @@
 
     if ( [segue isKindOfClass: [SWRevealViewControllerSegue class]] ) {
         SWRevealViewControllerSegue *swSegue = (SWRevealViewControllerSegue*) segue;
-        
+
         swSegue.performBlock = ^(SWRevealViewControllerSegue* rvc_segue, UIViewController* svc, UIViewController* dvc) {
             UINavigationController* navController = (UINavigationController*)self.revealViewController.frontViewController;
             [navController setViewControllers: @[dvc] animated: YES ];

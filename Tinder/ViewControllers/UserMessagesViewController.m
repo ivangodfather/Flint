@@ -48,6 +48,9 @@
 
 - (IBAction)sendPressed:(id)sender
 {
+    if ([self.textField.text isEqualToString:@""]) {
+        return;
+    }
     MessageParse *message = [MessageParse object];
     message.text = self.textField.text;
     message.createdAt = [NSDate date];
@@ -60,7 +63,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item  inSection:0];
 
 
-    [self hiddeKeyBoard];
+    //[self hiddeKeyBoard];
 #warning ASK DAVE
     //BUG ?
     NSLog(@"collection %@",NSStringFromCGRect(self.collectionView.frame));

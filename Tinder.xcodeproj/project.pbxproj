@@ -11,7 +11,6 @@
 		0BA4ECB219AE1EE200302E92 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB119AE1EE200302E92 /* SidebarTableViewController.m */; };
 		0BA4ECB519AE1F0A00302E92 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB419AE1F0A00302E92 /* SWRevealViewController.m */; };
 		0BA4ECBB19AE232600302E92 /* CustomSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECBA19AE232600302E92 /* CustomSignInViewController.m */; };
-		424E0E7D19AE8B580078B343 /* ChatImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 424E0E7C19AE8B580078B343 /* ChatImages.xcassets */; };
 		4281F25319B11CF7007724C6 /* Menu.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4281F25219B11CF7007724C6 /* Menu.xcassets */; };
 		4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25519B22D0D007724C6 /* UserMessagesViewController.m */; };
 		4281F25C19B22F72007724C6 /* UserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25B19B22F72007724C6 /* UserCollectionViewCell.m */; };
@@ -49,7 +48,6 @@
 		42DBCCD619ACD87000CE6C93 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCD519ACD87000CE6C93 /* MessagesViewController.m */; };
 		42DBCCDD19ACDD9C00CE6C93 /* MessageParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCDC19ACDD9C00CE6C93 /* MessageParse.m */; };
 		42DBCCE019ACDF7000CE6C93 /* UserParse.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCDF19ACDF7000CE6C93 /* UserParse.m */; };
-		42DBCCE419AD01F100CE6C93 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DBCCE319AD01F100CE6C93 /* MessageTableViewCell.m */; };
 		42F5B28419B019FA0036938B /* V8HorizontalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F5B28219B019FA0036938B /* V8HorizontalPickerView.m */; };
 		42F5B28619B0C4CB0036938B /* Chat.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42F5B28519B0C4CB0036938B /* Chat.xcassets */; };
 /* End PBXBuildFile section */
@@ -73,7 +71,6 @@
 		0BA4ECB419AE1F0A00302E92 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Libraries/SWRevealViewController.m; sourceTree = "<group>"; };
 		0BA4ECB919AE232600302E92 /* CustomSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomSignInViewController.h; path = ViewControllers/CustomSignInViewController.h; sourceTree = "<group>"; };
 		0BA4ECBA19AE232600302E92 /* CustomSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomSignInViewController.m; path = ViewControllers/CustomSignInViewController.m; sourceTree = "<group>"; };
-		424E0E7C19AE8B580078B343 /* ChatImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ChatImages.xcassets; sourceTree = "<group>"; };
 		4281F25219B11CF7007724C6 /* Menu.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Menu.xcassets; sourceTree = "<group>"; };
 		4281F25419B22D0D007724C6 /* UserMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserMessagesViewController.h; path = ViewControllers/UserMessagesViewController.h; sourceTree = "<group>"; };
 		4281F25519B22D0D007724C6 /* UserMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserMessagesViewController.m; path = ViewControllers/UserMessagesViewController.m; sourceTree = "<group>"; };
@@ -125,8 +122,6 @@
 		42DBCCDC19ACDD9C00CE6C93 /* MessageParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageParse.m; path = Model/MessageParse.m; sourceTree = "<group>"; };
 		42DBCCDE19ACDF7000CE6C93 /* UserParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserParse.h; path = Model/UserParse.h; sourceTree = "<group>"; };
 		42DBCCDF19ACDF7000CE6C93 /* UserParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserParse.m; path = Model/UserParse.m; sourceTree = "<group>"; };
-		42DBCCE219AD01F100CE6C93 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageTableViewCell.h; path = View/MessageTableViewCell.h; sourceTree = "<group>"; };
-		42DBCCE319AD01F100CE6C93 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageTableViewCell.m; path = View/MessageTableViewCell.m; sourceTree = "<group>"; };
 		42F5B28119B019FA0036938B /* V8HorizontalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V8HorizontalPickerView.h; sourceTree = "<group>"; };
 		42F5B28219B019FA0036938B /* V8HorizontalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V8HorizontalPickerView.m; sourceTree = "<group>"; };
 		42F5B28319B019FA0036938B /* V8HorizontalPickerViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V8HorizontalPickerViewProtocol.h; sourceTree = "<group>"; };
@@ -304,7 +299,6 @@
 			children = (
 				42F5B28019B019DD0036938B /* V8HorizontalPickerView */,
 				42DBCCC919ACC4D600CE6C93 /* SWRevealViewController */,
-				424E0E7C19AE8B580078B343 /* ChatImages.xcassets */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -343,8 +337,6 @@
 		42DBCCE119AD01CB00CE6C93 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				42DBCCE219AD01F100CE6C93 /* MessageTableViewCell.h */,
-				42DBCCE319AD01F100CE6C93 /* MessageTableViewCell.m */,
 				42BD2AFC19AE5A1B00FCC817 /* UserTableViewCell.h */,
 				42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */,
 				4281F25A19B22F72007724C6 /* UserCollectionViewCell.h */,
@@ -439,7 +431,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				424E0E7D19AE8B580078B343 /* ChatImages.xcassets in Resources */,
 				42DBCC4319AC20BB00CE6C93 /* Images.xcassets in Resources */,
 				42DBCC3519AC20BB00CE6C93 /* InfoPlist.strings in Resources */,
 				42F5B28619B0C4CB0036938B /* Chat.xcassets in Resources */,
@@ -471,7 +462,6 @@
 				42DBCCE019ACDF7000CE6C93 /* UserParse.m in Sources */,
 				42DBCCC819AC4E4B00CE6C93 /* MainViewController.m in Sources */,
 				42DBCC3719AC20BB00CE6C93 /* main.m in Sources */,
-				42DBCCE419AD01F100CE6C93 /* MessageTableViewCell.m in Sources */,
 				0BA4ECB219AE1EE200302E92 /* SidebarTableViewController.m in Sources */,
 				4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */,
 				42BD2AFE19AE5A1B00FCC817 /* UserTableViewCell.m in Sources */,

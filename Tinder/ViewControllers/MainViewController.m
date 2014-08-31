@@ -43,7 +43,7 @@
     self.willBeMatches = [NSMutableArray new];
     self.firstTime = YES;
     [self getMatches];
-    self.view.backgroundColor = BLACK_COLOR;
+    self.view.backgroundColor = BLUE_COLOR;
 
 }
 

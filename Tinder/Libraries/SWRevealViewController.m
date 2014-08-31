@@ -1418,7 +1418,6 @@ const int FrontViewPositionNone = 0xff;
         frontDeploymentCompletion();
         [self _dequeue];
     };
-    
     if ( duration > 0.0 )
     {
         if ( _toggleAnimationType == SWRevealToggleAnimationTypeEaseOut )
@@ -1428,8 +1427,14 @@ const int FrontViewPositionNone = 0xff;
         }
         else
         {
-            [UIView animateWithDuration:_toggleAnimationDuration delay:0.0 usingSpringWithDamping:_springDampingRatio initialSpringVelocity:1/duration
-            options:0 animations:animations completion:completion];
+//            [UIView animateWithDuration:_toggleAnimationDuration delay:0.0 usingSpringWithDamping:_springDampingRatio initialSpringVelocity:1/duration
+//            options:0 animations:animations completion:completion];
+            [UIView animateWithDuration:1.5
+                                  delay:0
+                 usingSpringWithDamping:0.6
+                  initialSpringVelocity:0.2
+                                options:UIViewAnimationOptionCurveEaseIn animations:animations
+                                completion:completion];
         }
     }
     else
