@@ -8,10 +8,12 @@
 @dynamic image;
 @dynamic createdAt;
 @dynamic read;
-
+@synthesize sendImage;
 + (void)load {
     [self registerSubclass];
 }
+
+
 
 + (NSString *)parseClassName {
     return @"MessageParse";

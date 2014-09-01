@@ -10,4 +10,6 @@
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic) BOOL read;
 
+@property UIImage *sendImage;
+
 @end

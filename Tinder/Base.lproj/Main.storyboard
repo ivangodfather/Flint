@@ -996,6 +996,9 @@
                                         <state key="normal" image="camera2">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="sendPhoto:" destination="OLv-wp-Wkd" eventType="touchUpInside" id="6PH-6S-QRv"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1082,6 +1085,72 @@
                                             <outlet property="userImageView" destination="NUN-hH-lRy" id="CXk-xG-0OO"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="fromCellImage" id="PEb-nX-8SZ" customClass="UserCollectionViewCell">
+                                        <rect key="frame" x="5" y="180" width="310" height="142"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="310" height="142"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Vt5-hr-y3G">
+                                                    <rect key="frame" x="245" y="5" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dNd-fM-mrB">
+                                                    <rect key="frame" x="245" y="58" width="55" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="tFA-ot-9IL">
+                                                    <rect key="frame" x="107" y="5" width="130" height="130"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.14901961389999999" green="0.6784313917" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <size key="customSize" width="310" height="142"/>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="dNd-fM-mrB" id="KA4-h7-Tnq"/>
+                                            <outlet property="photoImageView" destination="tFA-ot-9IL" id="Dfq-Zv-4EC"/>
+                                            <outlet property="userImageView" destination="Vt5-hr-y3G" id="Zq0-WO-w79"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="toCellImage" id="9bK-JS-tKU" customClass="UserCollectionViewCell">
+                                        <rect key="frame" x="5" y="332" width="310" height="142"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="310" height="142"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="HKK-ho-7ER">
+                                                    <rect key="frame" x="10" y="5" width="55" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dny-Oy-wcp">
+                                                    <rect key="frame" x="10" y="58" width="55" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="deE-Sm-6lI">
+                                                    <rect key="frame" x="73" y="5" width="130" height="130"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.14901961389999999" green="0.6784313917" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <size key="customSize" width="310" height="142"/>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="dny-Oy-wcp" id="O45-lJ-io3"/>
+                                            <outlet property="photoImageView" destination="deE-Sm-6lI" id="247-Rd-jUE"/>
+                                            <outlet property="userImageView" destination="HKK-ho-7ER" id="gzu-sH-f7e"/>
+                                        </connections>
+                                    </collectionViewCell>
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="OLv-wp-Wkd" id="kg6-0H-Xo7"/>
@@ -1095,6 +1164,7 @@
                     <navigationItem key="navigationItem" id="ZTu-k6-LqP"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="cameraButton" destination="RQ4-La-IbU" id="YIV-Sh-pJw"/>
                         <outlet property="collectionView" destination="cLf-s6-1pg" id="cZp-hT-XRf"/>
                         <outlet property="messagesView" destination="znx-55-aXc" id="BtU-Ni-qLu"/>
                         <outlet property="textField" destination="1cw-AD-1Ac" id="mg8-aj-hH3"/>

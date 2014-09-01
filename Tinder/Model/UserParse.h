@@ -20,4 +20,5 @@
 @property NSNumber *distance;
 @property NSNumber* sexuality;
 @property NSMutableArray* matches;
+
 @end

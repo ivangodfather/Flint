@@ -9,13 +9,14 @@
 #import "UserMessagesViewController.h"
 #import "UserCollectionViewCell.h"
 
-@interface UserMessagesViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate>
+@interface UserMessagesViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property NSMutableArray *messages;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIView *messagesView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property UIImage *toPhoto;
 @property UIImage *fromPhoto;
+@property (weak, nonatomic) IBOutlet UIButton *cameraButton;
 @end
 
 @implementation UserMessagesViewController
@@ -83,10 +84,8 @@
     [PFPush sendPushMessageToQueryInBackground:query
                                    withMessage:message.text];
     self.textField.text = @"";
-
-
-
 }
+
 
 #pragma mark - UICollectionViewDatasource
 #define MARGIN 10
@@ -94,28 +93,6 @@
 {
     MessageParse *message = [self.messages objectAtIndex:indexPath.row];
     UserCollectionViewCell *cell;
-
-    if ([message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"fromCell" forIndexPath:indexPath];
-        cell.userImageView.image = self.fromPhoto;
-        cell.messageTextView.textColor = BLACK_COLOR;
-
-
-
-
-    } else {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"toCell" forIndexPath:indexPath];
-        cell.userImageView.image = self.toPhoto;
-
-
-    }
-
-
-
-    cell.userImageView.layer.cornerRadius = 26;
-    cell.userImageView.clipsToBounds = YES;
-    cell.userImageView.layer.borderWidth = 2.0,
-    cell.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     [dateFormatter setDoesRelativeDateFormatting:YES];
@@ -125,26 +102,91 @@
         dateFormatter.dateStyle = NSDateFormatterShortStyle;
     }
 
+    //Image from me
+    if ((message.sendImage || message.image) && [message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"fromCellImage" forIndexPath:indexPath];
+        cell.userImageView.image = self.fromPhoto;
+        __block UIImage *image;
+        if (message.sendImage) {
+            image = message.sendImage;
+            cell.photoImageView.image = message.sendImage;
+        } else {
+            cell.photoImageView.backgroundColor = [UIColor redColor];
+            [message.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                image = [UIImage imageWithData:data];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    cell.photoImageView.image = image;
+                });
+
+            }];
+        }
+    }
+
+    //Image from other
+    if (message.image && [message.fromUserParse.objectId isEqualToString:self.toUserParse.objectId]) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"toCellImage" forIndexPath:indexPath];
+        cell.userImageView.image = self.toPhoto;
+        cell.dateLabel.text = [dateFormatter stringFromDate:[message createdAt]];
+        __block UIImage *image;
+        [message.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            image = [UIImage imageWithData:data];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                cell.photoImageView.image = image;
+            });
+
+        }];
+    }
+
+    //Text from me
+    if (!message.image && !message.sendImage && [message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"fromCell" forIndexPath:indexPath];
+        cell.userImageView.image = self.fromPhoto;
+        cell.messageTextView.textColor = BLACK_COLOR;
+    }
+
+    //Text from other
+    if (!message.image && !message.sendImage &&[message.fromUserParse.objectId isEqualToString:self.toUserParse.objectId]) {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"toCell" forIndexPath:indexPath];
+        cell.userImageView.image = self.toPhoto;
+    }
+
+    cell.userImageView.layer.cornerRadius = 26;
+    cell.userImageView.clipsToBounds = YES;
+    cell.userImageView.layer.borderWidth = 2.0,
+    cell.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+
+
+
     cell.dateLabel.text = [dateFormatter stringFromDate:[message createdAt]];
     cell.messageTextView.text = message.text;
 
 #warning DAVE
-//    cell.messageTextView.backgroundColor = BLUEDARK_COLOR;
-//    cell.messageTextView.layer.cornerRadius = 10.0;
-//    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:14]};
-//
-//    CGRect rect = [message.text boundingRectWithSize:CGSizeMake(300, CGFLOAT_MAX)
-//                                             options:NSStringDrawingUsesLineFragmentOrigin
-//                                          attributes:attributes
-//                                             context:nil];
-//    CGRect newFrame = cell.messageTextView.frame;
-//    newFrame.size.width = rect.size.width + MARGIN*2;
-//    if ([message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
-//        newFrame.origin.x = cell.userImageView.frame.origin.x - newFrame.size.width - MARGIN/2;
-//    }
-//    cell.messageTextView.frame = newFrame;
+    //    cell.messageTextView.backgroundColor = BLUEDARK_COLOR;
+    //    cell.messageTextView.layer.cornerRadius = 10.0;
+    //    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:14]};
+    //
+    //    CGRect rect = [message.text boundingRectWithSize:CGSizeMake(300, CGFLOAT_MAX)
+    //                                             options:NSStringDrawingUsesLineFragmentOrigin
+    //                                          attributes:attributes
+    //                                             context:nil];
+    //    CGRect newFrame = cell.messageTextView.frame;
+    //    newFrame.size.width = rect.size.width + MARGIN*2;
+    //    if ([message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
+    //        newFrame.origin.x = cell.userImageView.frame.origin.x - newFrame.size.width - MARGIN/2;
+    //    }
+    //    cell.messageTextView.frame = newFrame;
 
     return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    MessageParse *message = [self.messages objectAtIndex:indexPath.row];
+    if (message.image || message.sendImage) {
+        return CGSizeMake(310, 142);
+    } else {
+        return CGSizeMake(310, 80);
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -245,9 +287,40 @@
     [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
 }
 
+- (void)hiddeKeyBoard
+{
+    [self.textField resignFirstResponder];
+    CGRect messagesViewFrame = self.messagesView.frame;
+    CGRect collectionViewFrame = self.collectionView.frame;
+
+    messagesViewFrame.origin.y = self.view.frame.size.height - messagesViewFrame.size.height;
+    collectionViewFrame.size.height = self.view.frame.size.height - messagesViewFrame.size.height;
+
+    [UIView animateWithDuration:1
+                          delay:0
+         usingSpringWithDamping:0.7
+          initialSpringVelocity:0.2
+                        options:UIViewAnimationOptionCurveEaseIn animations:^{
+                            self.messagesView.frame = messagesViewFrame;
+                            self.collectionView.frame = collectionViewFrame;
+
+                        } completion:^(BOOL finished) {
+
+                        }];
+}
+
+
+- (IBAction)sendPhoto:(id)sender
+{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
 #pragma mark - TextField Delegate
 
--(void)textFieldDidBeginEditing:(UITextField *)textField
+- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (self.messages.count>2) {
         [self performSelector:@selector(scrollCollectionView) withObject:nil afterDelay:0.0];
@@ -272,34 +345,39 @@
 
 }
 
-//-(BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//    [self.view endEditing:YES];
-//    return YES;
-//}
+#pragma mark - ImagePickerControllerDelegate
 
--(void)hiddeKeyBoard
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [self.textField resignFirstResponder];
-    CGRect messagesViewFrame = self.messagesView.frame;
-    CGRect collectionViewFrame = self.collectionView.frame;
+    [self hiddeKeyBoard];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    MessageParse *message = [MessageParse object];
+    message.fromUserParse = [UserParse currentUser];
+    message.toUserParse = self.toUserParse;
+    message.read = NO;
+    [self.messages addObject:message];
 
-    messagesViewFrame.origin.y = self.view.frame.size.height - messagesViewFrame.size.height;
-    collectionViewFrame.size.height = self.view.frame.size.height - messagesViewFrame.size.height;
+    message.sendImage = image;
+    NSInteger item = [self.collectionView numberOfItemsInSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:0];
+    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
+    [self scrollCollectionView];
+    
+    
+    PFFile *file = [PFFile fileWithData:UIImagePNGRepresentation(image)];
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        message.image = file;
+        [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            PFQuery *query = [PFInstallation query];
+            [query whereKey:@"user" equalTo:self.toUserParse];
 
-    [UIView animateWithDuration:1
-                          delay:0
-         usingSpringWithDamping:0.7
-          initialSpringVelocity:0.2
-                        options:UIViewAnimationOptionCurveEaseIn animations:^{
-                            self.messagesView.frame = messagesViewFrame;
-                            self.collectionView.frame = collectionViewFrame;
-                            
-                        } completion:^(BOOL finished) {
-                            
-                        }];
+
+            [PFPush sendPushMessageToQueryInBackground:query
+                                           withMessage:[NSString stringWithFormat:@"New image from %@",[PFUser currentUser].username]];
+        }];
+    }];
 }
-
 
 
 @end
