@@ -73,7 +73,6 @@
 {
     self.descriptionTextView.textContainer.maximumNumberOfLines = 4;
     self.descriptionTextView.textColor = WHITE_COLOR;
-    self.descriptionTextView.backgroundColor = BLUEDARK_COLOR;
     self.view.backgroundColor = BLUE_COLOR;
     self.genderSelect.backgroundColor = [UIColor clearColor];
     [self.genderSelect.layer setBorderWidth:1];
@@ -136,6 +135,18 @@
              self.distanceLabel.text = [NSString stringWithFormat:@"%dkm",(int)DEFAULT_DISTANCE];
          }
 
+         if (!self.user.isMale) {
+
+             self.genderSelect.frame = CGRectMake(173, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
+         }
+         if ([self.user.sexuality isEqualToNumber:[NSNumber numberWithInt:1]]) {
+             self.genderLikeSelect.frame = CGRectMake(121, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+         }
+         if ([self.user.sexuality isEqualToNumber:[NSNumber numberWithInt:2]]) {
+             self.genderLikeSelect.frame = CGRectMake(215, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+         }
+         [self.agePickerView scrollToElement:[NSNumber numberWithInt:self.user.age.intValue-18].intValue animated:YES];
+
      }];
 }
 - (IBAction)distanceChanged:(UISlider *)sender
@@ -156,21 +167,7 @@
 
 - (void)viewDidLayoutSubviews
 {
-    if (!self.user.isMale) {
 
-        self.genderSelect.frame = CGRectMake(173, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
-    }
-    if ([self.user.sexuality isEqualToNumber:[NSNumber numberWithInt:1]]) {
-        self.genderLikeSelect.frame = CGRectMake(121, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
-    }
-    if ([self.user.sexuality isEqualToNumber:[NSNumber numberWithInt:2]]) {
-        self.genderLikeSelect.frame = CGRectMake(215, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
-    }
-    [self.agePickerView scrollToElement:[NSNumber numberWithInt:self.user.age.intValue-18].intValue animated:YES];
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.view.bounds;
-    gradient.colors = [NSArray arrayWithObjects:(id)BLUEDARK_COLOR.CGColor,(id)BLUE_COLOR.CGColor, nil];
-    [self.view.layer insertSublayer:gradient atIndex:0];
 }
 
 - (IBAction)maleSelect:(id)sender

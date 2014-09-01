@@ -49,6 +49,11 @@
         if (error) {
             [self showAlertForInvalidLogin];
         } else {
+            if ([PFUser currentUser]) {
+                PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                [currentInstallation setObject:[PFUser currentUser] forKey:@"user"];
+                [currentInstallation saveInBackground];
+            }
             [self performSegueWithIdentifier:@"login" sender:self];
         }
     }];
@@ -74,7 +79,7 @@
 - (void)customizeView
 {
     self.emailTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
-        self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     [self.signInButton.layer setBorderColor:[UIColor whiteColor].CGColor];
     [[self.signInButton layer] setBorderWidth:1.0f];
 
@@ -82,7 +87,7 @@
     [self.containerView.layer setBorderWidth:1.0f];
     [self.containerViewPassword.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.containerViewPassword.layer setBorderWidth:1.0f];
-    
+
 }
 
 
@@ -128,7 +133,7 @@
 //
 //    }];
 //
-//    
+//
 //}
 
 - (void)keyboardDidShow:(NSNotification *)notification

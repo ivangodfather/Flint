@@ -97,19 +97,28 @@
 }
 
 #pragma mark - UICollectionViewDatasource
-
+#define MARGIN 10
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MessageParse *message = [self.messages objectAtIndex:indexPath.row];
     UserCollectionViewCell *cell;
+
     if ([message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"fromCell" forIndexPath:indexPath];
         cell.userImageView.image = self.fromPhoto;
         cell.messageTextView.textColor = BLACK_COLOR;
+
+
+
+
     } else {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"toCell" forIndexPath:indexPath];
         cell.userImageView.image = self.toPhoto;
+
+
     }
+
+
 
     cell.userImageView.layer.cornerRadius = 26;
     cell.userImageView.clipsToBounds = YES;
@@ -126,6 +135,22 @@
 
     cell.dateLabel.text = [dateFormatter stringFromDate:[message createdAt]];
     cell.messageTextView.text = message.text;
+
+#warning DAVE
+//    cell.messageTextView.backgroundColor = BLUEDARK_COLOR;
+//    cell.messageTextView.layer.cornerRadius = 10.0;
+//    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:14]};
+//
+//    CGRect rect = [message.text boundingRectWithSize:CGSizeMake(300, CGFLOAT_MAX)
+//                                             options:NSStringDrawingUsesLineFragmentOrigin
+//                                          attributes:attributes
+//                                             context:nil];
+//    CGRect newFrame = cell.messageTextView.frame;
+//    newFrame.size.width = rect.size.width + MARGIN*2;
+//    if ([message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
+//        newFrame.origin.x = cell.userImageView.frame.origin.x - newFrame.size.width - MARGIN/2;
+//    }
+//    cell.messageTextView.frame = newFrame;
 
     return cell;
 }
@@ -250,7 +275,7 @@
                             self.collectionView.frame = collectionViewFrame;
 
                         } completion:^(BOOL finished) {
-                            
+
                         }];
 
 }
@@ -277,9 +302,9 @@
                         options:UIViewAnimationOptionCurveEaseIn animations:^{
                             self.messagesView.frame = messagesViewFrame;
                             self.collectionView.frame = collectionViewFrame;
-
+                            
                         } completion:^(BOOL finished) {
-
+                            
                         }];
 }
 

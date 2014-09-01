@@ -35,7 +35,6 @@
     _sidebarButton.action = @selector(revealToggle:);
 
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 48, 20)];
     self.searchTextField.leftView = paddingView;
     self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
@@ -48,15 +47,6 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardWillHideNotification object:nil];
-
-
-
-#warning Move to signin delegate
-    if ([PFUser currentUser]) {
-        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-        [currentInstallation setObject:[PFUser currentUser] forKey:@"user"];
-        [currentInstallation saveInBackground];
-    }
 }
 
 - (void)customize
@@ -98,8 +88,8 @@
                 NSUInteger count = users.count;
                 [users addObject:message.fromUserParse];
                 if (users.count > count) {
-                    [self.messages addObject:message];
                     [message.fromUserParse fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                        [self.messages addObject:message];
                         [self.usersParseArray addObject:message.fromUserParse];
                         NSInteger position = [self.usersParseArray indexOfObject:message.fromUserParse];
                         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:position inSection:0];
@@ -111,9 +101,11 @@
                 NSUInteger count = users.count;
                 [users addObject:message.toUserParse];
                 if (users.count > count) {
-                    [self.messages addObject:message];
                     [message.toUserParse fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                        [self.messages addObject:message];
                         [self.usersParseArray addObject:message.toUserParse];
+                        NSLog(@"user %@ position:%d",message.toUserParse.username,[self.usersParseArray indexOfObject:message.toUserParse]);
+
                         NSInteger position = [self.usersParseArray indexOfObject:message.toUserParse];
                         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:position inSection:0];
                         [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -139,39 +131,39 @@
         user = [self.usersParseArray objectAtIndex:indexPath.row];
     }
 
-        cell.nameTextLabel.text = user.username;
-        cell.userImageView.layer.cornerRadius = 26;
-        cell.userImageView.clipsToBounds = YES;
-        cell.userImageView.layer.borderWidth = 2.0,
-        cell.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    cell.nameTextLabel.text = user.username;
+    cell.userImageView.layer.cornerRadius = 26;
+    cell.userImageView.clipsToBounds = YES;
+    cell.userImageView.layer.borderWidth = 2.0,
+    cell.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
 
-        UIImageView *accesory = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accesory"]];
-        accesory.frame = CGRectMake(15, 0, 15, 15);
-        accesory.contentMode = UIViewContentModeScaleAspectFit;
-        cell.accessoryView = accesory;
+    UIImageView *accesory = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accesory"]];
+    accesory.frame = CGRectMake(15, 0, 15, 15);
+    accesory.contentMode = UIViewContentModeScaleAspectFit;
+    cell.accessoryView = accesory;
 
-        MessageParse *message = [self.messages objectAtIndex:indexPath.row];
-        cell.lastMessageLabel.text = message.text;
-        if (!message.read) {
-            cell.lastMessageLabel.textColor = RED_COLOR;
-        } else {
-            cell.lastMessageLabel.textColor = BLACK_COLOR;
-        }
-        cell.dateLabel.textColor = BLACK_COLOR;
-        NSDateFormatter *dateFormatter = [NSDateFormatter new];
-        [dateFormatter setDoesRelativeDateFormatting:YES];
-        if ([[message createdAt] timeIntervalSinceNow] * -1 < SECONDS_DAY) {
-            dateFormatter.timeStyle = NSDateFormatterShortStyle;
-        } else {
-            dateFormatter.dateStyle = NSDateFormatterShortStyle;
-        }
-        cell.dateLabel.text = [dateFormatter stringFromDate:[message createdAt]];
-        UIView *bgColorView = [[UIView alloc] init];
-        bgColorView.backgroundColor = RED_COLOR;
-        [cell setSelectedBackgroundView:bgColorView];
-        [user.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            cell.userImageView.image = [UIImage imageWithData:data];
-        }];
+    MessageParse *message = [self.messages objectAtIndex:indexPath.row];
+    cell.lastMessageLabel.text = message.text;
+    if (!message.read) {
+        cell.lastMessageLabel.textColor = RED_COLOR;
+    } else {
+        cell.lastMessageLabel.textColor = BLACK_COLOR;
+    }
+    cell.dateLabel.textColor = BLACK_COLOR;
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDoesRelativeDateFormatting:YES];
+    if ([[message createdAt] timeIntervalSinceNow] * -1 < SECONDS_DAY) {
+        dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    } else {
+        dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    }
+    cell.dateLabel.text = [dateFormatter stringFromDate:[message createdAt]];
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = RED_COLOR;
+    [cell setSelectedBackgroundView:bgColorView];
+    [user.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        cell.userImageView.image = [UIImage imageWithData:data];
+    }];
 
     return cell;
 }
@@ -212,7 +204,7 @@
 {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     [self presentViewController:picker animated:YES completion:^{
-        
+
     }];
 }
 
@@ -244,7 +236,7 @@
                             rect.origin.y += 200;
                             self.cameraButton.frame = rect;
                         } completion:^(BOOL finished) {
-
+                            
                         }];
 }
 @end

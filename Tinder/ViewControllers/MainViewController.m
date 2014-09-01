@@ -59,7 +59,7 @@
     self.view.backgroundColor = BLUE_COLOR;
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.view.bounds;
-    gradient.colors = [NSArray arrayWithObjects:(id)BLUEDARK_COLOR.CGColor,(id)RED_COLOR.CGColor, (id)BLUEDARK_COLOR.CGColor,nil];
+    gradient.colors = [NSArray arrayWithObjects:(id)BLUEDARK_COLOR.CGColor,(id)RED_COLOR.CGColor,nil];
     [self.view.layer insertSublayer:gradient atIndex:0];
 
 }
