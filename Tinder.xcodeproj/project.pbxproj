@@ -16,6 +16,7 @@
 		426107E319B4AA700000536C /* V8HorizontalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 426107E119B4AA700000536C /* V8HorizontalPickerView.m */; };
 		426107E819B4AAA60000536C /* Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = 426107E519B4AAA60000536C /* Animator.m */; };
 		426107E919B4AAA60000536C /* NavigationControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 426107E719B4AAA60000536C /* NavigationControllerDelegate.m */; };
+		426107EC19B4E0B60000536C /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 426107EB19B4E0B60000536C /* ImageViewController.m */; };
 		4281F25319B11CF7007724C6 /* Menu.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4281F25219B11CF7007724C6 /* Menu.xcassets */; };
 		4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25519B22D0D007724C6 /* UserMessagesViewController.m */; };
 		4281F25C19B22F72007724C6 /* UserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25B19B22F72007724C6 /* UserCollectionViewCell.m */; };
@@ -84,6 +85,8 @@
 		426107E519B4AAA60000536C /* Animator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Animator.m; path = Libraries/Animator.m; sourceTree = "<group>"; };
 		426107E619B4AAA60000536C /* NavigationControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NavigationControllerDelegate.h; path = Libraries/NavigationControllerDelegate.h; sourceTree = "<group>"; };
 		426107E719B4AAA60000536C /* NavigationControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationControllerDelegate.m; path = Libraries/NavigationControllerDelegate.m; sourceTree = "<group>"; };
+		426107EA19B4E0B60000536C /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageViewController.h; path = ViewControllers/ImageViewController.h; sourceTree = "<group>"; };
+		426107EB19B4E0B60000536C /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageViewController.m; path = ViewControllers/ImageViewController.m; sourceTree = "<group>"; };
 		4281F25219B11CF7007724C6 /* Menu.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Menu.xcassets; sourceTree = "<group>"; };
 		4281F25419B22D0D007724C6 /* UserMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserMessagesViewController.h; path = ViewControllers/UserMessagesViewController.h; sourceTree = "<group>"; };
 		4281F25519B22D0D007724C6 /* UserMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserMessagesViewController.m; path = ViewControllers/UserMessagesViewController.m; sourceTree = "<group>"; };
@@ -343,6 +346,8 @@
 				42DBCCD519ACD87000CE6C93 /* MessagesViewController.m */,
 				4281F25419B22D0D007724C6 /* UserMessagesViewController.h */,
 				4281F25519B22D0D007724C6 /* UserMessagesViewController.m */,
+				426107EA19B4E0B60000536C /* ImageViewController.h */,
+				426107EB19B4E0B60000536C /* ImageViewController.m */,
 			);
 			name = Messages;
 			sourceTree = "<group>";
@@ -488,6 +493,7 @@
 				42DBCCE019ACDF7000CE6C93 /* UserParse.m in Sources */,
 				42DBCCC819AC4E4B00CE6C93 /* MainViewController.m in Sources */,
 				42DBCC3719AC20BB00CE6C93 /* main.m in Sources */,
+				426107EC19B4E0B60000536C /* ImageViewController.m in Sources */,
 				426107E919B4AAA60000536C /* NavigationControllerDelegate.m in Sources */,
 				426107E319B4AA700000536C /* V8HorizontalPickerView.m in Sources */,
 				426107E819B4AAA60000536C /* Animator.m in Sources */,

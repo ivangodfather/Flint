@@ -1168,11 +1168,35 @@
                         <outlet property="collectionView" destination="cLf-s6-1pg" id="cZp-hT-XRf"/>
                         <outlet property="messagesView" destination="znx-55-aXc" id="BtU-Ni-qLu"/>
                         <outlet property="textField" destination="1cw-AD-1Ac" id="mg8-aj-hH3"/>
+                        <segue destination="hsn-7u-aHf" kind="push" identifier="image" id="Q0d-cM-tNE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sps-eH-99S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2144" y="-753"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="FYj-qu-kVq">
+            <objects>
+                <viewController id="hsn-7u-aHf" customClass="ImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4Kl-I2-sAF">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="KTG-xe-cp0">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="NxF-4n-PBB">
+                            <connections>
+                                <action selector="actionPressed:" destination="hsn-7u-aHf" id="0zj-uo-OjW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gyC-Xa-Rgu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2580" y="-756"/>
         </scene>
     </scenes>
     <resources>

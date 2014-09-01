@@ -8,6 +8,7 @@
 
 #import "UserMessagesViewController.h"
 #import "UserCollectionViewCell.h"
+#import "ImageViewController.h"
 
 @interface UserMessagesViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property NSMutableArray *messages;
@@ -34,7 +35,6 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     barButton.title = @"";
     self.navigationController.navigationBar.topItem.backBarButtonItem = barButton;
-
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddeKeyBoard)];
     [self.collectionView addGestureRecognizer:tapGestureRecognizer];
 
@@ -120,6 +120,9 @@
 
             }];
         }
+        cell.photoImageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedImage:)];
+        [cell.photoImageView addGestureRecognizer:tap];
     }
 
     //Image from other
@@ -135,6 +138,9 @@
             });
 
         }];
+        cell.photoImageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedImage:)];
+        [cell.photoImageView addGestureRecognizer:tap];
     }
 
     //Text from me
@@ -229,9 +235,7 @@
     [query whereKey:@"read" equalTo:[NSNumber numberWithBool:NO]];
 
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        NSLog(@"objects %@", objects);
         for (MessageParse *message in objects) {
-            NSLog(@"mensaje %@", message.text);
             [self.messages addObject:message];
             message.read = YES;
             [message saveInBackground];
@@ -364,7 +368,7 @@
     [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
     [self scrollCollectionView];
     
-    
+
     PFFile *file = [PFFile fileWithData:UIImagePNGRepresentation(image)];
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         message.image = file;
@@ -379,5 +383,18 @@
     }];
 }
 
+- (void)tappedImage:(UITapGestureRecognizer *)tap
+{
+    [self performSegueWithIdentifier:@"image" sender:tap.view];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"image"]) {
+        ImageViewController *vc = segue.destinationViewController;
+        UIImageView *imageView = (UIImageView *)sender;
+        vc.image = imageView.image;
+    }
+}
 
 @end
