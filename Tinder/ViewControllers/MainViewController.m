@@ -9,6 +9,8 @@
 #import "MainViewController.h"
 #import "SWRevealViewController.h"
 #import "UserParse.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 #define labelHeight 30
 #define labelCushion 20
@@ -24,7 +26,7 @@
 
 #define cornRadius 3
 
-@interface MainViewController () <UIGestureRecognizerDelegate>
+@interface MainViewController () <UIGestureRecognizerDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (strong, nonatomic) UIView *profileView;
 @property (strong, nonatomic) UIView* backgroundView;
@@ -32,15 +34,19 @@
 @property UserParse* backgroundUserProfile;
 @property NSMutableArray *posibleMatchesArray;
 @property NSMutableArray* willBeMatches;
-@property UIImageView* profileImage;
-@property UIImageView* backgroundImage;
+@property (strong, nonatomic) UIImageView* profileImage;
+@property (strong, nonatomic) UIImageView* backgroundImage;
 @property NSMutableArray* arrayOfPhotoDataForeground;
 @property NSMutableArray* arrayOfPhotoDataBackground;
-@property UILabel* foregroundLabel;
-@property UILabel* backgroundLabel;
+@property (strong, nonatomic) UILabel* foregroundLabel;
+@property (strong, nonatomic) UILabel* backgroundLabel;
 @property BOOL firstTime;
 @property BOOL isRotating;
 @property int photoArrayIndex;
+@property CLLocationManager* locationManager;
+@property CLLocation* currentLocation;
+@property int milesAway;
+@property UIView* gradiantView;
 @end
 
 @implementation MainViewController
@@ -52,15 +58,113 @@
     _sidebarButton.action = @selector(revealToggle:);
     self.posibleMatchesArray = [NSMutableArray new];
     self.willBeMatches = [NSMutableArray new];
+    [self currentLocationIdentifier];
     self.photoArrayIndex = 1;
     self.firstTime = YES;
     self.isRotating = YES;
-    [self getMatches];
     self.view.backgroundColor = BLUE_COLOR;
+    self.gradiantView = [[UIView alloc] initWithFrame:self.view.frame];
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = self.view.bounds;
     gradient.colors = [NSArray arrayWithObjects:(id)BLUEDARK_COLOR.CGColor,(id)RED_COLOR.CGColor,nil];
-    [self.view.layer insertSublayer:gradient atIndex:0];
+    [self.gradiantView.layer insertSublayer:gradient atIndex:0];
+    [self.view addSubview:self.gradiantView];
+
+}
+
+-(void)currentLocationIdentifier
+{
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    self.currentLocation = [locations objectAtIndex:0];
+    [self.locationManager stopUpdatingLocation];
+    [self getMatches];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
+    [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (!(error))
+         {
+             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+             NSLog(@"\nCurrent Location Detected\n");
+             NSLog(@"placemark %@",placemark);
+             NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+             NSString *Address = [[NSString alloc]initWithString:locatedAt];
+             [UserParse currentUser].address = Address;
+             [[UserParse currentUser] saveEventually];
+             //             NSString *Area = [[NSString alloc]initWithString:placemark.locality];
+             //             NSString *Country = [[NSString alloc]initWithString:placemark.country];
+             NSString *CountryArea = [NSString stringWithFormat:@"%@", Address];
+             NSLog(@"%@",CountryArea);
+         }
+         else
+         {
+             NSLog(@"Geocode failed with error %@", error);
+             NSLog(@"\nCurrent Location Not Detected\n");
+             //return;
+         }
+         /*---- For more results
+          placemark.region);
+          placemark.country);
+          placemark.locality);
+          placemark.name);
+          placemark.ocean);
+          placemark.postalCode);
+          placemark.subLocality);
+          placemark.location);
+          ------*/
+     }];
+}
+
+-(void) getDistanceFrom:(CLLocation*)userLocation withString:(NSString*)toUserStringAdress
+{
+    CLGeocoder* geocoder = [CLGeocoder new];
+    [geocoder geocodeAddressString:toUserStringAdress completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (!error) {
+            CLPlacemark* placemark = placemarks.firstObject;
+            CLLocation* toUserLocation = placemark.location;
+            int meters = (int)[userLocation distanceFromLocation:toUserLocation];
+            int miles = meters * 0.000621371;
+            self.milesAway = miles;
+            if (self.milesAway > 10000) {
+                [self.posibleMatchesArray removeObject:self.posibleMatchesArray.firstObject];
+                UserParse* aUser = self.posibleMatchesArray.firstObject;
+                [self getDistanceFrom:self.currentLocation withString:aUser.address];
+            } else {
+                [self firstPlacement];
+                NSLog(@"miles - %d", miles);
+            }
+        }
+    }];
+
+}
+
+-(void) getDistanceFromSecondTime:(CLLocation*)userLocation withString:(NSString*)toUserStringAdress
+{
+    CLGeocoder* geocoder = [CLGeocoder new];
+    [geocoder geocodeAddressString:toUserStringAdress completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (!error) {
+            CLPlacemark* placemark = placemarks.firstObject;
+            CLLocation* toUserLocation = placemark.location;
+            int meters = (int)[userLocation distanceFromLocation:toUserLocation];
+            int miles = meters * 0.000621371;
+            self.milesAway = miles;
+            if (self.milesAway > 10000) {
+                [self.posibleMatchesArray removeObject:self.posibleMatchesArray.firstObject];
+                UserParse* aUser = self.posibleMatchesArray.firstObject;
+                [self getDistanceFromSecondTime:self.currentLocation withString:aUser.address];
+            } else {
+                [self placeBackgroundProfile];
+                NSLog(@"miles - %d", miles);
+            }
+        }
+    }];
 
 }
 
@@ -88,79 +192,83 @@
             NSLog(@"new matches - %@", objects);
             if (self.firstTime) {
                 UserParse* aUser = self.posibleMatchesArray.firstObject;
-                self.arrayOfPhotoDataForeground = [NSMutableArray new];
-                [self.posibleMatchesArray removeObject:aUser];
-                self.currShowingProfile = aUser;
-                self.profileView.tag = profileViewTag;
-                [self placeBackgroundProfile];
-                PFFile* file = aUser[@"photo"];
-                NSString* username = aUser[@"username"];
-                NSLog(@"top username %@", aUser.username);
-                NSNumber* age = aUser[@"age"];
-                [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                    [self.arrayOfPhotoDataForeground addObject:data];
-                    self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
-                    self.profileView.backgroundColor = RED_COLOR;
-                    self.profileView.clipsToBounds = YES;
-                    self.profileView.layer.cornerRadius = cornRadius;
-                    [self.view addSubview:self.profileView];
-                    self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
-                    self.profileImage.tag = currentProfileImage;
-                    self.profileImage.image = [UIImage imageWithData:data];
-                    self.profileImage.clipsToBounds = YES;
-                    self.profileImage.layer.cornerRadius = cornRadius;
-                    [self.profileView addSubview:self.profileImage];
-                    self.foregroundLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.backgroundView.frame.size.height-labelHeight, self.profileImage.frame.size.width, labelHeight)];
-                    self.foregroundLabel.textAlignment = NSTextAlignmentCenter;
-                    self.foregroundLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
-                    self.foregroundLabel.textColor = [UIColor whiteColor];
-                    self.foregroundLabel.backgroundColor = RED_COLOR;
-                    self.foregroundLabel.clipsToBounds = YES;
-                    self.foregroundLabel.layer.cornerRadius = cornRadius;
-                    [self.foregroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:20]];
-                    UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.foregroundLabel.font.fontName] size:self.foregroundLabel.font.pointSize];
-                    if ([aUser[@"photo1"] isKindOfClass:[PFFile class]]) {
-                        PFFile* photo1 = aUser[@"photo1"];
-                        [photo1 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                            [self.arrayOfPhotoDataForeground addObject:data];
-                        }];
-                    }
-                    if ([aUser[@"photo2"] isKindOfClass:[PFFile class]]) {
-                        PFFile* photo2 = aUser[@"photo2"];
-                        [photo2 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                            [self.arrayOfPhotoDataForeground addObject:data];
-                        }];
-                    }
-                    if ([aUser[@"photo3"] isKindOfClass:[PFFile class]]) {
-                        PFFile* photo3 = aUser[@"photo3"];
-                        [photo3 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                            [self.arrayOfPhotoDataForeground addObject:data];
-                        }];
-                    }
-                    if ([aUser[@"photo4"] isKindOfClass:[PFFile class]]) {
-                        PFFile* photo4 = aUser[@"photo4"];
-                        [photo4 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-                            [self.arrayOfPhotoDataForeground addObject:data];
-                        }];
-                    }
-                    [self.foregroundLabel setFont:newFont];
-                    [self.profileView addSubview:self.foregroundLabel];
-                    [self setPanGestureRecognizer];
-                    self.firstTime = NO;
-
-                }];
+                [self getDistanceFrom:self.currentLocation withString:aUser.address];
             }
         }];
+    }];
+}
 
+- (void) firstPlacement
+{
+    UserParse* aUser = self.posibleMatchesArray.firstObject;
+    NSLog(@"first user %@", aUser);
+    self.arrayOfPhotoDataForeground = [NSMutableArray new];
+    [self.posibleMatchesArray removeObject:aUser];
+    self.currShowingProfile = aUser;
+    self.profileView.tag = profileViewTag;
+    UserParse* backgroundUser = self.posibleMatchesArray.firstObject;
+    [self getDistanceFromSecondTime:self.currentLocation withString:backgroundUser.address];
+    PFFile* file = aUser[@"photo"];
+    NSString* username = aUser[@"username"];
+    NSLog(@"top username %@", aUser.username);
+    NSNumber* age = aUser[@"age"];
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        [self.arrayOfPhotoDataForeground addObject:data];
+        self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
+        self.profileView.backgroundColor = RED_COLOR;
+        self.profileView.clipsToBounds = YES;
+        self.profileView.layer.cornerRadius = cornRadius;
+        [self.view addSubview:self.profileView];
+        self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
+        self.profileImage.tag = currentProfileImage;
+        self.profileImage.image = [UIImage imageWithData:data];
+        self.profileImage.clipsToBounds = YES;
+        self.profileImage.layer.cornerRadius = cornRadius;
+        [self.profileView addSubview:self.profileImage];
+        self.foregroundLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.profileView.frame.size.height-labelHeight, self.profileImage.frame.size.width, labelHeight)];
+        self.foregroundLabel.textAlignment = NSTextAlignmentCenter;
+        self.foregroundLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
+        self.foregroundLabel.textColor = [UIColor whiteColor];
+        self.foregroundLabel.backgroundColor = RED_COLOR;
+        self.foregroundLabel.clipsToBounds = YES;
+        self.foregroundLabel.layer.cornerRadius = cornRadius;
+        [self.foregroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:20]];
+        UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.foregroundLabel.font.fontName] size:self.foregroundLabel.font.pointSize];
+        [self.foregroundLabel setFont:newFont];
+        [self.profileView addSubview:self.foregroundLabel];
+        [self.profileView bringSubviewToFront:self.foregroundLabel];
+        NSLog(@"%@", self.foregroundLabel);
+        [self setPanGestureRecognizer];
+        self.firstTime = NO;
+        if ([aUser[@"photo1"] isKindOfClass:[PFFile class]]) {
+            PFFile* photo1 = aUser[@"photo1"];
+            [photo1 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                [self.arrayOfPhotoDataForeground addObject:data];
+            }];
+        }
+        if ([aUser[@"photo2"] isKindOfClass:[PFFile class]]) {
+            PFFile* photo2 = aUser[@"photo2"];
+            [photo2 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                [self.arrayOfPhotoDataForeground addObject:data];
+            }];
+        }
+        if ([aUser[@"photo3"] isKindOfClass:[PFFile class]]) {
+            PFFile* photo3 = aUser[@"photo3"];
+            [photo3 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                [self.arrayOfPhotoDataForeground addObject:data];
+            }];
+        }
+        if ([aUser[@"photo4"] isKindOfClass:[PFFile class]]) {
+            PFFile* photo4 = aUser[@"photo4"];
+            [photo4 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                [self.arrayOfPhotoDataForeground addObject:data];
+            }];
+        }
     }];
 }
 
 -(void) placeBackgroundProfile
 {
-//    if (self.posibleMatchesArray.count == 1) {
-//        [self getMatches];
-//    }
-
     UserParse* aUser = self.posibleMatchesArray.firstObject;
     [self.posibleMatchesArray removeObject:aUser];
     self.backgroundUserProfile = aUser;
@@ -173,14 +281,17 @@
     self.backgroundView.backgroundColor = RED_COLOR;
     self.backgroundView.clipsToBounds = YES;
     self.backgroundView.layer.cornerRadius = cornRadius;
+    [self.view addSubview:self.backgroundView];
+    [self.view sendSubviewToBack:self.backgroundView];
+    [self.view sendSubviewToBack:self.gradiantView];
+    NSLog(@"%@", self.backgroundView);
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        [self.arrayOfPhotoDataBackground addObject:data];
         self.backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.backgroundView.frame.size.width, self.backgroundView.frame.size.height-labelHeight)];
         self.backgroundImage.image = [UIImage imageWithData:data];
         self.backgroundImage.clipsToBounds = YES;
         self.backgroundImage.layer.cornerRadius = cornRadius;
-        [self.view addSubview:self.backgroundView];
         [self.backgroundView addSubview:self.backgroundImage];
-        [self.view sendSubviewToBack:self.backgroundView];
         self.backgroundLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.backgroundView.frame.size.height-labelHeight, self.backgroundImage.frame.size.width, labelHeight)];
         self.backgroundLabel.textAlignment = NSTextAlignmentCenter;
         self.backgroundLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
@@ -276,10 +387,11 @@
 - (void)addNewProfileImage
 {
     NSData* data;
-    if (self.photoArrayIndex+1 == self.arrayOfPhotoDataForeground.count) {
-        data = [self.arrayOfPhotoDataForeground objectAtIndex:self.photoArrayIndex];
+    if (self.photoArrayIndex >= self.arrayOfPhotoDataForeground.count) {
+        data = [self.arrayOfPhotoDataForeground objectAtIndex:self.photoArrayIndex-1];
         self.photoArrayIndex = 0;
-    } else {
+    }
+    if (self.photoArrayIndex < self.arrayOfPhotoDataForeground.count) {
         data = [self.arrayOfPhotoDataForeground objectAtIndex:self.photoArrayIndex];
         self.photoArrayIndex++;
     }
@@ -307,7 +419,7 @@
     BOOL allowRotation = YES;
     if (vel.x > 0)
     {
-//        self.profileView.transform = CGAffineTransformConcat(CGAffineTransformMakeTranslation(point.x, point.y), CGAffineTransformMakeRotation((-M_PI_2)+1.45));
+        //        self.profileView.transform = CGAffineTransformConcat(CGAffineTransformMakeTranslation(point.x, point.y), CGAffineTransformMakeRotation((-M_PI_2)+1.45));
         if (allowRotation) {
             allowRotation = NO;
             [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
@@ -322,7 +434,7 @@
     }
     else
     {
-//        self.profileView.transform = CGAffineTransformConcat(CGAffineTransformMakeTranslation(point.x, point.y), CGAffineTransformMakeRotation((M_PI_2)-1.45));
+        //        self.profileView.transform = CGAffineTransformConcat(CGAffineTransformMakeTranslation(point.x, point.y), CGAffineTransformMakeRotation((M_PI_2)-1.45));
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             [self.profileView setTransform:CGAffineTransformConcat(CGAffineTransformMakeTranslation(point.x, point.y), CGAffineTransformMakeRotation(0.15))];
         }completion:^(BOOL finished){
@@ -339,7 +451,9 @@
     //    [self placeBackgroundProfile];
     [self checkPointsForLike:point];
     if (pan.state == UIGestureRecognizerStateEnded) {
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.4 animations:^{
+            self.profileView.transform = CGAffineTransformMakeTranslation(0, -5);
+        } completion:^(BOOL finished) {
             self.profileView.transform = CGAffineTransformMakeTranslation(0, 0);
             self.profileView.alpha = 1;
         }];
@@ -374,12 +488,14 @@
             PFObject* posMatch = [query findObjects].firstObject;
             posMatch[@"toUserApproved"] = @"YES";
             [posMatch saveEventually];
+            NSLog(@"match made in heaven");
             NSLog(@"pos match %@", posMatch);
             [match saveEventually:^(BOOL succeeded, NSError *error) {
-                NSLog(@"match made in heaven");
-                self.currShowingProfile = self.backgroundUserProfile;
-                [self setPanGestureRecognizer];
-                [self placeBackgroundProfile];
+                if (succeeded) {
+                    self.currShowingProfile = self.backgroundUserProfile;
+                    [self getDistanceFromSecondTime:self.currentLocation withString:self.currShowingProfile.address];
+                    [self setPanGestureRecognizer];
+                }
             }];
         } else {
             PFObject* possibleMatch = [PFObject objectWithClassName:@"PossibleMatch"];
@@ -391,10 +507,10 @@
             possibleMatch[@"toUserApproved"] = @"notDone";
             [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
-                    NSLog(@"here");
                     self.currShowingProfile = self.backgroundUserProfile;
+                    [self getDistanceFromSecondTime:self.currentLocation withString:self.currShowingProfile.address];
                     [self setPanGestureRecognizer];
-                    [self placeBackgroundProfile];
+                    NSLog(@"here");
                 }
             }];
         }
@@ -415,7 +531,13 @@
             [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
             PFObject* posMatch = [query findObjects].firstObject;
             posMatch[@"toUserApproved"] = @"NO";
-            [posMatch saveEventually];
+            [posMatch saveEventually:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    self.currShowingProfile = self.backgroundUserProfile;
+                    [self getDistanceFromSecondTime:self.currentLocation withString:self.currShowingProfile.address];
+                    [self setPanGestureRecognizer];
+                }
+            }];
         } else {
             PFObject* possibleMatch = [PFObject objectWithClassName:@"PossibleMatch"];
             possibleMatch[@"fromUser"] = [UserParse currentUser];
@@ -428,7 +550,7 @@
                 if (succeeded) {
                     self.currShowingProfile = self.backgroundUserProfile;
                     [self setPanGestureRecognizer];
-                    [self placeBackgroundProfile];
+                    [self getDistanceFromSecondTime:self.currentLocation withString:self.currShowingProfile.address];
                     NSLog(@"save this no match");
                 }
             }];

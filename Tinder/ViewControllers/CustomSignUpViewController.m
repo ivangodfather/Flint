@@ -9,11 +9,13 @@
 #import "CustomSignUpViewController.h"
 #import "UserParse.h"
 #import "V8HorizontalPickerView.h"
+#import <CoreLocation/CoreLocation.h>
 
 
+#define MAX_AGE 99+1
+#define MIN_AGE 18
 
-
-@interface CustomSignUpViewController () <UIPickerViewDataSource, UIPickerViewDelegate, PFSignUpViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate, V8HorizontalPickerViewDataSource, V8HorizontalPickerViewDelegate>
+@interface CustomSignUpViewController () <UIPickerViewDataSource, UIPickerViewDelegate, PFSignUpViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UITextFieldDelegate, V8HorizontalPickerViewDataSource, V8HorizontalPickerViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *nameImageView;
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (weak, nonatomic) IBOutlet UIImageView *emailImageView;
@@ -37,6 +39,9 @@
 @property UserParse *theUser;
 @property NSNumber* sexuality;
 @property BOOL isMale;
+@property CLLocation *currentLocation;
+@property CLLocationManager *locationManager;
+@property NSString* address;
 @end
 
 @implementation CustomSignUpViewController
@@ -53,6 +58,54 @@
     [self setTextDelegates];
     [self populateArray];
     [self createAgePickerView];
+}
+
+-(void)currentLocationIdentifier
+{
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.delegate = self;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    self.currentLocation = [locations objectAtIndex:0];
+    [self.locationManager stopUpdatingLocation];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
+    [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (!(error))
+         {
+             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+             NSLog(@"\nCurrent Location Detected\n");
+             NSLog(@"placemark %@",placemark);
+             NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+             NSString *Address = [[NSString alloc]initWithString:locatedAt];
+             self.address = Address;
+             //             NSString *Area = [[NSString alloc]initWithString:placemark.locality];
+             //             NSString *Country = [[NSString alloc]initWithString:placemark.country];
+             NSString *CountryArea = [NSString stringWithFormat:@"%@", Address];
+             NSLog(@"%@",CountryArea);
+         }
+         else
+         {
+             NSLog(@"Geocode failed with error %@", error);
+             NSLog(@"\nCurrent Location Not Detected\n");
+             //return;
+         }
+         /*---- For more results
+          placemark.region);
+          placemark.country);
+          placemark.locality);
+          placemark.name);
+          placemark.ocean);
+          placemark.postalCode);
+          placemark.subLocality);
+          placemark.location);
+          ------*/
+     }];
 }
 
 - (void)createAgePickerView
@@ -331,6 +384,7 @@
     self.theUser.photo = self.file;
     self.theUser.isMale = self.isMale;
     self.theUser.sexuality = self.sexuality;
+    self.theUser.address = self.address;
 
     [self.theUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
@@ -401,6 +455,21 @@
 	//self.infoLabel.text = [NSString stringWithFormat:@"Selected index %d", index];
 }
 
++ (UIImage *)ipMaskedImageNamed:(NSString *)name color:(UIColor *)color
+{
+    UIImage *image = [UIImage imageNamed:name];
+    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, image.scale);
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    [image drawInRect:rect];
+    CGContextSetFillColorWithColor(c, [color CGColor]);
+    CGContextSetBlendMode(c, kCGBlendModeSourceAtop);
+    CGContextFillRect(c, rect);
+    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return result;
+}
+
 - (IBAction)nameBegin:(id)sender {
     self.nameTextField.alpha = 1;
     self.emailTextField.alpha = 0.5;
@@ -431,6 +500,7 @@
 }
 - (IBAction)passwordEnd:(id)sender {
 }
+
 
 
 @end

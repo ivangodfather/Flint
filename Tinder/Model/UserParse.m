@@ -21,6 +21,7 @@
 @dynamic sexuality;
 @dynamic matches;
 @dynamic distance;
+@dynamic address;
 
 + (void)load {
     [self registerSubclass];
