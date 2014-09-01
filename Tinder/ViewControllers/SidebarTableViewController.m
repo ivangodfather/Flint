@@ -158,7 +158,7 @@
 {
     NSString *text = @"Discover people that likes you nearby!";
     NSURL *url = [NSURL URLWithString:@"http://www.google.es"];
-    UIImage *image = [UIImage imageNamed:@"camera"];
+    UIImage *image = [UIImage imageNamed:@"AppIcon"];
 
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[text, url, image] applicationActivities:nil];
 

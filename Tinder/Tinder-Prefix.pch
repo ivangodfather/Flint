@@ -30,5 +30,6 @@
 #define KEYBOARD_HEIGHT 216.0
 #define MAX_AGE 99+1
 #define MIN_AGE 18
+#define DEFAULT_DISTANCE 20
 
 

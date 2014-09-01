@@ -17,9 +17,10 @@
 @dynamic photo3;
 @dynamic photo4;
 @dynamic isMale;
-@dynamic description;
+@dynamic desc;
 @dynamic sexuality;
 @dynamic matches;
+@dynamic distance;
 
 + (void)load {
     [self registerSubclass];

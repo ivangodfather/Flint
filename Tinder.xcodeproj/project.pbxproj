@@ -14,6 +14,7 @@
 		426107DA19B2D37A0000536C /* Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = 426107D719B2D37A0000536C /* Animator.m */; };
 		426107DB19B2D37A0000536C /* NavigationControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 426107D919B2D37A0000536C /* NavigationControllerDelegate.m */; };
 		426107DD19B3ABD80000536C /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 426107DC19B3ABD80000536C /* Profile.xcassets */; };
+		426107DF19B42D930000536C /* Barbuttons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 426107DE19B42D930000536C /* Barbuttons.xcassets */; };
 		4281F25319B11CF7007724C6 /* Menu.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4281F25219B11CF7007724C6 /* Menu.xcassets */; };
 		4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25519B22D0D007724C6 /* UserMessagesViewController.m */; };
 		4281F25C19B22F72007724C6 /* UserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25B19B22F72007724C6 /* UserCollectionViewCell.m */; };
@@ -79,6 +80,7 @@
 		426107D819B2D37A0000536C /* NavigationControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationControllerDelegate.h; sourceTree = "<group>"; };
 		426107D919B2D37A0000536C /* NavigationControllerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationControllerDelegate.m; sourceTree = "<group>"; };
 		426107DC19B3ABD80000536C /* Profile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Profile.xcassets; sourceTree = "<group>"; };
+		426107DE19B42D930000536C /* Barbuttons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Barbuttons.xcassets; sourceTree = "<group>"; };
 		4281F25219B11CF7007724C6 /* Menu.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Menu.xcassets; sourceTree = "<group>"; };
 		4281F25419B22D0D007724C6 /* UserMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserMessagesViewController.h; path = ViewControllers/UserMessagesViewController.h; sourceTree = "<group>"; };
 		4281F25519B22D0D007724C6 /* UserMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserMessagesViewController.m; path = ViewControllers/UserMessagesViewController.m; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				42DBCC7E19AC2F8100CE6C93 /* ViewControllers */,
 				42DBCC3C19AC20BB00CE6C93 /* Main.storyboard */,
 				42DBCC4219AC20BB00CE6C93 /* Images.xcassets */,
+				426107DE19B42D930000536C /* Barbuttons.xcassets */,
 				426107DC19B3ABD80000536C /* Profile.xcassets */,
 				4281F25219B11CF7007724C6 /* Menu.xcassets */,
 				42F5B28519B0C4CB0036938B /* Chat.xcassets */,
@@ -454,6 +457,7 @@
 			files = (
 				42DBCC4319AC20BB00CE6C93 /* Images.xcassets in Resources */,
 				42DBCC3519AC20BB00CE6C93 /* InfoPlist.strings in Resources */,
+				426107DF19B42D930000536C /* Barbuttons.xcassets in Resources */,
 				42F5B28619B0C4CB0036938B /* Chat.xcassets in Resources */,
 				42DBCC3E19AC20BB00CE6C93 /* Main.storyboard in Resources */,
 				4281F25319B11CF7007724C6 /* Menu.xcassets in Resources */,

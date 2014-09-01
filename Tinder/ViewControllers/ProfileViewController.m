@@ -12,13 +12,15 @@
 #import "V8HorizontalPickerView.h"
 
 #define DEFAULT_DESCRIPTION  @"Fill with information about you"
-#define MAXLENGTH 120
+#define MAXLENGTH 130
 #define MAX_PHOTOS 10
 
 @interface ProfileViewController () <V8HorizontalPickerViewDataSource, V8HorizontalPickerViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *charactersLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto;
+
 @property NSMutableArray *ages;
 @property (weak, nonatomic) IBOutlet V8HorizontalPickerView *agePickerView;
 @property (weak, nonatomic) IBOutlet UIView *genderSelect;
@@ -28,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto2;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto3;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto4;
+@property (weak, nonatomic) IBOutlet UISlider *distanceSlider;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 
 @property int selectedPhoto;
 
@@ -48,12 +52,6 @@
     [self customize];
     [self createAgePickerView];
     self.navigationItem.title = [PFUser currentUser].username;
-//    if ([self.descriptionTextView.text isEqualToString:@""]) {
-//        self.descriptionTextView.text = DEFAULT_DESCRIPTION;
-//    }
-    self.descriptionTextView.textContainer.maximumNumberOfLines = 4;
-
-
 }
 
 - (void)createAgePickerView
@@ -73,15 +71,20 @@
 
 - (void)customize
 {
+    self.descriptionTextView.textContainer.maximumNumberOfLines = 4;
     self.descriptionTextView.textColor = WHITE_COLOR;
     self.descriptionTextView.backgroundColor = BLUEDARK_COLOR;
     self.view.backgroundColor = BLUE_COLOR;
-    self.genderSelect.backgroundColor = RED_COLOR;
+    self.genderSelect.backgroundColor = [UIColor clearColor];
     [self.genderSelect.layer setBorderWidth:1];
     [self.genderSelect.layer setBorderColor:RED_COLOR.CGColor];
-    self.genderLikeSelect.backgroundColor = RED_COLOR;
+    self.genderLikeSelect.backgroundColor = [UIColor clearColor];
     [self.genderLikeSelect.layer setBorderWidth:1];
     [self.genderLikeSelect.layer setBorderColor:RED_COLOR.CGColor];
+    [self.distanceSlider setThumbImage:[UIImage imageNamed:@"accesory"] forState:UIControlStateNormal];
+    self.distanceSlider.thumbTintColor = RED_COLOR;
+    self.distanceSlider.minimumTrackTintColor = RED_COLOR;
+    self.distanceSlider.maximumTrackTintColor = WHITE_COLOR;
 
 }
 
@@ -92,7 +95,6 @@
                                  block:^(PFObject *object, NSError *error)
      {
          self.user = (UserParse *)object;
-         NSLog(@"DESC %@", self.user.description);
          [self.user.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
              if (!error) {
                  self.profilePhoto.image = [UIImage imageWithData:data];
@@ -118,11 +120,57 @@
                  self.profilePhoto4.image = [UIImage imageWithData:data];
              }
          }];
-         if (![self.user.description isEqualToString:@""]) {
-             NSLog(@"DESCRIPTION %@", self.user.description);
-             self.descriptionTextView.text = self.user.description;
+         if (self.user.desc.length) {
+             self.descriptionTextView.text = self.user.desc;
+         } else {
+             self.descriptionTextView.text = DEFAULT_DESCRIPTION;
          }
+         self.charactersLabel.text = [NSString stringWithFormat:@"%d/%d",self.user.desc.length,MAXLENGTH];
+         if (self.user.distance) {
+             self.distanceSlider.value = self.user.distance.intValue;
+             NSLog(@"distnace %d",self.user.distance.intValue);
+             NSLog(@"dist2 %@",self.user.distance);
+             self.distanceLabel.text = [NSString stringWithFormat:@"%dkm",(int)self.user.distance.intValue];
+         } else {
+             self.distanceSlider.value = DEFAULT_DISTANCE;
+             self.distanceLabel.text = [NSString stringWithFormat:@"%dkm",(int)DEFAULT_DISTANCE];
+         }
+
      }];
+}
+- (IBAction)distanceChanged:(UISlider *)sender
+{
+    self.distanceLabel.text = [NSString stringWithFormat:@"%dkm",(int)sender.value];
+}
+
+- (IBAction)distanceChangeEnd:(UISlider *)sender
+{
+    self.user.distance = [NSNumber numberWithInt:(int)sender.value];
+    [self.user saveInBackground];
+}
+- (IBAction)distanceChangedOutside:(UISlider *)sender
+{
+    self.user.distance = [NSNumber numberWithInt:(int)sender.value];
+    [self.user saveInBackground];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    if (!self.user.isMale) {
+
+        self.genderSelect.frame = CGRectMake(173, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
+    }
+    if ([self.user.sexuality isEqualToNumber:[NSNumber numberWithInt:1]]) {
+        self.genderLikeSelect.frame = CGRectMake(121, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+    }
+    if ([self.user.sexuality isEqualToNumber:[NSNumber numberWithInt:2]]) {
+        self.genderLikeSelect.frame = CGRectMake(215, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+    }
+    [self.agePickerView scrollToElement:[NSNumber numberWithInt:self.user.age.intValue-18].intValue animated:YES];
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.view.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)BLUEDARK_COLOR.CGColor,(id)BLUE_COLOR.CGColor, nil];
+    [self.view.layer insertSublayer:gradient atIndex:0];
 }
 
 - (IBAction)maleSelect:(id)sender
@@ -132,6 +180,7 @@
         self.genderSelect.frame = CGRectMake(80, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
     } completion:^(BOOL finished) {
     }];
+    [self.user saveInBackground];
 }
 
 - (IBAction)femaleSelect:(id)sender
@@ -141,6 +190,7 @@
         self.genderSelect.frame = CGRectMake(173, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
     } completion:^(BOOL finished) {
     }];
+    [self.user saveInBackground];
 }
 
 - (IBAction)maleLikeSelect:(id)sender
@@ -150,15 +200,17 @@
         self.genderLikeSelect.frame = CGRectMake(32, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
     } completion:^(BOOL finished) {
     }];
+    [self.user saveInBackground];
 }
 
 - (IBAction)femaleLikeSelect:(id)sender
 {
     self.user.sexuality = [NSNumber numberWithInt:1];
     [UIView animateWithDuration:1 animations:^{
-        self.genderLikeSelect.frame = CGRectMake(121, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+        self.genderLikeSelect.frame = CGRectMake(122, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
     } completion:^(BOOL finished) {
     }];
+    [self.user saveInBackground];
 }
 
 - (IBAction)bothLikeSelect:(id)sender
@@ -168,6 +220,7 @@
         self.genderLikeSelect.frame = CGRectMake(215, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
     } completion:^(BOOL finished) {
     }];
+    [self.user saveInBackground];
 }
 
 #pragma mark - V8 picker
@@ -193,7 +246,8 @@
 }
 
 - (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {
-	//self.infoLabel.text = [NSString stringWithFormat:@"Selected index %d", index];
+    self.user.age = [NSNumber numberWithInt:index+MIN_AGE];
+    [self.user saveInBackground];
 }
 
 - (IBAction)logOut:(id)sender {
@@ -213,10 +267,11 @@
 {
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
-        self.user.description = self.descriptionTextView.text;
+        self.user.desc = self.descriptionTextView.text;
         [self.user saveInBackground];   
         return NO;
     }
+    self.charactersLabel.text = [NSString stringWithFormat:@"%d/%d",textView.text.length,MAXLENGTH];
     return textView.text.length + (text.length - range.length) <= MAXLENGTH;
 }
 

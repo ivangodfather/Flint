@@ -23,7 +23,7 @@ typedef enum {
 @property (nonatomic, weak) IBOutlet id <V8HorizontalPickerViewDelegate> delegate;
 
 @property (nonatomic, readonly) NSInteger numberOfElements;
-@property (nonatomic, readonly) NSInteger currentSelectedIndex;
+@property (nonatomic) NSInteger currentSelectedIndex;
 
 // what font to use for the element labels?
 @property (nonatomic, strong) UIFont *elementFont;
