@@ -144,7 +144,7 @@
 
     MessageParse *message = [self.messages objectAtIndex:indexPath.row];
     cell.lastMessageLabel.text = message.text;
-    if (!message.read) {
+    if (!message.read && [message.toUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
         cell.lastMessageLabel.textColor = RED_COLOR;
     } else {
         cell.lastMessageLabel.textColor = BLACK_COLOR;
@@ -170,7 +170,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.filteredUsersArray.count) {
+    if (self.searchTextField.text.length) {
         return self.filteredUsersArray.count;
     }
     return self.usersParseArray.count;

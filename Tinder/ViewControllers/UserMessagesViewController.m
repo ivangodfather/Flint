@@ -73,15 +73,7 @@
     NSInteger item = [self.collectionView numberOfItemsInSection:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item  inSection:0];
 
-
-    //[self hiddeKeyBoard];
-#warning ASK DAVE
-    //BUG ?
-    NSLog(@"collection %@",NSStringFromCGRect(self.collectionView.frame));
-    NSLog(@"view %@",NSStringFromCGRect(self.messagesView.frame));
     [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
-    NSLog(@"collection %@",NSStringFromCGRect(self.collectionView.frame));
-    NSLog(@"view %@",NSStringFromCGRect(self.messagesView.frame));
 
     [self scrollCollectionView];
     PFQuery *query = [PFInstallation query];
