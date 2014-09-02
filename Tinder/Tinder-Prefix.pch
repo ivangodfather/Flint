@@ -20,12 +20,11 @@
     #import "SWRevealViewController.h"
 #endif
 #define YELLOW_COLOR [UIColor colorWithRed:0.82 green:0.91 blue:0.32 alpha:1]
-#define RED_COLOR [UIColor colorWithRed:0.82 green:0.15 blue:0.39 alpha:1] /*#cb0048*/
+#define RED_COLOR [UIColor colorWithRed:0.82 green:0.91 blue:0.32 alpha:1] /*#cb0048*/
 #define BLACK_COLOR [UIColor blackColor]
 #define BLUE_COLOR [UIColor colorWithRed:0.3 green:0.74 blue:0.91 alpha:1]
 #define BLUEDARK_COLOR [UIColor colorWithRed:0.15 green:0.68 blue:0.89 alpha:1]
 #define WHITE_COLOR [UIColor whiteColor]
-
 
 #define KEYBOARD_HEIGHT 216.0
 #define MAX_AGE 99+1

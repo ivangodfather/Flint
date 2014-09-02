@@ -45,9 +45,9 @@
 
 - (void)customize
 {
-    self.view.backgroundColor = BLUE_COLOR;
-    self.collectionView.backgroundColor = BLUE_COLOR;
-    self.messagesView.backgroundColor = BLUEDARK_COLOR;
+    self.view.backgroundColor = WHITE_COLOR;
+    self.collectionView.backgroundColor = WHITE_COLOR;
+    self.messagesView.backgroundColor = YELLOW_COLOR;
     UIImage *temp = [[UIImage imageNamed:@"x"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:temp style:UIBarButtonItemStyleBordered target:self action:@selector(popVC)];
     self.navigationItem.leftBarButtonItem = barButtonItem;
@@ -147,40 +147,44 @@
     if (!message.image && !message.sendImage && [message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"fromCell" forIndexPath:indexPath];
         cell.userImageView.image = self.fromPhoto;
-        cell.messageTextView.textColor = BLACK_COLOR;
+        cell.messageLabel.textColor = BLACK_COLOR;
     }
 
     //Text from other
     if (!message.image && !message.sendImage &&[message.fromUserParse.objectId isEqualToString:self.toUserParse.objectId]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"toCell" forIndexPath:indexPath];
         cell.userImageView.image = self.toPhoto;
+        cell.messageLabel.textColor = BLACK_COLOR;
     }
 
     cell.userImageView.layer.cornerRadius = 26;
     cell.userImageView.clipsToBounds = YES;
     cell.userImageView.layer.borderWidth = 2.0,
-    cell.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    cell.userImageView.layer.borderColor = WHITE_COLOR.CGColor;
 
 
 
     cell.dateLabel.text = [dateFormatter stringFromDate:[message createdAt]];
-    cell.messageTextView.text = message.text;
+    cell.messageLabel.text = message.text;
 
 #warning DAVE
-    //    cell.messageTextView.backgroundColor = BLUEDARK_COLOR;
-    //    cell.messageTextView.layer.cornerRadius = 10.0;
-    //    NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:14]};
-    //
-    //    CGRect rect = [message.text boundingRectWithSize:CGSizeMake(300, CGFLOAT_MAX)
-    //                                             options:NSStringDrawingUsesLineFragmentOrigin
-    //                                          attributes:attributes
-    //                                             context:nil];
-    //    CGRect newFrame = cell.messageTextView.frame;
-    //    newFrame.size.width = rect.size.width + MARGIN*2;
-    //    if ([message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
-    //        newFrame.origin.x = cell.userImageView.frame.origin.x - newFrame.size.width - MARGIN/2;
-    //    }
-    //    cell.messageTextView.frame = newFrame;
+    cell.messageLabel.backgroundColor = BLUEDARK_COLOR;
+    cell.messageLabel.layer.cornerRadius = 10.0;
+    NSDictionary *attributes = @{NSFontAttributeName: cell.messageLabel.font};
+
+    cell.messageLabel.numberOfLines = 0;
+    CGRect rect = [message.text boundingRectWithSize:CGSizeMake(120, 52)
+                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                          attributes:attributes
+                                             context:nil];
+//
+//    CGRect outlineRect = CGRectInset(<#CGRect rect#>, <#CGFloat dx#>, <#CGFloat dy#>)
+//
+//    CGRect newFrame = cell.messageLabel.frame;
+//    newFrame.size.width = rect.size.width + 10  ;
+//    newFrame.size.height = rect.size.height;
+//    cell.messageLabel.frame = newFrame;
+
 
     return cell;
 }
@@ -367,7 +371,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:0];
     [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
     [self scrollCollectionView];
-    
+
 
     PFFile *file = [PFFile fileWithData:UIImagePNGRepresentation(image)];
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

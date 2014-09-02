@@ -138,7 +138,7 @@
     if ([UserParse currentUser].distance.doubleValue == 0.0) {
         [UserParse currentUser].distance = [NSNumber numberWithInt:100];
     }
-    [userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:[UserParse currentUser].distance.doubleValue];
+    //[userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:[UserParse currentUser].distance.doubleValue];
     [userQuery whereKey:@"email" matchesKey:@"fromUserId" inQuery:query];
     if ([UserParse currentUser].sexuality.integerValue == 0) {
         NSLog(@"Im here 0 ");
@@ -167,7 +167,7 @@
         if ([UserParse currentUser].distance.doubleValue == 0.0) {
             [UserParse currentUser].distance = [NSNumber numberWithInt:1000];
         }
-        [userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:[UserParse currentUser].distance.doubleValue];
+//        [userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:[UserParse currentUser].distance.doubleValue];
         [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             [self.posibleMatchesArray addObjectsFromArray:objects];
             NSLog(@"new matches - %@", objects);
