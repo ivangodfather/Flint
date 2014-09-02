@@ -64,6 +64,7 @@
     self.photoArrayIndex = 1;
     self.firstTime = YES;
     self.isRotating = YES;
+    NSLog(@"current user %@", [UserParse currentUser]);
     self.view.backgroundColor = BLUE_COLOR;
     self.gradiantView = [[UIView alloc] initWithFrame:self.view.frame];
     CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -139,6 +140,14 @@
     }
     [userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:[UserParse currentUser].distance.doubleValue];
     [userQuery whereKey:@"email" matchesKey:@"fromUserId" inQuery:query];
+    if ([UserParse currentUser].sexuality.integerValue == 0) {
+        NSLog(@"Im here 0 ");
+        [userQuery whereKey:@"isMale" equalTo:@"true"];
+    }
+    if ([UserParse currentUser].sexuality.integerValue == 1) {
+        NSLog(@"Im here 1");
+        [userQuery whereKey:@"isMale" equalTo:@"false"];
+    }
     [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.posibleMatchesArray addObjectsFromArray:objects];
         [self.willBeMatches addObjectsFromArray:objects];
@@ -149,8 +158,14 @@
         PFQuery* userQuery = [UserParse query];
         [userQuery whereKey:@"objectId" notEqualTo:[UserParse currentUser].objectId];
         [userQuery whereKey:@"email" doesNotMatchKey:@"toUserEmail" inQuery:query];
+        if ([UserParse currentUser].sexuality.integerValue == 0) {
+            [userQuery whereKey:@"isMale" equalTo:@"true"];
+        }
+        if ([UserParse currentUser].sexuality.integerValue == 1) {
+            [userQuery whereKey:@"isMale" equalTo:@"false"];
+        }
         if ([UserParse currentUser].distance.doubleValue == 0.0) {
-            [UserParse currentUser].distance = [NSNumber numberWithInt:100];
+            [UserParse currentUser].distance = [NSNumber numberWithInt:1000];
         }
         [userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:[UserParse currentUser].distance.doubleValue];
         [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

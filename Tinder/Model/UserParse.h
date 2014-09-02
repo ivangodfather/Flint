@@ -10,7 +10,7 @@
 
 @interface UserParse : PFUser <PFSubclassing>
 @property NSNumber* age;
-@property BOOL isMale;
+@property NSString* isMale;
 @property PFFile* photo;
 @property PFFile* photo1;
 @property PFFile* photo2;

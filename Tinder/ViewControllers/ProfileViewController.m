@@ -51,7 +51,7 @@
     [self populateProfile];
     [self customize];
     [self createAgePickerView];
-    self.navigationItem.title = [PFUser currentUser].username;
+    self.navigationItem.title = [UserParse currentUser].username;
 }
 
 - (void)createAgePickerView
@@ -172,7 +172,7 @@
 
 - (IBAction)maleSelect:(id)sender
 {
-    self.user.isMale = YES;
+    self.user.isMale = @"true";
     [UIView animateWithDuration:1 animations:^{
         self.genderSelect.frame = CGRectMake(80, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
     } completion:^(BOOL finished) {
@@ -182,7 +182,7 @@
 
 - (IBAction)femaleSelect:(id)sender
 {
-    self.user.isMale = NO;
+    self.user.isMale = @"false";
     [UIView animateWithDuration:1 animations:^{
         self.genderSelect.frame = CGRectMake(173, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
     } completion:^(BOOL finished) {
