@@ -21,4 +21,5 @@
 @property NSNumber* sexuality;
 @property NSMutableArray* matches;
 @property NSString* address;
+@property PFGeoPoint* geoPoint;
 @end

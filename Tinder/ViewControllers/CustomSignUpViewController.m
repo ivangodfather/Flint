@@ -41,7 +41,7 @@
 @property BOOL isMale;
 @property CLLocation *currentLocation;
 @property CLLocationManager *locationManager;
-@property NSString* address;
+@property PFGeoPoint* geoPoint;
 @end
 
 @implementation CustomSignUpViewController
@@ -72,40 +72,8 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     self.currentLocation = [locations objectAtIndex:0];
+    self.geoPoint = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude longitude:self.currentLocation.coordinate.longitude];
     [self.locationManager stopUpdatingLocation];
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
-    [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
-     {
-         if (!(error))
-         {
-             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-             NSLog(@"\nCurrent Location Detected\n");
-             NSLog(@"placemark %@",placemark);
-             NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
-             NSString *Address = [[NSString alloc]initWithString:locatedAt];
-             self.address = Address;
-             //             NSString *Area = [[NSString alloc]initWithString:placemark.locality];
-             //             NSString *Country = [[NSString alloc]initWithString:placemark.country];
-             NSString *CountryArea = [NSString stringWithFormat:@"%@", Address];
-             NSLog(@"%@",CountryArea);
-         }
-         else
-         {
-             NSLog(@"Geocode failed with error %@", error);
-             NSLog(@"\nCurrent Location Not Detected\n");
-             //return;
-         }
-         /*---- For more results
-          placemark.region);
-          placemark.country);
-          placemark.locality);
-          placemark.name);
-          placemark.ocean);
-          placemark.postalCode);
-          placemark.subLocality);
-          placemark.location);
-          ------*/
-     }];
 }
 
 - (void)createAgePickerView
@@ -384,7 +352,7 @@
     self.theUser.photo = self.file;
     self.theUser.isMale = self.isMale;
     self.theUser.sexuality = self.sexuality;
-    self.theUser.address = self.address;
+    self.theUser.geoPoint = self.geoPoint;
 
     [self.theUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B0F422919B62BE00056F04D /* PossibleMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B0F422819B62BE00056F04D /* PossibleMatch.m */; };
 		0BA4ECAD19ACEBED00302E92 /* CustomSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECAC19ACEBED00302E92 /* CustomSignUpViewController.m */; };
 		0BA4ECB219AE1EE200302E92 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB119AE1EE200302E92 /* SidebarTableViewController.m */; };
 		0BA4ECB519AE1F0A00302E92 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB419AE1F0A00302E92 /* SWRevealViewController.m */; };
@@ -68,6 +69,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B0F422719B62BE00056F04D /* PossibleMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PossibleMatch.h; sourceTree = "<group>"; };
+		0B0F422819B62BE00056F04D /* PossibleMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PossibleMatch.m; sourceTree = "<group>"; };
 		0BA4ECAB19ACEBED00302E92 /* CustomSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomSignUpViewController.h; path = ViewControllers/CustomSignUpViewController.h; sourceTree = "<group>"; };
 		0BA4ECAC19ACEBED00302E92 /* CustomSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomSignUpViewController.m; path = ViewControllers/CustomSignUpViewController.m; sourceTree = "<group>"; };
 		0BA4ECB019AE1EE200302E92 /* SidebarTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SidebarTableViewController.h; path = ViewControllers/SidebarTableViewController.h; sourceTree = "<group>"; };
@@ -355,6 +358,8 @@
 		42DBCCDA19ACDD7400CE6C93 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0B0F422719B62BE00056F04D /* PossibleMatch.h */,
+				0B0F422819B62BE00056F04D /* PossibleMatch.m */,
 				42DBCCDB19ACDD9C00CE6C93 /* MessageParse.h */,
 				42DBCCDC19ACDD9C00CE6C93 /* MessageParse.m */,
 				42DBCCDE19ACDF7000CE6C93 /* UserParse.h */,
@@ -485,6 +490,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B0F422919B62BE00056F04D /* PossibleMatch.m in Sources */,
 				42DBCCDD19ACDD9C00CE6C93 /* MessageParse.m in Sources */,
 				0BA4ECAD19ACEBED00302E92 /* CustomSignUpViewController.m in Sources */,
 				0BA4ECB519AE1F0A00302E92 /* SWRevealViewController.m in Sources */,

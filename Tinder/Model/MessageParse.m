@@ -4,11 +4,14 @@
 
 @dynamic fromUserParse;
 @dynamic toUserParse;
+@dynamic toUserParseEmail;
+@dynamic fromUserParseEmail;
 @dynamic text;
 @dynamic image;
 @dynamic createdAt;
 @dynamic read;
 @synthesize sendImage;
+
 + (void)load {
     [self registerSubclass];
 }

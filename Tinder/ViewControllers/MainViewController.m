@@ -9,6 +9,8 @@
 #import "MainViewController.h"
 #import "SWRevealViewController.h"
 #import "UserParse.h"
+#import "PossibleMatch.h"
+#import "MessageParse.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
@@ -45,7 +47,7 @@
 @property int photoArrayIndex;
 @property CLLocationManager* locationManager;
 @property CLLocation* currentLocation;
-@property int milesAway;
+@property NSNumber* milesAway;
 @property UIView* gradiantView;
 @end
 
@@ -69,7 +71,6 @@
     gradient.colors = [NSArray arrayWithObjects:(id)BLUEDARK_COLOR.CGColor,(id)RED_COLOR.CGColor,nil];
     [self.gradiantView.layer insertSublayer:gradient atIndex:0];
     [self.view addSubview:self.gradiantView];
-
 }
 
 -(void)currentLocationIdentifier
@@ -84,115 +85,76 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     self.currentLocation = [locations objectAtIndex:0];
+    [UserParse currentUser].geoPoint = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude longitude:self.currentLocation.coordinate.longitude];
+    [[UserParse currentUser] saveEventually];
     [self.locationManager stopUpdatingLocation];
     [self getMatches];
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init] ;
-    [geocoder reverseGeocodeLocation:self.currentLocation completionHandler:^(NSArray *placemarks, NSError *error)
-     {
-         if (!(error))
-         {
-             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-             NSLog(@"\nCurrent Location Detected\n");
-             NSLog(@"placemark %@",placemark);
-             NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
-             NSString *Address = [[NSString alloc]initWithString:locatedAt];
-             [UserParse currentUser].address = Address;
-             [[UserParse currentUser] saveEventually];
-             //             NSString *Area = [[NSString alloc]initWithString:placemark.locality];
-             //             NSString *Country = [[NSString alloc]initWithString:placemark.country];
-             NSString *CountryArea = [NSString stringWithFormat:@"%@", Address];
-             NSLog(@"%@",CountryArea);
-         }
-         else
-         {
-             NSLog(@"Geocode failed with error %@", error);
-             NSLog(@"\nCurrent Location Not Detected\n");
-             //return;
-         }
-         /*---- For more results
-          placemark.region);
-          placemark.country);
-          placemark.locality);
-          placemark.name);
-          placemark.ocean);
-          placemark.postalCode);
-          placemark.subLocality);
-          placemark.location);
-          ------*/
-     }];
-}
-
--(void) getDistanceFrom:(CLLocation*)userLocation withString:(NSString*)toUserStringAdress
-{
-    CLGeocoder* geocoder = [CLGeocoder new];
-    [geocoder geocodeAddressString:toUserStringAdress completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (!error) {
-            CLPlacemark* placemark = placemarks.firstObject;
-            CLLocation* toUserLocation = placemark.location;
-            int meters = (int)[userLocation distanceFromLocation:toUserLocation];
-            int miles = meters * 0.000621371;
-            self.milesAway = miles;
-            if (self.milesAway > 10000) {
-                [self.posibleMatchesArray removeObject:self.posibleMatchesArray.firstObject];
-                UserParse* aUser = self.posibleMatchesArray.firstObject;
-                [self getDistanceFrom:self.currentLocation withString:aUser.address];
-            } else {
-                [self firstPlacement];
-                NSLog(@"miles - %d", miles);
-            }
-        }
-    }];
 
 }
 
--(void) getDistanceFromSecondTime:(CLLocation*)userLocation withString:(NSString*)toUserStringAdress
-{
-    CLGeocoder* geocoder = [CLGeocoder new];
-    [geocoder geocodeAddressString:toUserStringAdress completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (!error) {
-            CLPlacemark* placemark = placemarks.firstObject;
-            CLLocation* toUserLocation = placemark.location;
-            int meters = (int)[userLocation distanceFromLocation:toUserLocation];
-            int miles = meters * 0.000621371;
-            self.milesAway = miles;
-            if (self.milesAway > 10000) {
-                [self.posibleMatchesArray removeObject:self.posibleMatchesArray.firstObject];
-                UserParse* aUser = self.posibleMatchesArray.firstObject;
-                [self getDistanceFromSecondTime:self.currentLocation withString:aUser.address];
-            } else {
-                [self placeBackgroundProfile];
-                NSLog(@"miles - %d", miles);
-            }
-        }
-    }];
+//-(void) getDistanceFrom:(PFGeoPoint*)userLocation withString:(PFGeoPoint*)toUserGeopoint
+//{
+//    NSLog(@"to user geopoint - %@", toUserGeopoint);
+//    CLLocation* toUserLocation = [[CLLocation alloc] initWithLatitude:toUserGeopoint.latitude longitude:toUserGeopoint.longitude];
+//    int meters = (int)[userLocation distanceFromLocation:toUserLocation];
+//    int miles = meters * 0.000621371;
+//    self.milesAway = [NSNumber numberWithInt:miles];
+//    if (self.milesAway.intValue < 10000) {
+//        [self.posibleMatchesArray removeObject:self.posibleMatchesArray.firstObject];
+//        UserParse* aUser = self.posibleMatchesArray.firstObject;
+//        [self getDistanceFrom:userLocation withString:aUser.geoPoint];
+//    } else {
+//        [self firstPlacement];
+//        NSLog(@"miles - %d", miles);
+//    }
+//}
 
-}
+//-(void) getDistanceFromSecondTime:(CLLocation*)userLocation withString:(PFGeoPoint*)toUserGeopoint
+//{
+//
+//    CLLocation* toUserLocation = [[CLLocation alloc] initWithLatitude:toUserGeopoint.latitude longitude:toUserGeopoint.longitude];
+//    int meters = (int)[userLocation distanceFromLocation:toUserLocation];
+//    int miles = meters * 0.000621371;
+//    self.milesAway = [NSNumber numberWithInt:miles];
+//    if (self.milesAway.intValue < 10000) {
+//        [self.posibleMatchesArray removeObject:self.posibleMatchesArray.firstObject];
+//        UserParse* aUser = self.posibleMatchesArray.firstObject;
+//        [self getDistanceFromSecondTime:userLocation withString:aUser.geoPoint];
+//    } else {
+//        [self placeBackgroundProfile];
+//        NSLog(@"miles - %d", miles);
+//    }
+//}
 
 - (void)getMatches
 {
     NSLog(@"current showing profile %@", self.currShowingProfile);
-    PFQuery *query = [PFQuery queryWithClassName:@"PossibleMatch"];
+    PFQuery *query = [PossibleMatch query];
     [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
     [query whereKey:@"match" equalTo:@"YES"];
     [query whereKey:@"toUserApproved" equalTo:@"notDone"];
     PFQuery* userQuery = [UserParse query];
+    [userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:[UserParse currentUser].distance.doubleValue];
     [userQuery whereKey:@"email" matchesKey:@"fromUserId" inQuery:query];
     [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.posibleMatchesArray addObjectsFromArray:objects];
         [self.willBeMatches addObjectsFromArray:objects];
         NSLog(@"will be match - %@", objects);
         //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-        PFQuery *query = [PFQuery queryWithClassName:@"PossibleMatch"]; //matches
+        PFQuery *query = [PossibleMatch query]; //matches
         [query whereKey:@"fromUser" equalTo:[UserParse currentUser]]; //people you've seen
         PFQuery* userQuery = [UserParse query];
         [userQuery whereKey:@"objectId" notEqualTo:[UserParse currentUser].objectId];
-        [userQuery whereKey:@"email" doesNotMatchKey:@"toUserId" inQuery:query];
+        [userQuery whereKey:@"email" doesNotMatchKey:@"toUserEmail" inQuery:query];
+        if ([UserParse currentUser].distance.doubleValue == 0.0) {
+            [UserParse currentUser].distance = [NSNumber numberWithInt:100];
+        }
+        [userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:[UserParse currentUser].distance.doubleValue];
         [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             [self.posibleMatchesArray addObjectsFromArray:objects];
             NSLog(@"new matches - %@", objects);
             if (self.firstTime) {
-                UserParse* aUser = self.posibleMatchesArray.firstObject;
-                [self getDistanceFrom:self.currentLocation withString:aUser.address];
+                [self firstPlacement];
             }
         }];
     }];
@@ -206,12 +168,11 @@
     [self.posibleMatchesArray removeObject:aUser];
     self.currShowingProfile = aUser;
     self.profileView.tag = profileViewTag;
-    UserParse* backgroundUser = self.posibleMatchesArray.firstObject;
-    [self getDistanceFromSecondTime:self.currentLocation withString:backgroundUser.address];
-    PFFile* file = aUser[@"photo"];
-    NSString* username = aUser[@"username"];
+    [self placeBackgroundProfile];
+    PFFile* file = aUser.photo;
+    NSString* username = aUser.username;
     NSLog(@"top username %@", aUser.username);
-    NSNumber* age = aUser[@"age"];
+    NSNumber* age = aUser.age;
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         [self.arrayOfPhotoDataForeground addObject:data];
         self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
@@ -240,26 +201,26 @@
         NSLog(@"%@", self.foregroundLabel);
         [self setPanGestureRecognizer];
         self.firstTime = NO;
-        if ([aUser[@"photo1"] isKindOfClass:[PFFile class]]) {
-            PFFile* photo1 = aUser[@"photo1"];
+        if ([aUser.photo1 isKindOfClass:[PFFile class]]) {
+            PFFile* photo1 = aUser.photo1;
             [photo1 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 [self.arrayOfPhotoDataForeground addObject:data];
             }];
         }
-        if ([aUser[@"photo2"] isKindOfClass:[PFFile class]]) {
-            PFFile* photo2 = aUser[@"photo2"];
+        if ([aUser.photo2 isKindOfClass:[PFFile class]]) {
+            PFFile* photo2 = aUser.photo2;
             [photo2 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 [self.arrayOfPhotoDataForeground addObject:data];
             }];
         }
-        if ([aUser[@"photo3"] isKindOfClass:[PFFile class]]) {
-            PFFile* photo3 = aUser[@"photo3"];
+        if ([aUser.photo3 isKindOfClass:[PFFile class]]) {
+            PFFile* photo3 = aUser.photo3;
             [photo3 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 [self.arrayOfPhotoDataForeground addObject:data];
             }];
         }
-        if ([aUser[@"photo4"] isKindOfClass:[PFFile class]]) {
-            PFFile* photo4 = aUser[@"photo4"];
+        if ([aUser.photo4 isKindOfClass:[PFFile class]]) {
+            PFFile* photo4 = aUser.photo4;
             [photo4 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 [self.arrayOfPhotoDataForeground addObject:data];
             }];
@@ -476,39 +437,39 @@
         self.profileImage.tag = currentProfileImage;
         self.photoArrayIndex = 1;
         if ([self.willBeMatches containsObject:self.currShowingProfile]) {
-            PFObject* match = [PFObject objectWithClassName:@"MessageParse"];
-            match[@"fromUserParse"] = self.currShowingProfile;
-            match[@"fromUserId"] = self.currShowingProfile.email;
-            match[@"toUserParse"] = [UserParse currentUser];
-            match[@"toUserId"] = [UserParse currentUser].email;
-            match[@"text"] = @"";
-            PFQuery* query = [PFQuery queryWithClassName:@"PossibleMatch"];
+            MessageParse* message = [MessageParse object];
+            message.fromUserParse = self.currShowingProfile;
+            message.fromUserParseEmail = self.currShowingProfile.email;
+            message.toUserParse = [UserParse currentUser];
+            message.toUserParseEmail = [UserParse currentUser].email;
+            message.text = @"";
+            PFQuery* query = [PossibleMatch query];
             [query whereKey:@"fromUser" equalTo:self.currShowingProfile];
             [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
-            PFObject* posMatch = [query findObjects].firstObject;
-            posMatch[@"toUserApproved"] = @"YES";
+            PossibleMatch* posMatch = [query findObjects].firstObject;
+            posMatch.toUserApproved = @"YES";
             [posMatch saveEventually];
             NSLog(@"match made in heaven");
             NSLog(@"pos match %@", posMatch);
-            [match saveEventually:^(BOOL succeeded, NSError *error) {
+            [message saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     self.currShowingProfile = self.backgroundUserProfile;
-                    [self getDistanceFromSecondTime:self.currentLocation withString:self.currShowingProfile.address];
+                    [self placeBackgroundProfile];
                     [self setPanGestureRecognizer];
                 }
             }];
         } else {
-            PFObject* possibleMatch = [PFObject objectWithClassName:@"PossibleMatch"];
-            possibleMatch[@"fromUser"] = [UserParse currentUser];
-            possibleMatch[@"toUser"] = self.currShowingProfile;
-            possibleMatch[@"toUserId"] = self.currShowingProfile.email;
-            possibleMatch[@"fromUserId"] = [UserParse currentUser].email;
-            possibleMatch[@"match"] = @"YES";
-            possibleMatch[@"toUserApproved"] = @"notDone";
+            PossibleMatch* possibleMatch = [PossibleMatch object];
+            possibleMatch.fromUser = [UserParse currentUser];
+            possibleMatch.toUser = self.currShowingProfile;
+            possibleMatch.toUserEmail = self.currShowingProfile.email;
+            possibleMatch.fromUserEmail = [UserParse currentUser].email;
+            possibleMatch.match = @"YES";
+            possibleMatch.toUserApproved = @"notDone";
             [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     self.currShowingProfile = self.backgroundUserProfile;
-                    [self getDistanceFromSecondTime:self.currentLocation withString:self.currShowingProfile.address];
+                    [self placeBackgroundProfile];
                     [self setPanGestureRecognizer];
                     NSLog(@"here");
                 }
@@ -526,31 +487,31 @@
         self.photoArrayIndex = 1;
         self.arrayOfPhotoDataForeground = self.arrayOfPhotoDataBackground;
         if ([self.willBeMatches containsObject:self.currShowingProfile]) {
-            PFQuery* query = [PFQuery queryWithClassName:@"PossibleMatch"];
+            PFQuery* query = [PossibleMatch query];
             [query whereKey:@"fromUser" equalTo:self.currShowingProfile];
             [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
-            PFObject* posMatch = [query findObjects].firstObject;
-            posMatch[@"toUserApproved"] = @"NO";
+            PossibleMatch* posMatch = [query findObjects].firstObject;
+            posMatch.toUserApproved = @"NO";
             [posMatch saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     self.currShowingProfile = self.backgroundUserProfile;
-                    [self getDistanceFromSecondTime:self.currentLocation withString:self.currShowingProfile.address];
+                    [self placeBackgroundProfile];
                     [self setPanGestureRecognizer];
                 }
             }];
         } else {
-            PFObject* possibleMatch = [PFObject objectWithClassName:@"PossibleMatch"];
-            possibleMatch[@"fromUser"] = [UserParse currentUser];
-            possibleMatch[@"fromUserId"] = [UserParse currentUser].email;
-            possibleMatch[@"toUserId"] = self.currShowingProfile.email;
+            PossibleMatch* possibleMatch = [PossibleMatch object];
+            possibleMatch.fromUser = [UserParse currentUser];
+            possibleMatch.fromUserEmail = [UserParse currentUser].email;
+            possibleMatch.toUserEmail = self.currShowingProfile.email;
             NSLog(@"%@", self.currShowingProfile.email);
-            possibleMatch[@"toUser"] = self.currShowingProfile;
-            possibleMatch[@"match"] = @"NO";
+            possibleMatch.toUser = self.currShowingProfile;
+            possibleMatch.match = @"NO";
             [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     self.currShowingProfile = self.backgroundUserProfile;
                     [self setPanGestureRecognizer];
-                    [self getDistanceFromSecondTime:self.currentLocation withString:self.currShowingProfile.address];
+                    [self placeBackgroundProfile];
                     NSLog(@"save this no match");
                 }
             }];

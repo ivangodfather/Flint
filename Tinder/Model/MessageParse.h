@@ -5,6 +5,8 @@
 
 @property (nonatomic, strong) UserParse *fromUserParse;
 @property (nonatomic, strong) UserParse *toUserParse;
+@property NSString* fromUserParseEmail;
+@property NSString* toUserParseEmail;
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) PFFile *image;
 @property (nonatomic, strong) NSDate *createdAt;

@@ -22,6 +22,7 @@
 @dynamic matches;
 @dynamic distance;
 @dynamic address;
+@dynamic geoPoint;
 
 + (void)load {
     [self registerSubclass];
