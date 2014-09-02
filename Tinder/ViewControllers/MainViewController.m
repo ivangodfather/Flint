@@ -134,6 +134,9 @@
     [query whereKey:@"match" equalTo:@"YES"];
     [query whereKey:@"toUserApproved" equalTo:@"notDone"];
     PFQuery* userQuery = [UserParse query];
+    if ([UserParse currentUser].distance.doubleValue == 0.0) {
+        [UserParse currentUser].distance = [NSNumber numberWithInt:100];
+    }
     [userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:[UserParse currentUser].distance.doubleValue];
     [userQuery whereKey:@"email" matchesKey:@"fromUserId" inQuery:query];
     [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
