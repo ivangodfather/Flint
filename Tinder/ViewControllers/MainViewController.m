@@ -21,6 +21,7 @@
 #define buttonWidth 40
 #define buttonHeight 50
 
+#define currentProfileView 5
 #define currentProfileImage 4
 #define profileViewTag 3
 #define likeViewTag 2
@@ -49,6 +50,7 @@
 @property CLLocation* currentLocation;
 @property NSNumber* milesAway;
 @property UIView* gradiantView;
+@property UserParse* curUser;
 @end
 
 @implementation MainViewController
@@ -56,11 +58,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    PFQuery* distanceQuery = [UserParse query];
+    [distanceQuery whereKey:@"objectId" equalTo:[UserParse currentUser].objectId];
+    [distanceQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        self.curUser = objects.firstObject;
+        [self currentLocationIdentifier];
+    }];
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
     self.posibleMatchesArray = [NSMutableArray new];
     self.willBeMatches = [NSMutableArray new];
-    [self currentLocationIdentifier];
     self.photoArrayIndex = 1;
     self.firstTime = YES;
     self.isRotating = YES;
@@ -129,22 +136,21 @@
 
 - (void)getMatches
 {
-    NSLog(@"current showing profile %@", self.currShowingProfile);
     PFQuery *query = [PossibleMatch query];
     [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
     [query whereKey:@"match" equalTo:@"YES"];
     [query whereKey:@"toUserApproved" equalTo:@"notDone"];
     PFQuery* userQuery = [UserParse query];
-    if ([UserParse currentUser].distance.doubleValue == 0.0) {
+    if (self.curUser.distance.doubleValue == 0.0) {
         [UserParse currentUser].distance = [NSNumber numberWithInt:100];
     }
-    //[userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:[UserParse currentUser].distance.doubleValue];
+    [userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:self.curUser.distance.doubleValue];
     [userQuery whereKey:@"email" matchesKey:@"fromUserId" inQuery:query];
-    if ([UserParse currentUser].sexuality.integerValue == 0) {
+    if (self.curUser.sexuality.integerValue == 0) {
         NSLog(@"Im here 0 ");
         [userQuery whereKey:@"isMale" equalTo:@"true"];
     }
-    if ([UserParse currentUser].sexuality.integerValue == 1) {
+    if (self.curUser.sexuality.integerValue == 1) {
         NSLog(@"Im here 1");
         [userQuery whereKey:@"isMale" equalTo:@"false"];
     }
@@ -152,25 +158,25 @@
         [self.posibleMatchesArray addObjectsFromArray:objects];
         [self.willBeMatches addObjectsFromArray:objects];
         NSLog(@"will be match - %@", objects);
-        //[self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
         PFQuery *query = [PossibleMatch query]; //matches
         [query whereKey:@"fromUser" equalTo:[UserParse currentUser]]; //people you've seen
         PFQuery* userQuery = [UserParse query];
         [userQuery whereKey:@"objectId" notEqualTo:[UserParse currentUser].objectId];
         [userQuery whereKey:@"email" doesNotMatchKey:@"toUserEmail" inQuery:query];
-        if ([UserParse currentUser].sexuality.integerValue == 0) {
+        if (self.curUser.sexuality.integerValue == 0) {
             [userQuery whereKey:@"isMale" equalTo:@"true"];
         }
-        if ([UserParse currentUser].sexuality.integerValue == 1) {
+        if (self.curUser.sexuality.integerValue == 1) {
             [userQuery whereKey:@"isMale" equalTo:@"false"];
         }
-        if ([UserParse currentUser].distance.doubleValue == 0.0) {
-            [UserParse currentUser].distance = [NSNumber numberWithInt:1000];
+        if (self.curUser.distance.doubleValue == 0.0) {
+            self.curUser.distance = [NSNumber numberWithInt:1000];
         }
-//        [userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:[UserParse currentUser].distance.doubleValue];
+        [userQuery whereKey:@"geoPoint" nearGeoPoint:self.curUser.geoPoint withinKilometers:self.curUser.distance.doubleValue];
         [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             [self.posibleMatchesArray addObjectsFromArray:objects];
             NSLog(@"new matches - %@", objects);
+            NSLog(@"new matches - %lu", (unsigned long)objects.count);
             if (self.firstTime) {
                 [self firstPlacement];
             }
@@ -186,7 +192,9 @@
     [self.posibleMatchesArray removeObject:aUser];
     self.currShowingProfile = aUser;
     self.profileView.tag = profileViewTag;
-    [self placeBackgroundProfile];
+    if (self.posibleMatchesArray.firstObject != nil) {
+        [self placeBackgroundProfile];
+    }
     PFFile* file = aUser.photo;
     NSString* username = aUser.username;
     NSLog(@"top username %@", aUser.username);
@@ -197,6 +205,7 @@
         self.profileView.backgroundColor = RED_COLOR;
         self.profileView.clipsToBounds = YES;
         self.profileView.layer.cornerRadius = cornRadius;
+        self.profileImage.tag = currentProfileView;
         [self.view addSubview:self.profileView];
         self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
         self.profileImage.tag = currentProfileImage;
@@ -472,8 +481,10 @@
             [message saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     self.currShowingProfile = self.backgroundUserProfile;
-                    [self placeBackgroundProfile];
                     [self setPanGestureRecognizer];
+                    if (self.posibleMatchesArray.firstObject != nil) {
+                        [self placeBackgroundProfile];
+                    }
                 }
             }];
         } else {
@@ -487,9 +498,11 @@
             [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     self.currShowingProfile = self.backgroundUserProfile;
-                    [self placeBackgroundProfile];
                     [self setPanGestureRecognizer];
                     NSLog(@"here");
+                    if (self.posibleMatchesArray.firstObject != nil) {
+                        [self placeBackgroundProfile];
+                    }
                 }
             }];
         }
@@ -513,8 +526,10 @@
             [posMatch saveEventually:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     self.currShowingProfile = self.backgroundUserProfile;
-                    [self placeBackgroundProfile];
                     [self setPanGestureRecognizer];
+                    if (self.posibleMatchesArray.firstObject != nil) {
+                        [self placeBackgroundProfile];
+                    }
                 }
             }];
         } else {
@@ -529,8 +544,9 @@
                 if (succeeded) {
                     self.currShowingProfile = self.backgroundUserProfile;
                     [self setPanGestureRecognizer];
-                    [self placeBackgroundProfile];
-                    NSLog(@"save this no match");
+                    if (self.posibleMatchesArray.firstObject != nil) {
+                        [self placeBackgroundProfile];
+                    }
                 }
             }];
         }
@@ -577,6 +593,15 @@
 {
     for (UIView* view in self.profileView.subviews) {
         if (view.tag == dislikeViewTag) {
+            [view removeFromSuperview];
+        }
+    }
+}
+
+-(void) removeProfileViewForGood
+{
+    for (UIView* view in self.view.subviews) {
+        if (view.tag == currentProfileView) {
             [view removeFromSuperview];
         }
     }
