@@ -156,7 +156,8 @@
         cell.userImageView.image = self.toPhoto;
         cell.messageLabel.textColor = BLACK_COLOR;
     }
-
+    UIView *view = [cell.contentView viewWithTag:666];
+    [view removeFromSuperview];
     cell.userImageView.layer.cornerRadius = 26;
     cell.userImageView.clipsToBounds = YES;
     cell.userImageView.layer.borderWidth = 2.0,
@@ -168,22 +169,36 @@
     cell.messageLabel.text = message.text;
 
 #warning DAVE
-    cell.messageLabel.backgroundColor = BLUEDARK_COLOR;
-    cell.messageLabel.layer.cornerRadius = 10.0;
     NSDictionary *attributes = @{NSFontAttributeName: cell.messageLabel.font};
 
     cell.messageLabel.numberOfLines = 0;
-    CGRect rect = [message.text boundingRectWithSize:CGSizeMake(120, 52)
+    CGRect rect = [message.text boundingRectWithSize:CGSizeMake(120, 100)
                                              options:NSStringDrawingUsesLineFragmentOrigin
                                           attributes:attributes
                                              context:nil];
-//
-//    CGRect outlineRect = CGRectInset(<#CGRect rect#>, <#CGFloat dx#>, <#CGFloat dy#>)
-//
-//    CGRect newFrame = cell.messageLabel.frame;
-//    newFrame.size.width = rect.size.width + 10  ;
-//    newFrame.size.height = rect.size.height;
-//    cell.messageLabel.frame = newFrame;
+    rect.origin = cell.messageLabel.frame.origin;
+
+    CGRect outlineRect = CGRectInset(rect, -15, -10);
+
+
+
+    if (!message.image && !message.sendImage && [message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
+        rect.origin.x = cell.userImageView.frame.origin.x - outlineRect.size.width;
+
+    }
+    outlineRect.origin = rect.origin;
+    outlineRect.origin.x -= MARGIN*1.5;
+    outlineRect.origin.y -= MARGIN/1.5;
+
+    UIView *bubbleView = [[UIView alloc] initWithFrame:outlineRect];
+    bubbleView.backgroundColor = BLUE_COLOR;
+    bubbleView.layer.cornerRadius = 10.0f;
+    bubbleView.tag = 666;
+
+
+    cell.messageLabel.frame = rect;
+    [cell.contentView addSubview:bubbleView];
+    [cell.contentView sendSubviewToBack:bubbleView];
 
 
     return cell;
@@ -195,7 +210,7 @@
     if (message.image || message.sendImage) {
         return CGSizeMake(310, 142);
     } else {
-        return CGSizeMake(310, 80);
+        return CGSizeMake(310, 100);
     }
 }
 
