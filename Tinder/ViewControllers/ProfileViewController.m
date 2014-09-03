@@ -73,6 +73,7 @@
 {
     self.descriptionTextView.textContainer.maximumNumberOfLines = 4;
     self.descriptionTextView.textColor = WHITE_COLOR;
+    self.descriptionTextView.backgroundColor = BLUE_COLOR;
     self.view.backgroundColor = BLUE_COLOR;
     self.genderSelect.backgroundColor = [UIColor clearColor];
     [self.genderSelect.layer setBorderWidth:1];
