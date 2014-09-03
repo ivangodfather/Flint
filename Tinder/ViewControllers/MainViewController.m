@@ -14,7 +14,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-#define labelHeight 30
+#define labelHeight 20
 #define labelCushion 20
 #define MARGIN 50
 
@@ -173,32 +173,40 @@
         self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
         self.profileView.backgroundColor = BLUE_COLOR;
         self.profileView.clipsToBounds = YES;
-        self.profileView.layer.cornerRadius = cornRadius;
+//        self.profileView.layer.cornerRadius = cornRadius;
         self.profileImage.tag = currentProfileView;
         [self.view addSubview:self.profileView];
-        self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(MARGIN/2, MARGIN/2, self.profileView.frame.size.width-MARGIN, self.profileView.frame.size.height-230)];
+        self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-90)];
         self.profileImage.contentMode = UIViewContentModeScaleAspectFill;
         self.profileImage.tag = currentProfileImage;
         self.profileImage.image = [UIImage imageWithData:data];
         self.profileImage.clipsToBounds = YES;
-        self.profileImage.layer.cornerRadius = cornRadius;
+//        self.profileImage.layer.cornerRadius = cornRadius;
+        self.navigationItem.title = username;
         [self.profileView addSubview:self.profileImage];
-        self.foregroundLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profileImage.frame.origin.x, self.profileImage.frame.size.height+labelHeight, self.profileImage.frame.size.width, labelHeight)];
+        self.foregroundLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profileImage.frame.origin.x, self.profileImage.frame.size.height, self.profileImage.frame.size.width, labelHeight)];
         self.foregroundLabel.textAlignment = NSTextAlignmentCenter;
-        self.foregroundLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
+        double distance = [aUser.geoPoint distanceInKilometersTo:self.curUser.geoPoint];
+        if ([aUser.geoPoint distanceInKilometersTo:self.curUser.geoPoint] < 1) {
+            distance = 1;
+        }
+        self.foregroundLabel.text = [NSString stringWithFormat:@"%@ years old and %.0fkm from you", age, distance];
         self.foregroundLabel.textColor = [UIColor whiteColor];
         self.foregroundLabel.backgroundColor = YELLOW_COLOR;
         self.foregroundLabel.clipsToBounds = YES;
-        self.foregroundLabel.layer.cornerRadius = cornRadius;
-        [self.foregroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:20]];
+//        self.foregroundLabel.layer.cornerRadius = cornRadius;
+        [self.foregroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
         UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.foregroundLabel.font.fontName] size:self.foregroundLabel.font.pointSize];
+        UIFont *descFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.foregroundLabel.font.fontName] size: 12];
         [self.foregroundLabel setFont:newFont];
         [self.profileView addSubview:self.foregroundLabel];
         [self.profileView bringSubviewToFront:self.foregroundLabel];
-        self.foregroundDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profileImage.frame.origin.x, self.foregroundLabel.frame.origin.y+self.foregroundLabel.frame.size.height, self.profileImage.frame.size.width, 100)];
+        self.foregroundDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.profileImage.frame.size.height+5, self.profileImage.frame.size.width-5, 150)];
         self.foregroundDescriptionLabel.numberOfLines = 0;
         self.foregroundDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.foregroundDescriptionLabel.text = aUser.desc;
+        self.foregroundDescriptionLabel.textColor = [UIColor whiteColor];
+        [self.foregroundDescriptionLabel setFont:descFont];
         NSLog(@"DESC %@",aUser.desc);
         [self.profileView addSubview:self.foregroundDescriptionLabel];
         NSLog(@"%@", self.foregroundLabel);
@@ -244,7 +252,7 @@
     self.backgroundView = [[UIView alloc] initWithFrame:[self createMatchRect]];
     self.backgroundView.backgroundColor = RED_COLOR;
     self.backgroundView.clipsToBounds = YES;
-    self.backgroundView.layer.cornerRadius = cornRadius;
+//    self.backgroundView.layer.cornerRadius = cornRadius;
     [self.view addSubview:self.backgroundView];
     [self.view sendSubviewToBack:self.backgroundView];
     [self.view sendSubviewToBack:self.gradiantView];
@@ -266,11 +274,14 @@
         [self.backgroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:20]];
         UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.backgroundLabel.font.fontName] size:self.backgroundLabel.font.pointSize];
         [self.backgroundLabel setFont:newFont];
+        UIFont *descFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.backgroundLabel.font.fontName] size: 12];
         [self.backgroundView addSubview:self.backgroundLabel];
-        self.backgroundDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.backgroundImage.frame.origin.x, self.backgroundLabel.frame.origin.y+self.backgroundLabel.frame.size.height, self.backgroundImage.frame.size.width, 100)];
+        self.backgroundDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.backgroundImage.frame.origin.x, self.backgroundLabel.frame.origin.y+self.backgroundLabel.frame.size.height, self.backgroundImage.frame.size.width, 150)];
         self.backgroundDescriptionLabel.numberOfLines = 0;
         self.backgroundDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.backgroundDescriptionLabel.text = aUser.desc;
+        self.backgroundDescriptionLabel.textColor = [UIColor whiteColor];
+        [self.backgroundDescriptionLabel setFont:descFont];
         NSLog(@"DESC %@",aUser.desc);
         [self.backgroundView addSubview:self.backgroundDescriptionLabel];
     }];
@@ -304,8 +315,8 @@
 {
     int x = 10;
     int width = 320 - (x*2);
-    int y = 10;
-    int height = 480;
+    int y = 2;
+    int height = 400;
     return CGRectMake(x, y, width, height);
 }
 
@@ -332,25 +343,15 @@
 
 - (void)handleTap:(UITapGestureRecognizer *)tap
 {
-    self.profileImage.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.profileImage.layer.shadowOpacity = 0.75;
-    self.profileImage.layer.shadowRadius = 15.0;
-    self.profileImage.layer.shadowOffset = (CGSize){0.0,20.0};
-
-
+    self.profileView.userInteractionEnabled = NO;
     [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
                      animations:^(void) {
-                         self.profileImage.transform = CGAffineTransformMakeScale(-1, 1);
-                         self.foregroundLabel.transform = CGAffineTransformMakeScale(-1, -1);
+                         self.profileImage.alpha = 0;
                      }
                      completion:^(BOOL b) {
-                         self.foregroundLabel.transform = CGAffineTransformMakeScale(1, 1);
-                         self.profileView.layer.shadowColor = [UIColor clearColor].CGColor;
-                         self.profileView.layer.shadowOpacity = 0.0;
-                         self.profileView.layer.shadowRadius = 0.0;
-                         self.profileView.layer.shadowOffset = (CGSize){0.0, 0.0};
                          [self removeOldProfileImage];
                          [self addNewProfileImage];
+                         self.profileView.userInteractionEnabled = YES;
                      }];
 }
 
@@ -365,11 +366,11 @@
         data = [self.arrayOfPhotoDataForeground objectAtIndex:self.photoArrayIndex];
         self.photoArrayIndex++;
     }
-    self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(MARGIN/2, MARGIN/2, self.profileView.frame.size.width-MARGIN, self.profileView.frame.size.height-230)];
+    self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-90)];
     self.profileImage.tag = currentProfileImage;
     self.profileImage.image = [UIImage imageWithData:data];
     self.profileImage.clipsToBounds = YES;
-    self.profileImage.layer.cornerRadius = cornRadius;
+//    self.profileImage.layer.cornerRadius = cornRadius;
     [self.profileView addSubview:self.profileImage];
 }
 
@@ -590,5 +591,21 @@
         }
     }
 }
+
+- (IBAction)cycleImagesButtonHit:(UIButton *)sender
+{
+
+}
+
+- (IBAction)dislikeButtonHit:(UIButton *)sender
+{
+
+}
+
+- (IBAction)likeButtonHit:(UIButton *)sender
+{
+    
+}
+
 
 @end
