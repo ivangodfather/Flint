@@ -43,6 +43,8 @@
 @property NSMutableArray* arrayOfPhotoDataBackground;
 @property (strong, nonatomic) UILabel* foregroundLabel;
 @property (strong, nonatomic) UILabel* backgroundLabel;
+@property (strong, nonatomic) UILabel* foregroundDescriptionLabel;
+@property (strong, nonatomic) UILabel* backgroundDescriptionLabel;
 @property BOOL firstTime;
 @property BOOL isRotating;
 @property int photoArrayIndex;
@@ -59,7 +61,7 @@
 {
     [super viewDidLoad];
     PFQuery* distanceQuery = [UserParse query];
-    [distanceQuery whereKey:@"objectId" equalTo:[UserParse currentUser].objectId];
+    [distanceQuery whereKey:@"username" equalTo:[UserParse currentUser].username];
     [distanceQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.curUser = objects.firstObject;
         [self currentLocationIdentifier];
@@ -71,7 +73,6 @@
     self.photoArrayIndex = 1;
     self.firstTime = YES;
     self.isRotating = YES;
-    NSLog(@"current user %@", [UserParse currentUser]);
     self.view.backgroundColor = WHITE_COLOR;
 //    self.gradiantView = [[UIView alloc] initWithFrame:self.view.frame];
 //    CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -97,45 +98,11 @@
     [[UserParse currentUser] saveEventually];
     [self.locationManager stopUpdatingLocation];
     [self getMatches];
-
 }
-
-//-(void) getDistanceFrom:(PFGeoPoint*)userLocation withString:(PFGeoPoint*)toUserGeopoint
-//{
-//    NSLog(@"to user geopoint - %@", toUserGeopoint);
-//    CLLocation* toUserLocation = [[CLLocation alloc] initWithLatitude:toUserGeopoint.latitude longitude:toUserGeopoint.longitude];
-//    int meters = (int)[userLocation distanceFromLocation:toUserLocation];
-//    int miles = meters * 0.000621371;
-//    self.milesAway = [NSNumber numberWithInt:miles];
-//    if (self.milesAway.intValue < 10000) {
-//        [self.posibleMatchesArray removeObject:self.posibleMatchesArray.firstObject];
-//        UserParse* aUser = self.posibleMatchesArray.firstObject;
-//        [self getDistanceFrom:userLocation withString:aUser.geoPoint];
-//    } else {
-//        [self firstPlacement];
-//        NSLog(@"miles - %d", miles);
-//    }
-//}
-
-//-(void) getDistanceFromSecondTime:(CLLocation*)userLocation withString:(PFGeoPoint*)toUserGeopoint
-//{
-//
-//    CLLocation* toUserLocation = [[CLLocation alloc] initWithLatitude:toUserGeopoint.latitude longitude:toUserGeopoint.longitude];
-//    int meters = (int)[userLocation distanceFromLocation:toUserLocation];
-//    int miles = meters * 0.000621371;
-//    self.milesAway = [NSNumber numberWithInt:miles];
-//    if (self.milesAway.intValue < 10000) {
-//        [self.posibleMatchesArray removeObject:self.posibleMatchesArray.firstObject];
-//        UserParse* aUser = self.posibleMatchesArray.firstObject;
-//        [self getDistanceFromSecondTime:userLocation withString:aUser.geoPoint];
-//    } else {
-//        [self placeBackgroundProfile];
-//        NSLog(@"miles - %d", miles);
-//    }
-//}
 
 - (void)getMatches
 {
+    NSLog(@"current user here %@", self.curUser);
     PFQuery *query = [PossibleMatch query];
     [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
     [query whereKey:@"match" equalTo:@"YES"];
@@ -144,7 +111,7 @@
     if (self.curUser.distance.doubleValue == 0.0) {
         [UserParse currentUser].distance = [NSNumber numberWithInt:100];
     }
-    [userQuery whereKey:@"geoPoint" nearGeoPoint:[UserParse currentUser].geoPoint withinKilometers:self.curUser.distance.doubleValue];
+    [userQuery whereKey:@"geoPoint" nearGeoPoint:self.curUser.geoPoint withinKilometers:self.curUser.distance.doubleValue];
     [userQuery whereKey:@"email" matchesKey:@"fromUserId" inQuery:query];
     if (self.curUser.sexuality.integerValue == 0) {
         NSLog(@"Im here 0 ");
@@ -166,6 +133,7 @@
         if (self.curUser.sexuality.integerValue == 0) {
             [userQuery whereKey:@"isMale" equalTo:@"true"];
         }
+        NSLog(@"distance - %@", self.curUser.sexuality);
         if (self.curUser.sexuality.integerValue == 1) {
             [userQuery whereKey:@"isMale" equalTo:@"false"];
         }
@@ -226,13 +194,12 @@
         [self.foregroundLabel setFont:newFont];
         [self.profileView addSubview:self.foregroundLabel];
         [self.profileView bringSubviewToFront:self.foregroundLabel];
-
-        UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profileImage.frame.origin.x, self.foregroundLabel.frame.origin.y+self.foregroundLabel.frame.size.height, self.profileImage.frame.size.width, 100)];
-        descriptionLabel.numberOfLines = 0;
-        descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        descriptionLabel.text = aUser.desc;
+        self.foregroundDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profileImage.frame.origin.x, self.foregroundLabel.frame.origin.y+self.foregroundLabel.frame.size.height, self.profileImage.frame.size.width, 100)];
+        self.foregroundDescriptionLabel.numberOfLines = 0;
+        self.foregroundDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.foregroundDescriptionLabel.text = aUser.desc;
         NSLog(@"DESC %@",aUser.desc);
-        [self.profileView addSubview:descriptionLabel];
+        [self.profileView addSubview:self.foregroundDescriptionLabel];
         NSLog(@"%@", self.foregroundLabel);
         [self setPanGestureRecognizer];
         self.firstTime = NO;
@@ -283,12 +250,12 @@
     NSLog(@"%@", self.backgroundView);
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         [self.arrayOfPhotoDataBackground addObject:data];
-        self.backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.backgroundView.frame.size.width, self.backgroundView.frame.size.height-labelHeight)];
+        self.backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(MARGIN/2, MARGIN/2, self.backgroundView.frame.size.width-MARGIN, self.backgroundView.frame.size.height-230)];
         self.backgroundImage.image = [UIImage imageWithData:data];
         self.backgroundImage.clipsToBounds = YES;
         self.backgroundImage.layer.cornerRadius = cornRadius;
         [self.backgroundView addSubview:self.backgroundImage];
-        self.backgroundLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.backgroundView.frame.size.height-labelHeight, self.backgroundImage.frame.size.width, labelHeight)];
+        self.backgroundLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.backgroundImage.frame.origin.x, self.backgroundImage.frame.size.height+labelHeight, self.backgroundImage.frame.size.width, labelHeight)];
         self.backgroundLabel.textAlignment = NSTextAlignmentCenter;
         self.backgroundLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
         self.backgroundLabel.textColor = [UIColor whiteColor];
@@ -299,6 +266,12 @@
         UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.backgroundLabel.font.fontName] size:self.backgroundLabel.font.pointSize];
         [self.backgroundLabel setFont:newFont];
         [self.backgroundView addSubview:self.backgroundLabel];
+        self.backgroundDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.backgroundImage.frame.origin.x, self.backgroundLabel.frame.origin.y+self.backgroundLabel.frame.size.height, self.backgroundImage.frame.size.width, 100)];
+        self.backgroundDescriptionLabel.numberOfLines = 0;
+        self.backgroundDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.backgroundDescriptionLabel.text = aUser.desc;
+        NSLog(@"DESC %@",aUser.desc);
+        [self.backgroundView addSubview:self.backgroundDescriptionLabel];
     }];
     if ([aUser[@"photo1"] isKindOfClass:[PFFile class]]) {
         PFFile* photo1 = aUser[@"photo1"];
@@ -391,7 +364,7 @@
         data = [self.arrayOfPhotoDataForeground objectAtIndex:self.photoArrayIndex];
         self.photoArrayIndex++;
     }
-    self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
+    self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(MARGIN/2, MARGIN/2, self.profileView.frame.size.width-MARGIN, self.profileView.frame.size.height-230)];
     self.profileImage.tag = currentProfileImage;
     self.profileImage.image = [UIImage imageWithData:data];
     self.profileImage.clipsToBounds = YES;
@@ -468,6 +441,7 @@
         self.profileView = self.backgroundView;
         self.profileImage = self.backgroundImage;
         self.foregroundLabel = self.backgroundLabel;
+        self.foregroundDescriptionLabel = self.backgroundDescriptionLabel;
         self.arrayOfPhotoDataForeground = self.arrayOfPhotoDataBackground;
         self.profileImage.tag = currentProfileImage;
         self.photoArrayIndex = 1;
@@ -522,6 +496,7 @@
         self.profileView = self.backgroundView;
         self.profileImage = self.backgroundImage;
         self.foregroundLabel = self.backgroundLabel;
+        self.foregroundDescriptionLabel = self.backgroundDescriptionLabel;
         self.profileImage.tag = currentProfileImage;
         self.photoArrayIndex = 1;
         self.arrayOfPhotoDataForeground = self.arrayOfPhotoDataBackground;
