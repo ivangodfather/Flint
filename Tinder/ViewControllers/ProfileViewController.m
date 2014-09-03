@@ -10,6 +10,7 @@
 #import "SWRevealViewController.h"
 #import "UserParse.h"
 #import "V8HorizontalPickerView.h"
+#import "CDemoCollectionViewCell.h"
 
 #define DEFAULT_DESCRIPTION  @"Fill with information about you"
 #define MAXLENGTH 130
@@ -42,6 +43,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *editView;
 @property (weak, nonatomic) IBOutlet UIView *profileBackground;
+@property (weak, nonatomic) IBOutlet UIImageView *femaleImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *bothImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *maleImageView;
 
 @property UserParse *user;
 @end
@@ -221,6 +225,9 @@
     [UIView animateWithDuration:0.7 animations:^{
         self.genderLikeSelect.frame = CGRectMake(40, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
     } completion:^(BOOL finished) {
+        self.maleImageView.image = [UIImage imageNamed:@"maleBlue"];
+        self.femaleImageView.image = [UIImage imageNamed:@"female"];
+        self.bothImageView.image = [UIImage imageNamed:@"both"];
     }];
     [self.user saveInBackground];
 }
@@ -230,7 +237,11 @@
     self.user.sexuality = [NSNumber numberWithInt:1];
     [UIView animateWithDuration:0.7 animations:^{
         self.genderLikeSelect.frame = CGRectMake(127, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+
     } completion:^(BOOL finished) {
+        self.maleImageView.image = [UIImage imageNamed:@"male"];
+        self.femaleImageView.image = [UIImage imageNamed:@"femaleBlue"];
+        self.bothImageView.image = [UIImage imageNamed:@"both"];
     }];
     [self.user saveInBackground];
 }
@@ -240,7 +251,11 @@
     self.user.sexuality = [NSNumber numberWithInt:2];
     [UIView animateWithDuration:0.7 animations:^{
         self.genderLikeSelect.frame = CGRectMake(219, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+
     } completion:^(BOOL finished) {
+        self.maleImageView.image = [UIImage imageNamed:@"male"];
+        self.femaleImageView.image = [UIImage imageNamed:@"female"];
+        self.bothImageView.image = [UIImage imageNamed:@"bothBlue"];
     }];
     [self.user saveInBackground];
 }
@@ -358,6 +373,70 @@
         }];
         
     }
-    
 }
+
+
+
+#pragma mark -
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
+{
+	return 3;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+{
+	CDemoCollectionViewCell *theCell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+
+	if (theCell.gestureRecognizers.count == 0)
+    {
+		[theCell addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCell:)]];
+    }
+
+	theCell.backgroundColor = [UIColor colorWithHue:(float)indexPath.row / (float)self.cellCount saturation:0.333 brightness:1.0 alpha:1.0];
+
+	if (indexPath.row < self.assets.count)
+    {
+		NSURL *theURL = [self.assets objectAtIndex:indexPath.row];
+		UIImage *theImage = [self.imageCache objectForKey:theURL];
+		if (theImage == NULL)
+        {
+			theImage = [UIImage imageWithContentsOfFile:theURL.path];
+
+			[self.imageCache setObject:theImage forKey:theURL];
+        }
+
+		theCell.imageView.image = theImage;
+		theCell.reflectionImageView.image = theImage;
+		theCell.backgroundColor = [UIColor clearColor];
+    }
+
+	return(theCell);
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+	CCoverflowTitleView *theView = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"title" forIndexPath:indexPath];
+	self.titleView = theView;
+	[self updateTitle];
+	return(theView);
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	[self updateTitle];
+}
+
+#pragma mark -
+
+- (void)tapCell:(UITapGestureRecognizer *)inGestureRecognizer
+{
+	NSIndexPath *theIndexPath = [self.collectionView indexPathForCell:(UICollectionViewCell *)inGestureRecognizer.view];
+
+	NSLog(@"%@", [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:theIndexPath]);
+	NSURL *theURL = [self.assets objectAtIndex:theIndexPath.row];
+	NSLog(@"%@", theURL);
+}
+
+
 @end

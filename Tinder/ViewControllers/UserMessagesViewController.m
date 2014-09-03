@@ -106,7 +106,7 @@
     if ((message.sendImage || message.image) && [message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"fromCellImage" forIndexPath:indexPath];
         cell.userImageView.image = self.fromPhoto;
-        cell.photoImageView.layer.cornerRadius = 10;
+        cell.photoImageView.layer.cornerRadius = cell.photoImageView.frame.size.width/2;
         cell.photoImageView.clipsToBounds = YES;
         __block UIImage *image;
         if (message.sendImage) {
@@ -131,7 +131,7 @@
     if (message.image && [message.fromUserParse.objectId isEqualToString:self.toUserParse.objectId]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"toCellImage" forIndexPath:indexPath];
         cell.userImageView.image = self.toPhoto;
-        cell.photoImageView.layer.cornerRadius = 10;
+        cell.photoImageView.layer.cornerRadius = cell.photoImageView.frame.size.width/2;
         cell.photoImageView.clipsToBounds = YES;
         cell.dateLabel.text = [dateFormatter stringFromDate:[message createdAt]];
         __block UIImage *image;
@@ -162,10 +162,10 @@
     }
     UIView *view = [cell.contentView viewWithTag:666];
     [view removeFromSuperview];
-    cell.userImageView.layer.cornerRadius = 26;
+    cell.userImageView.layer.cornerRadius = cell.userImageView.frame.size.width/2;
     cell.userImageView.clipsToBounds = YES;
     cell.userImageView.layer.borderWidth = 2.0,
-    cell.userImageView.layer.borderColor = YELLOW_COLOR.CGColor;
+    cell.userImageView.layer.borderColor = BLUE_COLOR.CGColor;
 
 
 
@@ -191,9 +191,9 @@
 
         UIView *bubbleView = [[UIView alloc] initWithFrame:outlineRect];
         if ( [message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
-            bubbleView.backgroundColor = GRAY_COLOR;
-        } else {
             bubbleView.backgroundColor = BLUE_COLOR;
+        } else {
+            bubbleView.backgroundColor = GRAY_COLOR;
         }
         bubbleView.layer.cornerRadius = 10.0f;
         bubbleView.tag = 666;

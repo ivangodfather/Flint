@@ -12,6 +12,13 @@
 		0BA4ECB219AE1EE200302E92 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB119AE1EE200302E92 /* SidebarTableViewController.m */; };
 		0BA4ECB519AE1F0A00302E92 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB419AE1F0A00302E92 /* SWRevealViewController.m */; };
 		0BA4ECBB19AE232600302E92 /* CustomSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECBA19AE232600302E92 /* CustomSignInViewController.m */; };
+		42236F2619B7DEEE00539466 /* CBetterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F1B19B7DEEE00539466 /* CBetterCollectionViewCell.m */; };
+		42236F2719B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F1D19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.m */; };
+		42236F2819B7DEEE00539466 /* CCoverflowCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F1F19B7DEEE00539466 /* CCoverflowCollectionViewLayout.m */; };
+		42236F2919B7DEEE00539466 /* CInterpolator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42236F2119B7DEEE00539466 /* CInterpolator.mm */; };
+		42236F2A19B7DEEE00539466 /* CReflectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F2319B7DEEE00539466 /* CReflectionView.m */; };
+		42236F2B19B7DEEE00539466 /* Interpolator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42236F2419B7DEEE00539466 /* Interpolator.cpp */; };
+		42236F2E19B7E05800539466 /* CDemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F2D19B7E05800539466 /* CDemoCollectionViewCell.m */; };
 		426107DD19B3ABD80000536C /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 426107DC19B3ABD80000536C /* Profile.xcassets */; };
 		426107DF19B42D930000536C /* Barbuttons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 426107DE19B42D930000536C /* Barbuttons.xcassets */; };
 		426107E319B4AA700000536C /* V8HorizontalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 426107E119B4AA700000536C /* V8HorizontalPickerView.m */; };
@@ -79,6 +86,20 @@
 		0BA4ECB419AE1F0A00302E92 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Libraries/SWRevealViewController.m; sourceTree = "<group>"; };
 		0BA4ECB919AE232600302E92 /* CustomSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomSignInViewController.h; path = ViewControllers/CustomSignInViewController.h; sourceTree = "<group>"; };
 		0BA4ECBA19AE232600302E92 /* CustomSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomSignInViewController.m; path = ViewControllers/CustomSignInViewController.m; sourceTree = "<group>"; };
+		42236F1A19B7DEEE00539466 /* CBetterCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBetterCollectionViewCell.h; sourceTree = "<group>"; };
+		42236F1B19B7DEEE00539466 /* CBetterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBetterCollectionViewCell.m; sourceTree = "<group>"; };
+		42236F1C19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBetterCollectionViewLayoutAttributes.h; sourceTree = "<group>"; };
+		42236F1D19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBetterCollectionViewLayoutAttributes.m; sourceTree = "<group>"; };
+		42236F1E19B7DEEE00539466 /* CCoverflowCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCoverflowCollectionViewLayout.h; sourceTree = "<group>"; };
+		42236F1F19B7DEEE00539466 /* CCoverflowCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCoverflowCollectionViewLayout.m; sourceTree = "<group>"; };
+		42236F2019B7DEEE00539466 /* CInterpolator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CInterpolator.h; sourceTree = "<group>"; };
+		42236F2119B7DEEE00539466 /* CInterpolator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CInterpolator.mm; sourceTree = "<group>"; };
+		42236F2219B7DEEE00539466 /* CReflectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CReflectionView.h; sourceTree = "<group>"; };
+		42236F2319B7DEEE00539466 /* CReflectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CReflectionView.m; sourceTree = "<group>"; };
+		42236F2419B7DEEE00539466 /* Interpolator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Interpolator.cpp; sourceTree = "<group>"; };
+		42236F2519B7DEEE00539466 /* Interpolator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interpolator.h; sourceTree = "<group>"; };
+		42236F2C19B7E05800539466 /* CDemoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDemoCollectionViewCell.h; sourceTree = "<group>"; };
+		42236F2D19B7E05800539466 /* CDemoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDemoCollectionViewCell.m; sourceTree = "<group>"; };
 		426107DC19B3ABD80000536C /* Profile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Profile.xcassets; sourceTree = "<group>"; };
 		426107DE19B42D930000536C /* Barbuttons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Barbuttons.xcassets; sourceTree = "<group>"; };
 		426107E019B4AA700000536C /* V8HorizontalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = V8HorizontalPickerView.h; path = Libraries/V8HorizontalPickerView.h; sourceTree = "<group>"; };
@@ -182,6 +203,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		42236F1919B7DEEE00539466 /* Coverflow */ = {
+			isa = PBXGroup;
+			children = (
+				42236F2C19B7E05800539466 /* CDemoCollectionViewCell.h */,
+				42236F2D19B7E05800539466 /* CDemoCollectionViewCell.m */,
+				42236F1A19B7DEEE00539466 /* CBetterCollectionViewCell.h */,
+				42236F1B19B7DEEE00539466 /* CBetterCollectionViewCell.m */,
+				42236F1C19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.h */,
+				42236F1D19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.m */,
+				42236F1E19B7DEEE00539466 /* CCoverflowCollectionViewLayout.h */,
+				42236F1F19B7DEEE00539466 /* CCoverflowCollectionViewLayout.m */,
+				42236F2019B7DEEE00539466 /* CInterpolator.h */,
+				42236F2119B7DEEE00539466 /* CInterpolator.mm */,
+				42236F2219B7DEEE00539466 /* CReflectionView.h */,
+				42236F2319B7DEEE00539466 /* CReflectionView.m */,
+				42236F2419B7DEEE00539466 /* Interpolator.cpp */,
+				42236F2519B7DEEE00539466 /* Interpolator.h */,
+			);
+			path = Coverflow;
+			sourceTree = "<group>";
+		};
 		426107D519B2D35E0000536C /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +368,7 @@
 		42DBCC8A19AC3DE700CE6C93 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				42236F1919B7DEEE00539466 /* Coverflow */,
 				426107D519B2D35E0000536C /* Transitions */,
 				42F5B28019B019DD0036938B /* V8HorizontalPickerView */,
 				42DBCCC919ACC4D600CE6C93 /* SWRevealViewController */,
@@ -490,11 +533,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42236F2B19B7DEEE00539466 /* Interpolator.cpp in Sources */,
 				0B0F422919B62BE00056F04D /* PossibleMatch.m in Sources */,
 				42DBCCDD19ACDD9C00CE6C93 /* MessageParse.m in Sources */,
+				42236F2E19B7E05800539466 /* CDemoCollectionViewCell.m in Sources */,
 				0BA4ECAD19ACEBED00302E92 /* CustomSignUpViewController.m in Sources */,
 				0BA4ECB519AE1F0A00302E92 /* SWRevealViewController.m in Sources */,
 				42DBCCD219ACCD9A00CE6C93 /* ProfileViewController.m in Sources */,
+				42236F2719B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.m in Sources */,
 				42DBCC3B19AC20BB00CE6C93 /* AppDelegate.m in Sources */,
 				42DBCCE019ACDF7000CE6C93 /* UserParse.m in Sources */,
 				42DBCCC819AC4E4B00CE6C93 /* MainViewController.m in Sources */,
@@ -503,12 +549,16 @@
 				426107E919B4AAA60000536C /* NavigationControllerDelegate.m in Sources */,
 				426107E319B4AA700000536C /* V8HorizontalPickerView.m in Sources */,
 				426107E819B4AAA60000536C /* Animator.m in Sources */,
+				42236F2919B7DEEE00539466 /* CInterpolator.mm in Sources */,
 				0BA4ECB219AE1EE200302E92 /* SidebarTableViewController.m in Sources */,
+				42236F2819B7DEEE00539466 /* CCoverflowCollectionViewLayout.m in Sources */,
 				4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */,
 				42BD2AFE19AE5A1B00FCC817 /* UserTableViewCell.m in Sources */,
 				42DBCCD619ACD87000CE6C93 /* MessagesViewController.m in Sources */,
 				0BA4ECBB19AE232600302E92 /* CustomSignInViewController.m in Sources */,
+				42236F2A19B7DEEE00539466 /* CReflectionView.m in Sources */,
 				42DBCCC519AC4E4200CE6C93 /* StarterViewController.m in Sources */,
+				42236F2619B7DEEE00539466 /* CBetterCollectionViewCell.m in Sources */,
 				4281F25C19B22F72007724C6 /* UserCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

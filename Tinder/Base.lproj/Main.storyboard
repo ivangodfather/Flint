@@ -535,12 +535,12 @@
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
                             <view contentMode="scaleToFill" id="TqL-hx-mig">
-                                <rect key="frame" x="39" y="337" width="60" height="60"/>
+                                <rect key="frame" x="39" y="331" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Iot-12-9Rg">
-                                <rect key="frame" x="128" y="376" width="60" height="20"/>
+                                <rect key="frame" x="128" y="370" width="60" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="9"/>
                                 <state key="normal" title="Female">
@@ -553,7 +553,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zPb-0f-aBo">
-                                <rect key="frame" x="221" y="376" width="60" height="20"/>
+                                <rect key="frame" x="221" y="370" width="60" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="9"/>
                                 <state key="normal" title="Both">
@@ -566,7 +566,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WMn-Mu-F64">
-                                <rect key="frame" x="39" y="376" width="60" height="20"/>
+                                <rect key="frame" x="39" y="370" width="60" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="9"/>
                                 <state key="normal" title="Male">
@@ -636,7 +636,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minValue="2" maxValue="100" id="nnZ-R2-duZ">
-                                <rect key="frame" x="11" y="447" width="242" height="31"/>
+                                <rect key="frame" x="11" y="450" width="242" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="minimumTrackTintColor" red="0.83921575550000005" green="0.27843138579999999" blue="0.47843140360000003" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="maximumTrackTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -648,7 +648,7 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Rbk-np-n6S">
-                                <rect key="frame" x="259" y="449" width="53" height="21"/>
+                                <rect key="frame" x="259" y="452" width="53" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -659,7 +659,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ruC-Qx-IKh">
-                                        <rect key="frame" x="86" y="20" width="148" height="148"/>
+                                        <rect key="frame" x="124" y="240" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -691,11 +691,36 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="ttH-LA-sRK">
+                                        <rect key="frame" x="80" y="20" width="160" height="146"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8AC-cc-8mD">
+                                            <size key="itemSize" width="108" height="112"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="OUW-ZC-etp" customClass="CDemoCollectionViewCell">
+                                                <rect key="frame" x="26" y="0.0" width="108" height="112"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="108" height="112"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="mLc-67-Pcw" id="nol-z4-p7H"/>
+                                            <outlet property="delegate" destination="mLc-67-Pcw" id="yRC-yV-EhJ"/>
+                                        </connections>
+                                    </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.14901961389999999" green="0.6784313917" blue="0.89019614459999996" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="male" id="OeU-Kh-jzM">
-                                <rect key="frame" x="54" y="348" width="30" height="30"/>
+                                <rect key="frame" x="54" y="342" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interested in:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LNG-cC-lfu">
@@ -708,7 +733,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="female" id="75Y-Lj-X8W">
-                                <rect key="frame" x="143" y="348" width="30" height="30"/>
+                                <rect key="frame" x="143" y="342" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heartGo" id="l6n-yT-fgA">
@@ -716,15 +741,20 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" id="8XP-Md-2ZV">
-                                <rect key="frame" x="72" y="419" width="20" height="20"/>
+                                <rect key="frame" x="72" y="418" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <view contentMode="scaleToFill" id="vHT-wH-KTs">
+                                <rect key="frame" x="0.0" y="399" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.85518973210000004" green="0.85518973210000004" blue="0.85518973210000004" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="both" id="CEy-4B-a34">
-                                <rect key="frame" x="236" y="348" width="30" height="30"/>
+                                <rect key="frame" x="236" y="342" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discovery distnace:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yxl-9u-mi5">
-                                <rect key="frame" x="83" y="418" width="155" height="21"/>
+                                <rect key="frame" x="83" y="417" width="155" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -837,6 +867,36 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QvS-dq-8CD">
+                                <rect key="frame" x="46" y="346" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="maleLikeSelect:" destination="mLc-67-Pcw" eventType="touchUpInside" id="W8Z-ey-4WB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XxC-5i-FAs">
+                                <rect key="frame" x="135" y="346" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="femaleLikeSelect:" destination="mLc-67-Pcw" eventType="touchUpInside" id="bSc-OE-ObE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MIs-9o-YqM">
+                                <rect key="frame" x="228" y="342" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="bothLikeSelect:" destination="mLc-67-Pcw" eventType="touchUpInside" id="0VN-4T-dEF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -853,16 +913,19 @@
                     <connections>
                         <outlet property="ageLabel" destination="ZXc-ch-9e5" id="vcL-c1-fND"/>
                         <outlet property="agePickerView" destination="x7Q-bj-fN5" id="gnq-Hr-6De"/>
+                        <outlet property="bothImageView" destination="CEy-4B-a34" id="aMk-rJ-cJv"/>
                         <outlet property="charactersLabel" destination="BGo-5M-7jI" id="xRY-Ul-tE4"/>
                         <outlet property="descriptionEditLabel" destination="cmM-23-iDV" id="klX-eV-7QR"/>
                         <outlet property="distanceLabel" destination="Rbk-np-n6S" id="4fm-wg-arL"/>
                         <outlet property="distanceSlider" destination="nnZ-R2-duZ" id="n86-6u-sTW"/>
                         <outlet property="editView" destination="Woe-ej-OEH" id="HeP-my-hxN"/>
                         <outlet property="femaleButton" destination="33o-Ug-5d9" id="2se-5m-Nu3"/>
+                        <outlet property="femaleImageView" destination="75Y-Lj-X8W" id="kLU-K5-tJH"/>
                         <outlet property="genderLabel" destination="Jgd-aZ-ica" id="QGt-Ew-S8R"/>
                         <outlet property="genderLikeSelect" destination="TqL-hx-mig" id="bbm-Xs-eh5"/>
                         <outlet property="genderSelect" destination="HkK-9Y-WTX" id="dB2-qQ-kfK"/>
                         <outlet property="maleButton" destination="0uA-Nx-Paq" id="Qzz-KT-joC"/>
+                        <outlet property="maleImageView" destination="OeU-Kh-jzM" id="pZQ-T2-4Zs"/>
                         <outlet property="profileBackground" destination="sMT-GS-Whu" id="727-LQ-aHz"/>
                         <outlet property="profilePhoto" destination="ruC-Qx-IKh" id="Xbc-ht-PQ9"/>
                         <outlet property="profilePhoto1" destination="FDJ-VP-9NG" id="hvy-xc-LHi"/>
@@ -1235,7 +1298,7 @@
         <image name="both" width="27" height="41"/>
         <image name="bubble" width="22" height="22"/>
         <image name="burn" width="128" height="120"/>
-        <image name="camera" width="180" height="180"/>
+        <image name="camera" width="60" height="55"/>
         <image name="camera2" width="128" height="128"/>
         <image name="dislike" width="279" height="250"/>
         <image name="email" width="128" height="128"/>
