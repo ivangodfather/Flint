@@ -16,10 +16,14 @@
 #define MAX_PHOTOS 10
 
 @interface ProfileViewController () <V8HorizontalPickerViewDataSource, V8HorizontalPickerViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *genderLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *charactersLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto;
+@property (weak, nonatomic) IBOutlet UIButton *maleButton;
+@property (weak, nonatomic) IBOutlet UIButton *femaleButton;
 
 @property NSMutableArray *ages;
 @property (weak, nonatomic) IBOutlet V8HorizontalPickerView *agePickerView;
@@ -32,9 +36,12 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profilePhoto4;
 @property (weak, nonatomic) IBOutlet UISlider *distanceSlider;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionEditLabel;
 
 @property int selectedPhoto;
 
+@property (weak, nonatomic) IBOutlet UIView *editView;
+@property (weak, nonatomic) IBOutlet UIView *profileBackground;
 
 @property UserParse *user;
 @end
@@ -61,32 +68,37 @@
         [self.ages addObject:[NSNumber numberWithInt:i]];
     }
 	self.agePickerView.backgroundColor   = [UIColor clearColor];
-	self.agePickerView.selectedTextColor = RED_COLOR;
-	self.agePickerView.textColor   = WHITE_COLOR;
+	self.agePickerView.selectedTextColor = BLUE_COLOR;
+	self.agePickerView.textColor   = GRAY_COLOR;
 	self.agePickerView.delegate    = self;
 	self.agePickerView.dataSource  = self;
 	self.agePickerView.elementFont = [UIFont boldSystemFontOfSize:14.0f];
-	self.agePickerView.selectionPoint = CGPointMake(self.view.frame.size.width/2.3, 0);
+	self.agePickerView.selectionPoint = CGPointMake(self.view.frame.size.width/3, 0);
 }
 
 - (void)customize
 {
+    self.profileBackground.backgroundColor = BLUE_COLOR;
+    self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.size.width/2;
+    self.profilePhoto.clipsToBounds = YES;
     self.descriptionTextView.textContainer.maximumNumberOfLines = 4;
     self.descriptionTextView.textColor = WHITE_COLOR;
-    self.descriptionTextView.backgroundColor = BLUE_COLOR;
-    self.view.backgroundColor = BLUE_COLOR;
+    self.view.backgroundColor = WHITE_COLOR;
     self.genderSelect.backgroundColor = [UIColor clearColor];
     [self.genderSelect.layer setBorderWidth:1];
-    [self.genderSelect.layer setBorderColor:RED_COLOR.CGColor];
+    [self.genderSelect.layer setBorderColor:BLUE_COLOR.CGColor];
+    self.genderLikeSelect.layer.cornerRadius = self.genderLikeSelect.frame.size.width/2;
     self.genderLikeSelect.backgroundColor = [UIColor clearColor];
     [self.genderLikeSelect.layer setBorderWidth:1];
-    [self.genderLikeSelect.layer setBorderColor:RED_COLOR.CGColor];
+    [self.genderLikeSelect.layer setBorderColor:BLUE_COLOR.CGColor];
     [self.distanceSlider setThumbImage:[UIImage imageNamed:@"accesory"] forState:UIControlStateNormal];
-    self.distanceSlider.thumbTintColor = RED_COLOR;
-    self.distanceSlider.minimumTrackTintColor = RED_COLOR;
-    self.distanceSlider.maximumTrackTintColor = WHITE_COLOR;
-    self.distanceLabel.textColor = YELLOW_COLOR;
+    self.distanceSlider.thumbTintColor = BLUE_COLOR;
+    self.distanceSlider.minimumTrackTintColor = BLUE_COLOR;
+    self.distanceSlider.maximumTrackTintColor = GRAY_COLOR;
+    self.distanceLabel.textColor = BLUE_COLOR;
     self.charactersLabel.textColor = YELLOW_COLOR;
+    self.editView.frame = CGRectMake(0, self.view.frame.size.height, self.editView.frame.size.width, self.editView.frame.size.height);
+    self.descriptionEditLabel.textColor = BLUE_COLOR;
 
 }
 
@@ -130,8 +142,6 @@
          self.charactersLabel.text = [NSString stringWithFormat:@"%d/%d",self.user.desc.length,MAXLENGTH];
          if (self.user.distance) {
              self.distanceSlider.value = self.user.distance.intValue;
-             NSLog(@"distnace %d",self.user.distance.intValue);
-             NSLog(@"dist2 %@",self.user.distance);
              self.distanceLabel.text = [NSString stringWithFormat:@"%dkm",(int)self.user.distance.intValue];
          } else {
              self.distanceSlider.value = DEFAULT_DISTANCE;
@@ -139,14 +149,16 @@
          }
 
          if (!self.user.isMale) {
-
-             self.genderSelect.frame = CGRectMake(173, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
+             [self femaleSelect:nil];
+         } else {
+             [self maleSelect:nil];
          }
+
          if ([self.user.sexuality isEqualToNumber:[NSNumber numberWithInt:1]]) {
-             self.genderLikeSelect.frame = CGRectMake(121, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+             [self femaleLikeSelect:nil];
          }
          if ([self.user.sexuality isEqualToNumber:[NSNumber numberWithInt:2]]) {
-             self.genderLikeSelect.frame = CGRectMake(215, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+             [self bothLikeSelect:nil];
          }
          [self.agePickerView scrollToElement:[NSNumber numberWithInt:self.user.age.intValue-18].intValue animated:YES];
 
@@ -176,9 +188,13 @@
 - (IBAction)maleSelect:(id)sender
 {
     self.user.isMale = @"true";
-    [UIView animateWithDuration:1 animations:^{
-        self.genderSelect.frame = CGRectMake(80, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
+    [UIView animateWithDuration:0.7 animations:^{
+        self.genderSelect.frame = CGRectMake(109, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
+        [self.maleButton setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+        [self.femaleButton setTitleColor:GRAY_COLOR forState:UIControlStateNormal];
+        self.genderLabel.text = @"Gender: Male";
     } completion:^(BOOL finished) {
+
     }];
     [self.user saveInBackground];
 }
@@ -186,9 +202,15 @@
 - (IBAction)femaleSelect:(id)sender
 {
     self.user.isMale = @"false";
-    [UIView animateWithDuration:1 animations:^{
-        self.genderSelect.frame = CGRectMake(173, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
+    [UIView animateWithDuration:0.7 animations:^{
+        self.genderSelect.frame = CGRectMake(202, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
+        [self.maleButton setTitleColor:GRAY_COLOR forState:UIControlStateNormal];
+        [self.femaleButton setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
+        self.genderLabel.text = @"Gender: Female";
+
     } completion:^(BOOL finished) {
+
+
     }];
     [self.user saveInBackground];
 }
@@ -196,8 +218,8 @@
 - (IBAction)maleLikeSelect:(id)sender
 {
     self.user.sexuality = [NSNumber numberWithInt:0];
-    [UIView animateWithDuration:1 animations:^{
-        self.genderLikeSelect.frame = CGRectMake(32, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+    [UIView animateWithDuration:0.7 animations:^{
+        self.genderLikeSelect.frame = CGRectMake(40, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
     } completion:^(BOOL finished) {
     }];
     [self.user saveInBackground];
@@ -206,8 +228,8 @@
 - (IBAction)femaleLikeSelect:(id)sender
 {
     self.user.sexuality = [NSNumber numberWithInt:1];
-    [UIView animateWithDuration:1 animations:^{
-        self.genderLikeSelect.frame = CGRectMake(122, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+    [UIView animateWithDuration:0.7 animations:^{
+        self.genderLikeSelect.frame = CGRectMake(127, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
     } completion:^(BOOL finished) {
     }];
     [self.user saveInBackground];
@@ -216,8 +238,8 @@
 - (IBAction)bothLikeSelect:(id)sender
 {
     self.user.sexuality = [NSNumber numberWithInt:2];
-    [UIView animateWithDuration:1 animations:^{
-        self.genderLikeSelect.frame = CGRectMake(215, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
+    [UIView animateWithDuration:0.7 animations:^{
+        self.genderLikeSelect.frame = CGRectMake(219, self.genderLikeSelect.frame.origin.y, self.genderLikeSelect.frame.size.width, self.genderLikeSelect.frame.size.height);
     } completion:^(BOOL finished) {
     }];
     [self.user saveInBackground];
@@ -248,6 +270,7 @@
 - (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {
     self.user.age = [NSNumber numberWithInt:index+MIN_AGE];
     [self.user saveInBackground];
+    self.ageLabel.text = [NSString stringWithFormat:@"Age: %@",[NSNumber numberWithInt:index+MIN_AGE]];
 }
 
 - (IBAction)logOut:(id)sender {
@@ -268,7 +291,7 @@
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
         self.user.desc = self.descriptionTextView.text;
-        [self.user saveInBackground];   
+        [self.user saveInBackground];
         return NO;
     }
     self.charactersLabel.text = [NSString stringWithFormat:@"%d/%d",textView.text.length,MAXLENGTH];
@@ -315,7 +338,26 @@
         }
         [self.user saveInBackground];
     }];
-    
+
 }
 
+- (IBAction)editProfile:(id)sender
+{
+    self.editing = !self.editing;
+    if (self.editing) {
+        [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.editView.frame = CGRectMake(0, self.view.frame.size.height-self.editView.frame.size.height, self.editView.frame.size.width, self.editView.frame.size.height);
+        } completion:^(BOOL finished) {
+
+        }];
+    } else {
+        [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.editView.frame = CGRectMake(0, self.view.frame.size.height, self.editView.frame.size.width, self.editView.frame.size.height);
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+    }
+    
+}
 @end

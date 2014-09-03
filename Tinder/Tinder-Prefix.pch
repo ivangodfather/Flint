@@ -26,7 +26,7 @@
 #define BLUEDARK_COLOR [UIColor colorWithRed:0.15 green:0.68 blue:0.89 alpha:1]
 #define WHITE_COLOR [UIColor whiteColor]
 #define GRAY_COLOR [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1]
-
+#define ORANGE_COLOR [UIColor colorWithRed:0.98 green:0.41 blue:0 alpha:1]
 #define KEYBOARD_HEIGHT 216.0
 #define MAX_AGE 99+1
 #define MIN_AGE 18

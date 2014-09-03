@@ -47,7 +47,7 @@
 {
     self.view.backgroundColor = WHITE_COLOR;
     self.collectionView.backgroundColor = WHITE_COLOR;
-    self.messagesView.backgroundColor = YELLOW_COLOR;
+    self.messagesView.backgroundColor = BLUE_COLOR;
     UIImage *temp = [[UIImage imageNamed:@"x"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:temp style:UIBarButtonItemStyleBordered target:self action:@selector(popVC)];
     self.navigationItem.leftBarButtonItem = barButtonItem;

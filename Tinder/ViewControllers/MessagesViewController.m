@@ -52,7 +52,7 @@
 - (void)customize
 {
     self.tableView.backgroundColor = WHITE_COLOR;
-    self.tableView.separatorColor = BLUEDARK_COLOR;
+    self.tableView.separatorColor = GRAY_COLOR;
     self.searchTextField.backgroundColor = WHITE_COLOR;
     self.searchTextField.backgroundColor = GRAY_COLOR;
 }
@@ -133,10 +133,10 @@
 
     cell.nameTextLabel.text = user.username;
     cell.nameTextLabel.textColor = BLACK_COLOR;
-    cell.userImageView.layer.cornerRadius = 26;
+    cell.userImageView.layer.cornerRadius = cell.userImageView.frame.size.width / 2;
     cell.userImageView.clipsToBounds = YES;
     cell.userImageView.layer.borderWidth = 2.0,
-    cell.userImageView.layer.borderColor = YELLOW_COLOR.CGColor;
+    cell.userImageView.layer.borderColor = BLUE_COLOR.CGColor;
 
     UIImageView *accesory = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accesory"]];
     accesory.frame = CGRectMake(15, 0, 15, 15);
