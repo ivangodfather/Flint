@@ -32,15 +32,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.cellMatch.backgroundColor = RED_COLOR;
-//    self.cellMessage.contentView.alpha = 0.5;
-//    self.profileCell.contentView.alpha = 0.5;
-//    self.cellShare.contentView.alpha = 0.5;
+    self.cellMatch.backgroundColor = BLUE_COLOR;
     PFQuery *query = [UserParse query];
     self.view.backgroundColor = BLUEDARK_COLOR;
 
     UIView *backgroundSelectedCell = [[UIView alloc] init];
-    [backgroundSelectedCell setBackgroundColor:RED_COLOR];
+    [backgroundSelectedCell setBackgroundColor:BLUE_COLOR];
 
     for (int section = 0; section < [self.tableView numberOfSections]; section++)
         for (int row = 0; row < [self.tableView numberOfRowsInSection:section]; row++)
@@ -113,26 +110,26 @@
 {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     if (indexPath.row == 1) {
-        self.cellMatch.backgroundColor = RED_COLOR;
+        self.cellMatch.backgroundColor = BLUE_COLOR;
         self.cellMessage.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
     }
     if (indexPath.row == 2) {
-        self.cellMessage.backgroundColor = RED_COLOR;
+        self.cellMessage.backgroundColor = BLUE_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
     }
     if (indexPath.row == 3) {
-        self.profileCell.backgroundColor = RED_COLOR;
+        self.profileCell.backgroundColor = BLUE_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
         self.cellMessage.backgroundColor = [UIColor clearColor];
 
     }
     if (indexPath.row == 4) {
-        self.cellShare.backgroundColor = RED_COLOR;
+        self.cellShare.backgroundColor = BLUE_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellMessage.backgroundColor = [UIColor clearColor];
@@ -158,7 +155,7 @@
 {
     NSString *text = @"Discover people that likes you nearby!";
     NSURL *url = [NSURL URLWithString:@"http://www.google.es"];
-    UIImage *image = [UIImage imageNamed:@"AppIcon"];
+    UIImage *image = [UIImage imageNamed:@"logo_mini"];
 
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[text, url, image] applicationActivities:nil];
 

@@ -84,6 +84,8 @@
     self.distanceSlider.thumbTintColor = RED_COLOR;
     self.distanceSlider.minimumTrackTintColor = RED_COLOR;
     self.distanceSlider.maximumTrackTintColor = WHITE_COLOR;
+    self.distanceLabel.textColor = YELLOW_COLOR;
+    self.charactersLabel.textColor = YELLOW_COLOR;
 
 }
 

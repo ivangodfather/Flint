@@ -26,7 +26,7 @@
 #define likeViewTag 2
 #define dislikeViewTag 1
 
-#define cornRadius 3
+#define cornRadius 10
 
 @interface MainViewController () <UIGestureRecognizerDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
@@ -65,13 +65,13 @@
     self.firstTime = YES;
     self.isRotating = YES;
     NSLog(@"current user %@", [UserParse currentUser]);
-    self.view.backgroundColor = BLUE_COLOR;
-    self.gradiantView = [[UIView alloc] initWithFrame:self.view.frame];
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.view.bounds;
-    gradient.colors = [NSArray arrayWithObjects:(id)BLUEDARK_COLOR.CGColor,(id)RED_COLOR.CGColor,nil];
-    [self.gradiantView.layer insertSublayer:gradient atIndex:0];
-    [self.view addSubview:self.gradiantView];
+    self.view.backgroundColor = WHITE_COLOR;
+//    self.gradiantView = [[UIView alloc] initWithFrame:self.view.frame];
+//    CAGradientLayer *gradient = [CAGradientLayer layer];
+//    gradient.frame = self.view.bounds;
+//    gradient.colors = [NSArray arrayWithObjects:(id)BLUEDARK_COLOR.CGColor,(id)RED_COLOR.CGColor,nil];
+//    [self.gradiantView.layer insertSublayer:gradient atIndex:0];
+//    [self.view addSubview:self.gradiantView];
 }
 
 -(void)currentLocationIdentifier
@@ -194,21 +194,22 @@
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         [self.arrayOfPhotoDataForeground addObject:data];
         self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
-        self.profileView.backgroundColor = RED_COLOR;
+        self.profileView.backgroundColor = BLUE_COLOR;
         self.profileView.clipsToBounds = YES;
         self.profileView.layer.cornerRadius = cornRadius;
         [self.view addSubview:self.profileView];
-        self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-labelHeight)];
+        self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(MARGIN/2, MARGIN/2, self.profileView.frame.size.width-MARGIN, self.profileView.frame.size.height-230)];
+        self.profileImage.contentMode = UIViewContentModeScaleAspectFill;
         self.profileImage.tag = currentProfileImage;
         self.profileImage.image = [UIImage imageWithData:data];
         self.profileImage.clipsToBounds = YES;
         self.profileImage.layer.cornerRadius = cornRadius;
         [self.profileView addSubview:self.profileImage];
-        self.foregroundLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.profileView.frame.size.height-labelHeight, self.profileImage.frame.size.width, labelHeight)];
+        self.foregroundLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profileImage.frame.origin.x, self.profileImage.frame.size.height+labelHeight, self.profileImage.frame.size.width, labelHeight)];
         self.foregroundLabel.textAlignment = NSTextAlignmentCenter;
         self.foregroundLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
         self.foregroundLabel.textColor = [UIColor whiteColor];
-        self.foregroundLabel.backgroundColor = RED_COLOR;
+        self.foregroundLabel.backgroundColor = YELLOW_COLOR;
         self.foregroundLabel.clipsToBounds = YES;
         self.foregroundLabel.layer.cornerRadius = cornRadius;
         [self.foregroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:20]];
@@ -216,6 +217,13 @@
         [self.foregroundLabel setFont:newFont];
         [self.profileView addSubview:self.foregroundLabel];
         [self.profileView bringSubviewToFront:self.foregroundLabel];
+
+        UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profileImage.frame.origin.x, self.foregroundLabel.frame.origin.y+self.foregroundLabel.frame.size.height, self.profileImage.frame.size.width, 100)];
+        descriptionLabel.numberOfLines = 0;
+        descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        descriptionLabel.text = aUser.desc;
+        NSLog(@"DESC %@",aUser.desc);
+        [self.profileView addSubview:descriptionLabel];
         NSLog(@"%@", self.foregroundLabel);
         [self setPanGestureRecognizer];
         self.firstTime = NO;

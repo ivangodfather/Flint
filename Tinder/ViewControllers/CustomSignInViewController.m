@@ -87,6 +87,7 @@
     [self.containerView.layer setBorderWidth:1.0f];
     [self.containerViewPassword.layer setBorderColor:[UIColor whiteColor].CGColor];
     [self.containerViewPassword.layer setBorderWidth:1.0f];
+    self.signInButton.backgroundColor = BLUE_COLOR;
 
 }
 

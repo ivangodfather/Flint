@@ -51,9 +51,10 @@
 
 - (void)customize
 {
-    self.tableView.backgroundColor = BLUE_COLOR;
+    self.tableView.backgroundColor = WHITE_COLOR;
     self.tableView.separatorColor = BLUEDARK_COLOR;
-    self.searchTextField.backgroundColor = BLUEDARK_COLOR;
+    self.searchTextField.backgroundColor = WHITE_COLOR;
+    self.searchTextField.backgroundColor = GRAY_COLOR;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -104,7 +105,6 @@
                     [message.toUserParse fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
                         [self.messages addObject:message];
                         [self.usersParseArray addObject:message.toUserParse];
-                        NSLog(@"user %@ position:%d",message.toUserParse.username,[self.usersParseArray indexOfObject:message.toUserParse]);
 
                         NSInteger position = [self.usersParseArray indexOfObject:message.toUserParse];
                         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:position inSection:0];
@@ -132,10 +132,11 @@
     }
 
     cell.nameTextLabel.text = user.username;
+    cell.nameTextLabel.textColor = BLACK_COLOR;
     cell.userImageView.layer.cornerRadius = 26;
     cell.userImageView.clipsToBounds = YES;
     cell.userImageView.layer.borderWidth = 2.0,
-    cell.userImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    cell.userImageView.layer.borderColor = YELLOW_COLOR.CGColor;
 
     UIImageView *accesory = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accesory"]];
     accesory.frame = CGRectMake(15, 0, 15, 15);
@@ -147,7 +148,7 @@
     if (!message.read && [message.toUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
         cell.lastMessageLabel.textColor = RED_COLOR;
     } else {
-        cell.lastMessageLabel.textColor = BLACK_COLOR;
+        cell.lastMessageLabel.textColor = GRAY_COLOR;
     }
     cell.dateLabel.textColor = BLACK_COLOR;
     NSDateFormatter *dateFormatter = [NSDateFormatter new];

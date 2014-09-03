@@ -106,6 +106,8 @@
     if ((message.sendImage || message.image) && [message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"fromCellImage" forIndexPath:indexPath];
         cell.userImageView.image = self.fromPhoto;
+        cell.photoImageView.layer.cornerRadius = 10;
+        cell.photoImageView.clipsToBounds = YES;
         __block UIImage *image;
         if (message.sendImage) {
             image = message.sendImage;
@@ -129,6 +131,8 @@
     if (message.image && [message.fromUserParse.objectId isEqualToString:self.toUserParse.objectId]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"toCellImage" forIndexPath:indexPath];
         cell.userImageView.image = self.toPhoto;
+        cell.photoImageView.layer.cornerRadius = 10;
+        cell.photoImageView.clipsToBounds = YES;
         cell.dateLabel.text = [dateFormatter stringFromDate:[message createdAt]];
         __block UIImage *image;
         [message.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -161,47 +165,53 @@
     cell.userImageView.layer.cornerRadius = 26;
     cell.userImageView.clipsToBounds = YES;
     cell.userImageView.layer.borderWidth = 2.0,
-    cell.userImageView.layer.borderColor = WHITE_COLOR.CGColor;
+    cell.userImageView.layer.borderColor = YELLOW_COLOR.CGColor;
 
 
 
     cell.dateLabel.text = [dateFormatter stringFromDate:[message createdAt]];
+    cell.dateLabel.textColor = BLACK_COLOR;
     cell.messageLabel.text = message.text;
 
-#warning DAVE
-    NSDictionary *attributes = @{NSFontAttributeName: cell.messageLabel.font};
+    if (!message.image && !message.sendImage) {
+        NSDictionary *attributes = @{NSFontAttributeName: cell.messageLabel.font};
+        cell.messageLabel.numberOfLines = 0;
+        CGRect rect = [message.text boundingRectWithSize:CGSizeMake(150, 100)
+                                                 options:NSStringDrawingUsesLineFragmentOrigin
+                                              attributes:attributes
+                                                 context:nil];
+        rect.origin = cell.messageLabel.frame.origin;
+        CGRect outlineRect = CGRectInset(rect, -15, -10);
+        if (!message.image && !message.sendImage && [message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
+            rect.origin.x = cell.userImageView.frame.origin.x - outlineRect.size.width;
+        }
+        outlineRect.origin = rect.origin;
+        outlineRect.origin.x -= MARGIN*1.5;
+        outlineRect.origin.y -= MARGIN/1.5;
 
-    cell.messageLabel.numberOfLines = 0;
-    CGRect rect = [message.text boundingRectWithSize:CGSizeMake(120, 100)
-                                             options:NSStringDrawingUsesLineFragmentOrigin
-                                          attributes:attributes
-                                             context:nil];
-    rect.origin = cell.messageLabel.frame.origin;
+        UIView *bubbleView = [[UIView alloc] initWithFrame:outlineRect];
+        if ( [message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
+            bubbleView.backgroundColor = GRAY_COLOR;
+        } else {
+            bubbleView.backgroundColor = BLUE_COLOR;
+        }
+        bubbleView.layer.cornerRadius = 10.0f;
+        bubbleView.tag = 666;
 
-    CGRect outlineRect = CGRectInset(rect, -15, -10);
 
-
-
-    if (!message.image && !message.sendImage && [message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
-        rect.origin.x = cell.userImageView.frame.origin.x - outlineRect.size.width;
+        cell.messageLabel.frame = rect;
+        [cell.contentView addSubview:bubbleView];
+        [cell.contentView sendSubviewToBack:bubbleView];
 
     }
-    outlineRect.origin = rect.origin;
-    outlineRect.origin.x -= MARGIN*1.5;
-    outlineRect.origin.y -= MARGIN/1.5;
-
-    UIView *bubbleView = [[UIView alloc] initWithFrame:outlineRect];
-    bubbleView.backgroundColor = BLUE_COLOR;
-    bubbleView.layer.cornerRadius = 10.0f;
-    bubbleView.tag = 666;
-
-
-    cell.messageLabel.frame = rect;
-    [cell.contentView addSubview:bubbleView];
-    [cell.contentView sendSubviewToBack:bubbleView];
 
 
     return cell;
+}
+
+-(CGPoint)centerOfCGFrame:(CGRect)rect
+{
+    return CGPointMake(rect.origin.x+rect.size.width/2, rect.origin.y+rect.size.height/2);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath

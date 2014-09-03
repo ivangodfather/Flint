@@ -45,6 +45,7 @@
     self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     [self.signUpButton.layer setBorderWidth:1];
     [self.signUpButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+    self.signUpButton.backgroundColor = BLUE_COLOR;
 
 
 
