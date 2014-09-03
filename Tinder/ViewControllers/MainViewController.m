@@ -60,9 +60,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    PFQuery* distanceQuery = [UserParse query];
-    [distanceQuery whereKey:@"username" equalTo:[UserParse currentUser].username];
-    [distanceQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    PFQuery* curQuery = [UserParse query];
+    [curQuery whereKey:@"username" equalTo:[UserParse currentUser].username];
+    [curQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.curUser = objects.firstObject;
         [self currentLocationIdentifier];
     }];
@@ -125,18 +125,19 @@
         [self.posibleMatchesArray addObjectsFromArray:objects];
         [self.willBeMatches addObjectsFromArray:objects];
         NSLog(@"will be match - %@", objects);
-        PFQuery *query = [PossibleMatch query]; //matches
-        [query whereKey:@"fromUser" equalTo:[UserParse currentUser]]; //people you've seen
+        PFQuery *query = [PossibleMatch query];
+        [query whereKey:@"fromUser" equalTo:[UserParse currentUser]];
         PFQuery* userQuery = [UserParse query];
         [userQuery whereKey:@"objectId" notEqualTo:[UserParse currentUser].objectId];
         [userQuery whereKey:@"email" doesNotMatchKey:@"toUserEmail" inQuery:query];
         if (self.curUser.sexuality.integerValue == 0) {
             [userQuery whereKey:@"isMale" equalTo:@"true"];
         }
-        NSLog(@"distance - %@", self.curUser.sexuality);
+        NSLog(@"sexuality - %@", self.curUser.sexuality);
         if (self.curUser.sexuality.integerValue == 1) {
             [userQuery whereKey:@"isMale" equalTo:@"false"];
         }
+        NSLog(@"distance - %@", self.curUser.distance);
         if (self.curUser.distance.doubleValue == 0.0) {
             self.curUser.distance = [NSNumber numberWithInt:1000];
         }
