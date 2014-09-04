@@ -708,7 +708,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" id="Woe-ej-OEH">
-                                <rect key="frame" x="0.0" y="568" width="320" height="216"/>
+                                <rect key="frame" x="0.0" y="268" width="320" height="216"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rxO-k9-phI">
@@ -790,15 +790,6 @@
                                         <rect key="frame" x="26" y="23" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi, if you wanna know me just write me a message. :-) Im very polite and smart also." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cmM-23-iDV">
-                                        <rect key="frame" x="82" y="17" width="213" height="46"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="13"/>
-                                        <color key="textColor" red="0.13333334029999999" green="0.60784316059999999" blue="0.85882359740000003" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <view contentMode="scaleToFill" id="tjo-dC-f8d">
                                         <rect key="frame" x="0.0" y="75" width="320" height="1"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -809,6 +800,17 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.85518973210000004" green="0.85518973210000004" blue="0.85518973210000004" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Hi, if you wanna know me just write me a message. :-) Im very polite and smart also." id="ufD-t3-ov7">
+                                        <rect key="frame" x="83" y="8" width="229" height="59"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.14901961389999999" green="0.67450982329999998" blue="0.88627457620000005" alpha="1" colorSpace="deviceRGB"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="13"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="mLc-67-Pcw" id="2aT-4Z-ZQk"/>
+                                        </connections>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -869,7 +871,8 @@
                         <outlet property="agePickerView" destination="x7Q-bj-fN5" id="gnq-Hr-6De"/>
                         <outlet property="bothImageView" destination="CEy-4B-a34" id="aMk-rJ-cJv"/>
                         <outlet property="charactersLabel" destination="BGo-5M-7jI" id="xRY-Ul-tE4"/>
-                        <outlet property="descriptionEditLabel" destination="cmM-23-iDV" id="klX-eV-7QR"/>
+                        <outlet property="descriptionLabel" destination="Y7e-R2-z92" id="SBi-99-0l1"/>
+                        <outlet property="descriptionTextView" destination="ufD-t3-ov7" id="qW9-Dp-VFs"/>
                         <outlet property="distanceLabel" destination="Rbk-np-n6S" id="4fm-wg-arL"/>
                         <outlet property="distanceSlider" destination="nnZ-R2-duZ" id="n86-6u-sTW"/>
                         <outlet property="editView" destination="Woe-ej-OEH" id="HeP-my-hxN"/>

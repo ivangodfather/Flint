@@ -30,8 +30,10 @@
 @property (weak, nonatomic) IBOutlet UIView *genderLikeSelect;
 @property (weak, nonatomic) IBOutlet UISlider *distanceSlider;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *descriptionEditLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property int selectedPhoto;
 
 @property (weak, nonatomic) IBOutlet UIView *editView;
@@ -91,7 +93,7 @@
     self.distanceLabel.textColor = BLUE_COLOR;
     self.charactersLabel.textColor = YELLOW_COLOR;
     self.editView.frame = CGRectMake(0, self.view.frame.size.height, self.editView.frame.size.width, self.editView.frame.size.height);
-    self.descriptionEditLabel.textColor = BLUE_COLOR;
+    self.descriptionTextView.textColor = BLUE_COLOR;
 
 }
 
@@ -111,6 +113,16 @@
          } else {
              self.distanceSlider.value = DEFAULT_DISTANCE;
              self.distanceLabel.text = [NSString stringWithFormat:@"%dkm",(int)DEFAULT_DISTANCE];
+         }
+         if (![self.user.desc isEqualToString:@""]) {
+             self.descriptionLabel.text = self.user.desc;
+         } else {
+             self.descriptionLabel.text = DEFAULT_DESCRIPTION;
+         }
+         if (![self.user.desc isEqualToString:@""]) {
+             self.descriptionTextView.text = self.user.desc;
+         } else {
+             self.descriptionTextView.text = DEFAULT_DESCRIPTION;
          }
 
          if (!self.user.isMale) {
@@ -257,9 +269,18 @@
 #pragma mark UItextView Delegate
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if ([textView.text isEqualToString:DEFAULT_DESCRIPTION]) {
-        textView.text = @"";
+    if ([self.descriptionTextView.text isEqualToString:DEFAULT_DESCRIPTION]) {
+        self.descriptionTextView.text = @"";
     }
+    self.editView.frame = CGRectMake(0, self.editView.frame.origin.y-100, self.editView.frame.size.width, self.editView.frame.size.height);
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    self.user.desc =self.descriptionTextView.text;
+    [self.user saveInBackground];
+
+        self.editView.frame = CGRectMake(0, self.editView.frame.origin.y+100, self.editView.frame.size.width, self.editView.frame.size.height);
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -269,8 +290,9 @@
         [self.user saveInBackground];
         return NO;
     }
+    self.descriptionLabel.text = textView.text;
     self.charactersLabel.text = [NSString stringWithFormat:@"%d/%d",textView.text.length,MAXLENGTH];
-    return textView.text.length + (text.length - range.length) <= MAXLENGTH;
+    return self.descriptionTextView.text.length + (text.length - range.length) <= MAXLENGTH;
 }
 
 - (IBAction)changePicture:(UIButton *)button
