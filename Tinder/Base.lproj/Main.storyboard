@@ -470,6 +470,9 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="cyclePhotosButton" destination="NiW-E7-aAz" id="5dt-s9-L2n"/>
+                        <outlet property="dislikeButton" destination="AeO-SB-QWK" id="Sqc-wg-DRG"/>
+                        <outlet property="likeButton" destination="1J8-9X-ye5" id="Rkv-fM-0e9"/>
                         <outlet property="sidebarButton" destination="7Gj-y8-gJo" id="2XD-pa-WrM"/>
                     </connections>
                 </viewController>

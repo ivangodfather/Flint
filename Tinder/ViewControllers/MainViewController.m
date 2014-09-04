@@ -61,6 +61,9 @@
 @property CLLocation* currentLocation;
 @property NSNumber* milesAway;
 @property UIImageView* background;
+@property (weak, nonatomic) IBOutlet UIButton *dislikeButton;
+@property (weak, nonatomic) IBOutlet UIButton *cyclePhotosButton;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property UserParse* curUser;
 @end
 
@@ -82,10 +85,11 @@
     self.photoArrayIndex = 1;
     self.firstTime = YES;
     self.isRotating = YES;
-    self.background = [[UIImageView alloc] initWithFrame:self.view.frame];
-    self.background.image = [UIImage imageNamed:@"background"];
-    [self.view addSubview:self.background];
-    [self.view sendSubviewToBack:self.background];
+    self.view.backgroundColor = BLUE_COLOR;
+//    self.background = [[UIImageView alloc] initWithFrame:self.view.frame];
+//    self.background.image = [UIImage imageNamed:@"background"];
+//    [self.view addSubview:self.background];
+//    [self.view sendSubviewToBack:self.background];
 //    self.gradiantView = [[UIView alloc] initWithFrame:self.view.frame];
 //    CAGradientLayer *gradient = [CAGradientLayer layer];
 //    gradient.frame = self.view.bounds;
@@ -223,6 +227,7 @@
         [self.profileView bringSubviewToFront:self.foregroundLabelAge];
         self.profileImageLocation = [[UIImageView alloc] initWithFrame:[self createImageLocation]];
         self.profileImageLocation.image = [UIImage imageNamed:@"location"];
+        self.profileImageLocation.contentMode = UIViewContentModeScaleAspectFit;
         [self.profileView addSubview:self.profileImageLocation];
         self.foregroundLabelLocation = [[UILabel alloc] initWithFrame:[self createLabelLocation]];
         self.foregroundLabelLocation.text = [NSString stringWithFormat:@"%.0fkm", distance];
@@ -238,7 +243,8 @@
         [self.profileView bringSubviewToFront:boundaryLabel];
         self.foregroundDescriptionLabel = [[UILabel alloc] initWithFrame:[self createLabelDescription]];
         self.foregroundDescriptionLabel.numberOfLines = 0;
-        self.foregroundDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        //self.foregroundDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.foregroundDescriptionLabel.textAlignment = NSTextAlignmentJustified;
         self.foregroundDescriptionLabel.text = aUser.desc;
         self.foregroundDescriptionLabel.textColor = BLUE_COLOR;
         [self.foregroundDescriptionLabel setFont:descFont];
@@ -630,105 +636,114 @@
 - (void) checkPointsForLike:(CGPoint)point
 {
     if (point.x > self.view.frame.size.width - MARGIN) {
-
-        NSLog(@"like");
-        self.profileView.gestureRecognizers = [NSArray new];
-        [self.profileView removeFromSuperview];
-        self.profileView = self.backgroundView;
-        self.profileImage = self.backgroundImage;
-        self.foregroundLabel = self.backgroundLabel;
-        self.foregroundDescriptionLabel = self.backgroundDescriptionLabel;
-        self.arrayOfPhotoDataForeground = self.arrayOfPhotoDataBackground;
-        self.profileImage.tag = currentProfileImage;
-        self.photoArrayIndex = 1;
-        if ([self.willBeMatches containsObject:self.currShowingProfile]) {
-            MessageParse* message = [MessageParse object];
-            message.fromUserParse = self.currShowingProfile;
-            message.fromUserParseEmail = self.currShowingProfile.email;
-            message.toUserParse = [UserParse currentUser];
-            message.toUserParseEmail = [UserParse currentUser].email;
-            message.text = @"";
-            PFQuery* query = [PossibleMatch query];
-            [query whereKey:@"fromUser" equalTo:self.currShowingProfile];
-            [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
-            PossibleMatch* posMatch = [query findObjects].firstObject;
-            posMatch.toUserApproved = @"YES";
-            [posMatch saveEventually];
-            NSLog(@"match made in heaven");
-            NSLog(@"pos match %@", posMatch);
-            [message saveEventually:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    self.currShowingProfile = self.backgroundUserProfile;
-                    [self setPanGestureRecognizer];
-                    if (self.posibleMatchesArray.firstObject != nil) {
-                        [self placeBackgroundProfile];
-                    }
-                }
-            }];
-        } else {
-            PossibleMatch* possibleMatch = [PossibleMatch object];
-            possibleMatch.fromUser = [UserParse currentUser];
-            possibleMatch.toUser = self.currShowingProfile;
-            possibleMatch.toUserEmail = self.currShowingProfile.email;
-            possibleMatch.fromUserEmail = [UserParse currentUser].email;
-            possibleMatch.match = @"YES";
-            possibleMatch.toUserApproved = @"notDone";
-            [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    self.currShowingProfile = self.backgroundUserProfile;
-                    [self setPanGestureRecognizer];
-                    NSLog(@"here");
-                    if (self.posibleMatchesArray.firstObject != nil) {
-                        [self placeBackgroundProfile];
-                    }
-                }
-            }];
-        }
+        [self likeAProfile];
     }
     if (point.x < MARGIN) {
-        NSLog(@"doesn't like");
-        self.profileView.gestureRecognizers = [NSArray new];
-        [self.profileView removeFromSuperview];
-        self.profileView = self.backgroundView;
-        self.profileImage = self.backgroundImage;
-        self.foregroundLabel = self.backgroundLabel;
-        self.foregroundDescriptionLabel = self.backgroundDescriptionLabel;
-        self.profileImage.tag = currentProfileImage;
-        self.photoArrayIndex = 1;
-        self.arrayOfPhotoDataForeground = self.arrayOfPhotoDataBackground;
-        if ([self.willBeMatches containsObject:self.currShowingProfile]) {
-            PFQuery* query = [PossibleMatch query];
-            [query whereKey:@"fromUser" equalTo:self.currShowingProfile];
-            [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
-            PossibleMatch* posMatch = [query findObjects].firstObject;
-            posMatch.toUserApproved = @"NO";
-            [posMatch saveEventually:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    self.currShowingProfile = self.backgroundUserProfile;
-                    [self setPanGestureRecognizer];
-                    if (self.posibleMatchesArray.firstObject != nil) {
-                        [self placeBackgroundProfile];
-                    }
+        [self dislikeAProfile];
+    }
+}
+
+- (void)dislikeAProfile
+{
+    NSLog(@"doesn't like");
+    self.profileView.gestureRecognizers = [NSArray new];
+    [self.profileView removeFromSuperview];
+    self.profileView = self.backgroundView;
+    self.profileImage = self.backgroundImage;
+    self.foregroundLabel = self.backgroundLabel;
+    self.foregroundDescriptionLabel = self.backgroundDescriptionLabel;
+    self.profileImage.tag = currentProfileImage;
+    self.photoArrayIndex = 1;
+    self.arrayOfPhotoDataForeground = self.arrayOfPhotoDataBackground;
+    if ([self.willBeMatches containsObject:self.currShowingProfile]) {
+        PFQuery* query = [PossibleMatch query];
+        [query whereKey:@"fromUser" equalTo:self.currShowingProfile];
+        [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
+        PossibleMatch* posMatch = [query findObjects].firstObject;
+        posMatch.toUserApproved = @"NO";
+        [posMatch saveEventually:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                self.currShowingProfile = self.backgroundUserProfile;
+                [self setPanGestureRecognizer];
+                if (self.posibleMatchesArray.firstObject != nil) {
+                    [self placeBackgroundProfile];
                 }
-            }];
-        } else {
-            PossibleMatch* possibleMatch = [PossibleMatch object];
-            possibleMatch.fromUser = [UserParse currentUser];
-            possibleMatch.fromUserEmail = [UserParse currentUser].email;
-            possibleMatch.toUserEmail = self.currShowingProfile.email;
-            NSLog(@"%@", self.currShowingProfile.email);
-            possibleMatch.toUser = self.currShowingProfile;
-            possibleMatch.match = @"NO";
-            [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
-                if (succeeded) {
-                    self.currShowingProfile = self.backgroundUserProfile;
-                    [self setPanGestureRecognizer];
-                    if (self.posibleMatchesArray.firstObject != nil) {
-                        [self placeBackgroundProfile];
-                    }
+            }
+        }];
+    } else {
+        PossibleMatch* possibleMatch = [PossibleMatch object];
+        possibleMatch.fromUser = [UserParse currentUser];
+        possibleMatch.fromUserEmail = [UserParse currentUser].email;
+        possibleMatch.toUserEmail = self.currShowingProfile.email;
+        NSLog(@"%@", self.currShowingProfile.email);
+        possibleMatch.toUser = self.currShowingProfile;
+        possibleMatch.match = @"NO";
+        [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                self.currShowingProfile = self.backgroundUserProfile;
+                [self setPanGestureRecognizer];
+                if (self.posibleMatchesArray.firstObject != nil) {
+                    [self placeBackgroundProfile];
                 }
-            }];
-        }
+            }
+        }];
+    }
+}
+
+- (void)likeAProfile
+{
+    NSLog(@"like");
+    self.profileView.gestureRecognizers = [NSArray new];
+    [self.profileView removeFromSuperview];
+    self.profileView = self.backgroundView;
+    self.profileImage = self.backgroundImage;
+    self.foregroundLabel = self.backgroundLabel;
+    self.foregroundDescriptionLabel = self.backgroundDescriptionLabel;
+    self.arrayOfPhotoDataForeground = self.arrayOfPhotoDataBackground;
+    self.profileImage.tag = currentProfileImage;
+    self.photoArrayIndex = 1;
+    if ([self.willBeMatches containsObject:self.currShowingProfile]) {
+        MessageParse* message = [MessageParse object];
+        message.fromUserParse = self.currShowingProfile;
+        message.fromUserParseEmail = self.currShowingProfile.email;
+        message.toUserParse = [UserParse currentUser];
+        message.toUserParseEmail = [UserParse currentUser].email;
+        message.text = @"";
+        PFQuery* query = [PossibleMatch query];
+        [query whereKey:@"fromUser" equalTo:self.currShowingProfile];
+        [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
+        PossibleMatch* posMatch = [query findObjects].firstObject;
+        posMatch.toUserApproved = @"YES";
+        [posMatch saveEventually];
+        NSLog(@"match made in heaven");
+        NSLog(@"pos match %@", posMatch);
+        [message saveEventually:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                self.currShowingProfile = self.backgroundUserProfile;
+                [self setPanGestureRecognizer];
+                if (self.posibleMatchesArray.firstObject != nil) {
+                    [self placeBackgroundProfile];
+                }
+            }
+        }];
+    } else {
+        PossibleMatch* possibleMatch = [PossibleMatch object];
+        possibleMatch.fromUser = [UserParse currentUser];
+        possibleMatch.toUser = self.currShowingProfile;
+        possibleMatch.toUserEmail = self.currShowingProfile.email;
+        possibleMatch.fromUserEmail = [UserParse currentUser].email;
+        possibleMatch.match = @"YES";
+        possibleMatch.toUserApproved = @"notDone";
+        [possibleMatch saveEventually:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                self.currShowingProfile = self.backgroundUserProfile;
+                [self setPanGestureRecognizer];
+                NSLog(@"here");
+                if (self.posibleMatchesArray.firstObject != nil) {
+                    [self placeBackgroundProfile];
+                }
+            }
+        }];
     }
 }
 
@@ -788,17 +803,54 @@
 
 - (IBAction)cycleImagesButtonHit:(UIButton *)sender
 {
-
+    self.profileView.userInteractionEnabled = NO;
+    sender.userInteractionEnabled = NO;
+    [UIView animateWithDuration:0.4 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^(void) {
+                         self.profileImage.alpha = 0;
+                     }
+                     completion:^(BOOL b) {
+                         [self removeOldProfileImage];
+                         [self addNewProfileImage];
+                         self.profileView.userInteractionEnabled = YES;
+                         sender.userInteractionEnabled = YES;
+                     }];
 }
 
 - (IBAction)dislikeButtonHit:(UIButton *)sender
 {
-
+    if(self.profileView != nil) {
+        sender.enabled = NO;
+        self.likeButton.enabled = NO;
+        self.cyclePhotosButton.enabled = NO;
+        [UIView animateWithDuration:0.4 animations:^{
+            self.profileView.transform = CGAffineTransformMakeTranslation(-300, 40);
+            [self addDislikeView];
+        } completion:^(BOOL finished) {
+            [self dislikeAProfile];
+            sender.enabled = YES;
+            self.likeButton.enabled = YES;
+            self.cyclePhotosButton.enabled = YES;
+        }];
+    }
 }
 
 - (IBAction)likeButtonHit:(UIButton *)sender
 {
-    
+    if(self.profileView != nil) {
+        sender.enabled = NO;
+        self.dislikeButton.enabled = NO;
+        self.cyclePhotosButton.enabled = NO;
+        [UIView animateWithDuration:0.4 animations:^{
+            self.profileView.transform = CGAffineTransformMakeTranslation(300, 40);
+            [self addLikeView];
+        } completion:^(BOOL finished) {
+            [self likeAProfile];
+            sender.enabled = YES;
+            self.dislikeButton.enabled = YES;
+            self.cyclePhotosButton.enabled = YES;
+        }];
+    }
 }
 
 
