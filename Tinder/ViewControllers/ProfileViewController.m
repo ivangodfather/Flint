@@ -12,7 +12,7 @@
 #import "V8HorizontalPickerView.h"
 
 #define DEFAULT_DESCRIPTION  @"Fill with information about you"
-#define MAXLENGTH 130
+#define MAXLENGTH 125
 #define MAX_PHOTOS 10
 
 @interface ProfileViewController () <V8HorizontalPickerViewDataSource, V8HorizontalPickerViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -91,9 +91,10 @@
     self.distanceSlider.minimumTrackTintColor = BLUE_COLOR;
     self.distanceSlider.maximumTrackTintColor = GRAY_COLOR;
     self.distanceLabel.textColor = BLUE_COLOR;
-    self.charactersLabel.textColor = YELLOW_COLOR;
+    self.charactersLabel.textColor = ORANGE_COLOR;
     self.editView.frame = CGRectMake(0, self.view.frame.size.height, self.editView.frame.size.width, self.editView.frame.size.height);
     self.descriptionTextView.textColor = BLUE_COLOR;
+    self.descriptionTextView.textAlignment = NSTextAlignmentJustified;
 
 }
 
@@ -165,7 +166,7 @@
 - (IBAction)maleSelect:(id)sender
 {
     self.user.isMale = @"true";
-    [UIView animateWithDuration:0.7 animations:^{
+    [UIView animateWithDuration:1.5 animations:^{
         self.genderSelect.frame = CGRectMake(109, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
         [self.maleButton setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
         [self.femaleButton setTitleColor:GRAY_COLOR forState:UIControlStateNormal];
@@ -179,7 +180,7 @@
 - (IBAction)femaleSelect:(id)sender
 {
     self.user.isMale = @"false";
-    [UIView animateWithDuration:0.7 animations:^{
+    [UIView animateWithDuration:1.5 animations:^{
         self.genderSelect.frame = CGRectMake(202, self.genderSelect.frame.origin.y, self.genderSelect.frame.size.width, self.genderSelect.frame.size.height);
         [self.maleButton setTitleColor:GRAY_COLOR forState:UIControlStateNormal];
         [self.femaleButton setTitleColor:BLUE_COLOR forState:UIControlStateNormal];
@@ -272,15 +273,23 @@
     if ([self.descriptionTextView.text isEqualToString:DEFAULT_DESCRIPTION]) {
         self.descriptionTextView.text = @"";
     }
-    self.editView.frame = CGRectMake(0, self.editView.frame.origin.y-100, self.editView.frame.size.width, self.editView.frame.size.height);
+    [UIView animateWithDuration:1.2 delay:0 usingSpringWithDamping:0.3 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.editView.frame = CGRectMake(0, self.editView.frame.origin.y-80, self.editView.frame.size.width, self.editView.frame.size.height);
+    } completion:^(BOOL finished) {
+
+    }];
+
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     self.user.desc =self.descriptionTextView.text;
     [self.user saveInBackground];
+    [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.editView.frame = CGRectMake(0, self.editView.frame.origin.y+80, self.editView.frame.size.width, self.editView.frame.size.height);
+    } completion:^(BOOL finished) {
 
-        self.editView.frame = CGRectMake(0, self.editView.frame.origin.y+100, self.editView.frame.size.width, self.editView.frame.size.height);
+    }];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

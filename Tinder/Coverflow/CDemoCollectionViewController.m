@@ -59,35 +59,44 @@
     [query getObjectInBackgroundWithId:[UserParse currentUser].objectId
                                  block:^(PFObject *object, NSError *error)
      {
+         UIImage *image = [UIImage imageNamed:@"userPlaceholder"];
+         for (int i = 0; i < 5; i++) {
+             [self.assets addObject:image];
+         }
+         self.user = (UserParse *)object;
+//         [self.user.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+//             if (!error) {
+//                 [self.assets replaceObjectAtIndex:0 withObject:[UIImage imageWithData:data]];
+//             }
+//             [self.collectionView reloadData];
+//         }];
+
+
+
          self.user = (UserParse *)object;
          [self.user.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
              if (!error) {
-                 [self.assets addObject:[UIImage imageWithData:data]];
-             }
+[self.assets replaceObjectAtIndex:0 withObject:[UIImage imageWithData:data]];             }
              [self.collectionView reloadData];
          }];
          [self.user.photo1 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
              if (!error) {
-                 [self.assets addObject:[UIImage imageWithData:data]];
-             }
+[self.assets replaceObjectAtIndex:1 withObject:[UIImage imageWithData:data]];             }
              [self.collectionView reloadData];
          }];
          [self.user.photo2 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
              if (!error) {
-                 [self.assets addObject:[UIImage imageWithData:data]];
-             }
+[self.assets replaceObjectAtIndex:2 withObject:[UIImage imageWithData:data]];             }
              [self.collectionView reloadData];
          }];
          [self.user.photo3 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
              if (!error) {
-                 [self.assets addObject:[UIImage imageWithData:data]];
-             }
+[self.assets replaceObjectAtIndex:3 withObject:[UIImage imageWithData:data]];             }
              [self.collectionView reloadData];
          }];
          [self.user.photo4 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
              if (!error) {
-                 [self.assets addObject:[UIImage imageWithData:data]];
-             }
+[self.assets replaceObjectAtIndex:4 withObject:[UIImage imageWithData:data]];             }
              [self.collectionView reloadData];
          }];
      }];
@@ -119,7 +128,9 @@
     NSLog(@"indexpath %d", indexPath.row);
 
     UIImage *theImage = [self.assets objectAtIndex:indexPath.row];
-
+//    theCell.imageView.layer.cornerRadius = theCell.imageView.frame.size.width/2;
+//    theCell.imageView.clipsToBounds = YES;
+//    theCell.imageView.contentMode = UIViewContentModeScaleAspectFill;
     theCell.imageView.image = theImage;
     theCell.backgroundColor = [UIColor clearColor];
 
