@@ -86,6 +86,8 @@
     self.firstTime = YES;
     self.isRotating = YES;
     self.view.backgroundColor = BLUE_COLOR;
+    self.navigationController.navigationBar.barTintColor = BLUE_COLOR;
+    self.navigationItem.title = @"Flint";
 //    self.background = [[UIImageView alloc] initWithFrame:self.view.frame];
 //    self.background.image = [UIImage imageNamed:@"background"];
 //    [self.view addSubview:self.background];
@@ -188,7 +190,7 @@
         [self.arrayOfPhotoDataForeground addObject:data];
         self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
         self.profileView.clipsToBounds = YES;
-        self.profileView.backgroundColor = [UIColor whiteColor];
+        self.profileView.backgroundColor = WHITE_COLOR;
 //        self.profileView.layer.cornerRadius = cornRadius;
         self.profileImage.tag = currentProfileView;
         [self.view addSubview:self.profileView];
@@ -198,7 +200,6 @@
         self.profileImage.image = [UIImage imageWithData:data];
         self.profileImage.clipsToBounds = YES;
 //        self.profileImage.layer.cornerRadius = cornRadius;
-        self.navigationItem.title = username;
         [self.profileView addSubview:self.profileImage];
         self.foregroundLabel = [[UILabel alloc] initWithFrame:[self createLabelRect]];
         double distance = [aUser.geoPoint distanceInKilometersTo:self.curUser.geoPoint];
@@ -331,6 +332,7 @@
         [self.backgroundView bringSubviewToFront:self.backgroundLabelAge];
         self.backgroundImageLocation = [[UIImageView alloc] initWithFrame:[self createBackgroundImageLocation]];
         self.backgroundImageLocation.image = [UIImage imageNamed:@"location"];
+        self.backgroundImageLocation.contentMode = UIViewContentModeScaleAspectFit;
         [self.backgroundView addSubview:self.backgroundImageLocation];
         self.backgroundLabelLocation = [[UILabel alloc] initWithFrame:[self createBackgroundLabelLocation]];
         self.backgroundLabelLocation.text = [NSString stringWithFormat:@"%.0fkm", distance];
@@ -758,11 +760,12 @@
 
 - (void) addDislikeView
 {
-    UIImageView* dislikeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.profileImage.frame.size.width - buttonWidth, 0, buttonWidth, buttonHeight)];
+    UIImageView* dislikeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.profileImage.frame.size.width - buttonWidth + (imageMargin*2), 0, buttonWidth, buttonHeight)];
     dislikeImageView.tag = dislikeViewTag;
     dislikeImageView.image = [UIImage imageNamed:@"dislike.png"];
     dislikeImageView.alpha = 0.01;
     [self.profileView addSubview:dislikeImageView];
+    [self.profileView bringSubviewToFront:dislikeImageView];
 }
 
 - (void) removeLikeAndDislikeView

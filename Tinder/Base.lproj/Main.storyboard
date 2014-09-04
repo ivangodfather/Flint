@@ -433,7 +433,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AeO-SB-QWK">
-                                <rect key="frame" x="20" y="392" width="113" height="102"/>
+                                <rect key="frame" x="9" y="392" width="113" height="102"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="dislike">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -442,20 +442,18 @@
                                     <action selector="dislikeButtonHit:" destination="aqZ-SE-PFE" eventType="touchUpInside" id="UdX-bs-GB3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NiW-E7-aAz">
-                                <rect key="frame" x="137" y="428" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NiW-E7-aAz">
+                                <rect key="frame" x="130" y="412" width="61" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <state key="normal" title="Button" image="plus"/>
                                 <connections>
                                     <action selector="cycleImagesButtonHit:" destination="aqZ-SE-PFE" eventType="touchUpInside" id="uTg-pF-zxk"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1J8-9X-ye5">
-                                <rect key="frame" x="187" y="392" width="113" height="102"/>
+                                <rect key="frame" x="199" y="392" width="113" height="102"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="like-1">
+                                <state key="normal" image="like">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1297,17 +1295,18 @@
         <image name="burn" width="128" height="120"/>
         <image name="camera" width="60" height="55"/>
         <image name="camera2" width="128" height="128"/>
-        <image name="dislike" width="279" height="250"/>
+        <image name="dislike" width="321" height="316"/>
         <image name="email" width="128" height="128"/>
         <image name="female" width="28" height="28"/>
         <image name="genderselect" width="30" height="29"/>
         <image name="heartGo" width="30" height="27"/>
         <image name="key" width="100" height="100"/>
-        <image name="like-1" width="279" height="248"/>
+        <image name="like" width="321" height="316"/>
         <image name="location" width="24" height="36"/>
         <image name="magnifying-glass" width="128" height="128"/>
         <image name="male" width="27" height="28"/>
         <image name="messages" width="128" height="128"/>
+        <image name="plus" width="294" height="297"/>
         <image name="searchPlus" width="512" height="512"/>
         <image name="send" width="100" height="100"/>
         <image name="share" width="128" height="145"/>
