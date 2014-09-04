@@ -171,7 +171,6 @@
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         [self.arrayOfPhotoDataForeground addObject:data];
         self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
-        self.profileView.backgroundColor = BLUE_COLOR;
         self.profileView.clipsToBounds = YES;
 //        self.profileView.layer.cornerRadius = cornRadius;
         self.profileImage.tag = currentProfileView;
@@ -192,7 +191,7 @@
         }
         self.foregroundLabel.text = [NSString stringWithFormat:@"%@ years old and %.0fkm from you", age, distance];
         self.foregroundLabel.textColor = [UIColor whiteColor];
-        self.foregroundLabel.backgroundColor = YELLOW_COLOR;
+        self.foregroundLabel.backgroundColor = ORANGE_COLOR;
         self.foregroundLabel.clipsToBounds = YES;
 //        self.foregroundLabel.layer.cornerRadius = cornRadius;
         [self.foregroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
@@ -201,14 +200,14 @@
         [self.foregroundLabel setFont:newFont];
         [self.profileView addSubview:self.foregroundLabel];
         [self.profileView bringSubviewToFront:self.foregroundLabel];
-        self.foregroundDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.profileImage.frame.size.height+5, self.profileImage.frame.size.width-5, 150)];
+        self.foregroundDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.profileImage.frame.size.height+13, self.profileView.frame.size.width, 95)];
         self.foregroundDescriptionLabel.numberOfLines = 0;
         self.foregroundDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.foregroundDescriptionLabel.text = aUser.desc;
-        self.foregroundDescriptionLabel.textColor = [UIColor whiteColor];
+        self.foregroundDescriptionLabel.textColor = BLUE_COLOR;
         [self.foregroundDescriptionLabel setFont:descFont];
         NSLog(@"DESC %@",aUser.desc);
-        [self.profileView addSubview:self.foregroundDescriptionLabel];
+        [self.view addSubview:self.foregroundDescriptionLabel];
         NSLog(@"%@", self.foregroundLabel);
         [self setPanGestureRecognizer];
         self.firstTime = NO;
@@ -316,7 +315,7 @@
     int x = 10;
     int width = 320 - (x*2);
     int y = 2;
-    int height = 400;
+    int height = 380;
     return CGRectMake(x, y, width, height);
 }
 
