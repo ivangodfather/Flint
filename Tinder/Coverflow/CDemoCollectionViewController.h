@@ -1,5 +1,5 @@
 //
-//	CBetterCollectionViewLayoutAttributes.m
+//	CDemoCollectionViewController.h
 //	Coverflow
 //
 //	Created by Jonathan Wight on 9/24/12.
@@ -29,24 +29,8 @@
 //	authors and should not be interpreted as representing official policies, either expressed
 //	or implied, of Jonathan Wight.
 
-#import "CBetterCollectionViewLayoutAttributes.h"
+#import <UIKit/UIKit.h>
 
-@implementation CBetterCollectionViewLayoutAttributes
-
-- (NSString *)description
-    {
-    return([NSString stringWithFormat:@"%@ (%@)", [super description], self.userInfo]);
-    }
-
-- (id)copyWithZone:(NSZone *)zone;
-    {
-    CBetterCollectionViewLayoutAttributes *theCopy = [super copyWithZone:zone];
-	//theCopy.shieldAlpha = self.shieldAlpha;
-	theCopy.userInfo = [self.userInfo copyWithZone:zone];
-	#if DEBUG == 1
-	theCopy.debugInfo = self.debugInfo;
-	#endif /* DEBUG == 1 */
-    return(theCopy);
-    }
+@interface CDemoCollectionViewController : UICollectionViewController
 
 @end

@@ -10,7 +10,6 @@
 #import "SWRevealViewController.h"
 #import "UserParse.h"
 #import "V8HorizontalPickerView.h"
-#import "CDemoCollectionViewCell.h"
 
 #define DEFAULT_DESCRIPTION  @"Fill with information about you"
 #define MAXLENGTH 130
@@ -22,7 +21,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *charactersLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
-@property (weak, nonatomic) IBOutlet UIImageView *profilePhoto;
 @property (weak, nonatomic) IBOutlet UIButton *maleButton;
 @property (weak, nonatomic) IBOutlet UIButton *femaleButton;
 
@@ -30,11 +28,6 @@
 @property (weak, nonatomic) IBOutlet V8HorizontalPickerView *agePickerView;
 @property (weak, nonatomic) IBOutlet UIView *genderSelect;
 @property (weak, nonatomic) IBOutlet UIView *genderLikeSelect;
-@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
-@property (weak, nonatomic) IBOutlet UIImageView *profilePhoto1;
-@property (weak, nonatomic) IBOutlet UIImageView *profilePhoto2;
-@property (weak, nonatomic) IBOutlet UIImageView *profilePhoto3;
-@property (weak, nonatomic) IBOutlet UIImageView *profilePhoto4;
 @property (weak, nonatomic) IBOutlet UISlider *distanceSlider;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionEditLabel;
@@ -83,10 +76,6 @@
 - (void)customize
 {
     self.profileBackground.backgroundColor = BLUE_COLOR;
-    self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.size.width/2;
-    self.profilePhoto.clipsToBounds = YES;
-    self.descriptionTextView.textContainer.maximumNumberOfLines = 4;
-    self.descriptionTextView.textColor = WHITE_COLOR;
     self.view.backgroundColor = WHITE_COLOR;
     self.genderSelect.backgroundColor = [UIColor clearColor];
     [self.genderSelect.layer setBorderWidth:1];
@@ -113,36 +102,8 @@
                                  block:^(PFObject *object, NSError *error)
      {
          self.user = (UserParse *)object;
-         [self.user.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-             if (!error) {
-                 self.profilePhoto.image = [UIImage imageWithData:data];
-             }
-         }];
-         [self.user.photo1 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-             if (!error) {
-                 self.profilePhoto1.image = [UIImage imageWithData:data];
-             }
-         }];
-         [self.user.photo2 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-             if (!error) {
-                 self.profilePhoto2.image = [UIImage imageWithData:data];
-             }
-         }];
-         [self.user.photo3 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-             if (!error) {
-                 self.profilePhoto3.image = [UIImage imageWithData:data];
-             }
-         }];
-         [self.user.photo4 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-             if (!error) {
-                 self.profilePhoto4.image = [UIImage imageWithData:data];
-             }
-         }];
-         if (self.user.desc.length) {
-             self.descriptionTextView.text = self.user.desc;
-         } else {
-             self.descriptionTextView.text = DEFAULT_DESCRIPTION;
-         }
+
+
          self.charactersLabel.text = [NSString stringWithFormat:@"%d/%d",self.user.desc.length,MAXLENGTH];
          if (self.user.distance) {
              self.distanceSlider.value = self.user.distance.intValue;
@@ -305,7 +266,6 @@
 {
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
-        self.user.desc = self.descriptionTextView.text;
         [self.user saveInBackground];
         return NO;
     }
@@ -321,40 +281,6 @@
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
 
-#pragma mark - UIImagePickerController Delegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    UIImageView *imageView = (UIImageView *)[self.view viewWithTag:MAX_PHOTOS+self.selectedPhoto];
-    imageView.image = image;
-
-    PFFile *file = [PFFile fileWithData:UIImagePNGRepresentation(image)];
-    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (error) {
-            return ;
-        }
-        switch (self.selectedPhoto) {
-            case 1:
-                self.user.photo1 = file;
-                break;
-            case 2:
-                self.user.photo2 = file;
-                break;
-            case 3:
-                self.user.photo3 = file;
-                break;
-            case 4:
-                self.user.photo4 = file;
-                break;
-            default:
-                self.user.photo = file;
-                break;
-        }
-        [self.user saveInBackground];
-    }];
-
-}
 
 - (IBAction)editProfile:(id)sender
 {
@@ -374,69 +300,5 @@
         
     }
 }
-
-
-
-#pragma mark -
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section;
-{
-	return 3;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
-{
-	CDemoCollectionViewCell *theCell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-
-	if (theCell.gestureRecognizers.count == 0)
-    {
-		[theCell addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCell:)]];
-    }
-
-	theCell.backgroundColor = [UIColor colorWithHue:(float)indexPath.row / (float)self.cellCount saturation:0.333 brightness:1.0 alpha:1.0];
-
-	if (indexPath.row < self.assets.count)
-    {
-		NSURL *theURL = [self.assets objectAtIndex:indexPath.row];
-		UIImage *theImage = [self.imageCache objectForKey:theURL];
-		if (theImage == NULL)
-        {
-			theImage = [UIImage imageWithContentsOfFile:theURL.path];
-
-			[self.imageCache setObject:theImage forKey:theURL];
-        }
-
-		theCell.imageView.image = theImage;
-		theCell.reflectionImageView.image = theImage;
-		theCell.backgroundColor = [UIColor clearColor];
-    }
-
-	return(theCell);
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-	CCoverflowTitleView *theView = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"title" forIndexPath:indexPath];
-	self.titleView = theView;
-	[self updateTitle];
-	return(theView);
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-	[self updateTitle];
-}
-
-#pragma mark -
-
-- (void)tapCell:(UITapGestureRecognizer *)inGestureRecognizer
-{
-	NSIndexPath *theIndexPath = [self.collectionView indexPathForCell:(UICollectionViewCell *)inGestureRecognizer.view];
-
-	NSLog(@"%@", [self.collectionView.collectionViewLayout layoutAttributesForItemAtIndexPath:theIndexPath]);
-	NSURL *theURL = [self.assets objectAtIndex:theIndexPath.row];
-	NSLog(@"%@", theURL);
-}
-
 
 @end

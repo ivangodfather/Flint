@@ -14,11 +14,118 @@
 		0BA4ECBB19AE232600302E92 /* CustomSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECBA19AE232600302E92 /* CustomSignInViewController.m */; };
 		42236F2619B7DEEE00539466 /* CBetterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F1B19B7DEEE00539466 /* CBetterCollectionViewCell.m */; };
 		42236F2719B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F1D19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.m */; };
-		42236F2819B7DEEE00539466 /* CCoverflowCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F1F19B7DEEE00539466 /* CCoverflowCollectionViewLayout.m */; };
 		42236F2919B7DEEE00539466 /* CInterpolator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42236F2119B7DEEE00539466 /* CInterpolator.mm */; };
 		42236F2A19B7DEEE00539466 /* CReflectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F2319B7DEEE00539466 /* CReflectionView.m */; };
 		42236F2B19B7DEEE00539466 /* Interpolator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 42236F2419B7DEEE00539466 /* Interpolator.cpp */; };
 		42236F2E19B7E05800539466 /* CDemoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F2D19B7E05800539466 /* CDemoCollectionViewCell.m */; };
+		42236F3119B7F30000539466 /* CDemoCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F3019B7F30000539466 /* CDemoCollectionViewController.m */; };
+		4223706F19B7F57900539466 /* Abstract 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223700619B7F57800539466 /* Abstract 1.jpg */; };
+		4223707019B7F57900539466 /* Abstract 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223700719B7F57800539466 /* Abstract 2.jpg */; };
+		4223707119B7F57900539466 /* Abstract 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223700819B7F57800539466 /* Abstract 3.jpg */; };
+		4223707219B7F57900539466 /* Abstract 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223700919B7F57800539466 /* Abstract 4.jpg */; };
+		4223707319B7F57900539466 /* Abstract 5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223700A19B7F57800539466 /* Abstract 5.jpg */; };
+		4223707419B7F57900539466 /* Abstract 6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223700B19B7F57800539466 /* Abstract 6.jpg */; };
+		4223707519B7F57900539466 /* Abstract 7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223700C19B7F57800539466 /* Abstract 7.jpg */; };
+		4223707619B7F57900539466 /* Abstract 8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223700D19B7F57800539466 /* Abstract 8.jpg */; };
+		4223707719B7F57900539466 /* Agave.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223700E19B7F57800539466 /* Agave.jpg */; };
+		4223707819B7F57900539466 /* Andromeda Galaxy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223700F19B7F57800539466 /* Andromeda Galaxy.jpg */; };
+		4223707919B7F57900539466 /* Aqua Blue.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701019B7F57800539466 /* Aqua Blue.jpg */; };
+		4223707A19B7F57900539466 /* Aqua Graphite.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701119B7F57800539466 /* Aqua Graphite.jpg */; };
+		4223707B19B7F57900539466 /* Aurora.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701219B7F57800539466 /* Aurora.jpg */; };
+		4223707C19B7F57900539466 /* Bamboo Grove.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701319B7F57800539466 /* Bamboo Grove.jpg */; };
+		4223707D19B7F57900539466 /* Beach.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701419B7F57800539466 /* Beach.jpg */; };
+		4223707E19B7F57900539466 /* Bristle Grass.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701519B7F57800539466 /* Bristle Grass.jpg */; };
+		4223707F19B7F57900539466 /* Cirques.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701619B7F57800539466 /* Cirques.jpg */; };
+		4223708019B7F57900539466 /* Classic Aqua Blue.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701719B7F57800539466 /* Classic Aqua Blue.jpg */; };
+		4223708119B7F57900539466 /* Classic Aqua Graphite.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701819B7F57800539466 /* Classic Aqua Graphite.jpg */; };
+		4223708219B7F57900539466 /* Clown Fish.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701919B7F57800539466 /* Clown Fish.jpg */; };
+		4223708319B7F57900539466 /* Daisies.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701A19B7F57800539466 /* Daisies.jpg */; };
+		4223708419B7F57900539466 /* Dancer on the Stage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701B19B7F57800539466 /* Dancer on the Stage.jpg */; };
+		4223708519B7F57900539466 /* Dandelion.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701C19B7F57800539466 /* Dandelion.jpg */; };
+		4223708619B7F57900539466 /* Dew Drop.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701D19B7F57800539466 /* Dew Drop.jpg */; };
+		4223708719B7F57900539466 /* Ducks on a Misty Pond.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701E19B7F57800539466 /* Ducks on a Misty Pond.jpg */; };
+		4223708819B7F57900539466 /* Eagle & Waterfall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223701F19B7F57800539466 /* Eagle & Waterfall.jpg */; };
+		4223708919B7F57900539466 /* Earth Horizon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702019B7F57800539466 /* Earth Horizon.jpg */; };
+		4223708A19B7F57900539466 /* Earth.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702119B7F57800539466 /* Earth.jpg */; };
+		4223708B19B7F57900539466 /* Elephant.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702219B7F57800539466 /* Elephant.jpg */; };
+		4223708C19B7F57900539466 /* Evening Reflections.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702319B7F57800539466 /* Evening Reflections.jpg */; };
+		4223708D19B7F57900539466 /* Fall Leaves.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702419B7F57800539466 /* Fall Leaves.jpg */; };
+		4223708E19B7F57900539466 /* Flamingos.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702519B7F57800539466 /* Flamingos.jpg */; };
+		4223708F19B7F57900539466 /* Floating Leaves.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702619B7F57800539466 /* Floating Leaves.jpg */; };
+		4223709019B7F57900539466 /* Flow 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702719B7F57800539466 /* Flow 1.jpg */; };
+		4223709119B7F57900539466 /* Flow 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702819B7F57800539466 /* Flow 2.jpg */; };
+		4223709219B7F57900539466 /* Flow 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702919B7F57800539466 /* Flow 3.jpg */; };
+		4223709319B7F57900539466 /* Flowing Rock.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702A19B7F57800539466 /* Flowing Rock.jpg */; };
+		4223709419B7F57900539466 /* Forest in Mist.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702B19B7F57800539466 /* Forest in Mist.jpg */; };
+		4223709519B7F57900539466 /* Gentle Rapids.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702C19B7F57800539466 /* Gentle Rapids.jpg */; };
+		4223709619B7F57900539466 /* Golden Palace.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702D19B7F57800539466 /* Golden Palace.jpg */; };
+		4223709719B7F57900539466 /* Grass Blades.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702E19B7F57800539466 /* Grass Blades.jpg */; };
+		4223709819B7F57900539466 /* Horizon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223702F19B7F57800539466 /* Horizon.jpg */; };
+		4223709919B7F57900539466 /* Iceberg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703019B7F57800539466 /* Iceberg.jpg */; };
+		4223709A19B7F57900539466 /* Isles.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703119B7F57800539466 /* Isles.jpg */; };
+		4223709B19B7F57900539466 /* Jaguar Aqua Blue.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703219B7F57800539466 /* Jaguar Aqua Blue.jpg */; };
+		4223709C19B7F57900539466 /* Jaguar Aqua Graphite.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703319B7F57800539466 /* Jaguar Aqua Graphite.jpg */; };
+		4223709D19B7F57900539466 /* Ladybug.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703419B7F57800539466 /* Ladybug.jpg */; };
+		4223709E19B7F57900539466 /* Lake.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703519B7F57800539466 /* Lake.jpg */; };
+		4223709F19B7F57900539466 /* Lavender.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703619B7F57800539466 /* Lavender.jpg */; };
+		422370A019B7F57900539466 /* Leaf Curl.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703719B7F57800539466 /* Leaf Curl.jpg */; };
+		422370A119B7F57900539466 /* Leaves.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703819B7F57800539466 /* Leaves.jpg */; };
+		422370A219B7F57900539466 /* Leopard Aurora.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703919B7F57800539466 /* Leopard Aurora.jpg */; };
+		422370A319B7F57900539466 /* Lightning.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703A19B7F57800539466 /* Lightning.jpg */; };
+		422370A419B7F57900539466 /* Lines Blue.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703B19B7F57800539466 /* Lines Blue.jpg */; };
+		422370A519B7F57900539466 /* Lines Graphite.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703C19B7F57800539466 /* Lines Graphite.jpg */; };
+		422370A619B7F57900539466 /* Lines Moss.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703D19B7F57800539466 /* Lines Moss.jpg */; };
+		422370A719B7F57900539466 /* Lines Plum.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703E19B7F57800539466 /* Lines Plum.jpg */; };
+		422370A819B7F57900539466 /* Lion.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223703F19B7F57800539466 /* Lion.jpg */; };
+		422370A919B7F57900539466 /* Lotus.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704019B7F57800539466 /* Lotus.jpg */; };
+		422370AA19B7F57900539466 /* Maple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704119B7F57800539466 /* Maple.jpg */; };
+		422370AB19B7F57900539466 /* Mojave.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704219B7F57800539466 /* Mojave.jpg */; };
+		422370AC19B7F57900539466 /* Moon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704319B7F57800539466 /* Moon.jpg */; };
+		422370AD19B7F57900539466 /* Mt. Fuji.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704419B7F57800539466 /* Mt. Fuji.jpg */; };
+		422370AE19B7F57900539466 /* Nighthawks.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704519B7F57800539466 /* Nighthawks.jpg */; };
+		422370AF19B7F57900539466 /* Panther Aqua Blue.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704619B7F57800539466 /* Panther Aqua Blue.jpg */; };
+		422370B019B7F57900539466 /* Panther Aqua Graphite.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704719B7F57800539466 /* Panther Aqua Graphite.jpg */; };
+		422370B119B7F57900539466 /* Peony.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704819B7F57800539466 /* Peony.jpg */; };
+		422370B219B7F57900539466 /* Petals.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704919B7F57800539466 /* Petals.jpg */; };
+		422370B319B7F57900539466 /* Pier.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704A19B7F57800539466 /* Pier.jpg */; };
+		422370B419B7F57900539466 /* Pink Forest.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704B19B7F57800539466 /* Pink Forest.jpg */; };
+		422370B519B7F57900539466 /* Pink Lotus Flower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704C19B7F57800539466 /* Pink Lotus Flower.jpg */; };
+		422370B619B7F57900539466 /* Pinstripe.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704D19B7F57800539466 /* Pinstripe.jpg */; };
+		422370B719B7F57900539466 /* Pond Reeds.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704E19B7F57800539466 /* Pond Reeds.jpg */; };
+		422370B819B7F57900539466 /* Poppies Blooming.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223704F19B7F57800539466 /* Poppies Blooming.jpg */; };
+		422370B919B7F57900539466 /* Poppies.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705019B7F57800539466 /* Poppies.jpg */; };
+		422370BA19B7F57900539466 /* Purple Frond.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705119B7F57800539466 /* Purple Frond.jpg */; };
+		422370BB19B7F57900539466 /* Red Bells.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705219B7F57800539466 /* Red Bells.jpg */; };
+		422370BC19B7F57900539466 /* Redwoods.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705319B7F57800539466 /* Redwoods.jpg */; };
+		422370BD19B7F57900539466 /* Rings.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705419B7F57800539466 /* Rings.jpg */; };
+		422370BE19B7F57900539466 /* Ripples Blue.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705519B7F57800539466 /* Ripples Blue.jpg */; };
+		422370BF19B7F57900539466 /* Ripples Moss.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705619B7F57900539466 /* Ripples Moss.jpg */; };
+		422370C019B7F57900539466 /* Ripples Purple.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705719B7F57900539466 /* Ripples Purple.jpg */; };
+		422370C119B7F57900539466 /* Rock Garden.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705819B7F57900539466 /* Rock Garden.jpg */; };
+		422370C219B7F57900539466 /* Rocks.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705919B7F57900539466 /* Rocks.jpg */; };
+		422370C319B7F57900539466 /* Saree.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705A19B7F57900539466 /* Saree.jpg */; };
+		422370C419B7F57900539466 /* Sea Mist.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705B19B7F57900539466 /* Sea Mist.jpg */; };
+		422370C519B7F57900539466 /* Snow Leopard Prowl.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705C19B7F57900539466 /* Snow Leopard Prowl.jpg */; };
+		422370C619B7F57900539466 /* Snow Leopard.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705D19B7F57900539466 /* Snow Leopard.jpg */; };
+		422370C719B7F57900539466 /* Snowy Hills.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705E19B7F57900539466 /* Snowy Hills.jpg */; };
+		422370C819B7F57900539466 /* Stones.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223705F19B7F57900539466 /* Stones.jpg */; };
+		422370C919B7F57900539466 /* Summer Leaves.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706019B7F57900539466 /* Summer Leaves.jpg */; };
+		422370CA19B7F57900539466 /* Summit.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706119B7F57900539466 /* Summit.jpg */; };
+		422370CB19B7F57900539466 /* Sunday Afternoon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706219B7F57900539466 /* Sunday Afternoon.jpg */; };
+		422370CC19B7F57900539466 /* Suprematism.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706319B7F57900539466 /* Suprematism.jpg */; };
+		422370CD19B7F57900539466 /* Tahoe.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706419B7F57900539466 /* Tahoe.jpg */; };
+		422370CE19B7F57900539466 /* The Great Wave.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706519B7F57900539466 /* The Great Wave.jpg */; };
+		422370CF19B7F57900539466 /* Tiles Blue.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706619B7F57900539466 /* Tiles Blue.jpg */; };
+		422370D019B7F57900539466 /* Tiles Pine.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706719B7F57900539466 /* Tiles Pine.jpg */; };
+		422370D119B7F57900539466 /* Tiles Warm Grey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706819B7F57900539466 /* Tiles Warm Grey.jpg */; };
+		422370D219B7F57900539466 /* Tranquil Surface.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706919B7F57900539466 /* Tranquil Surface.jpg */; };
+		422370D319B7F57900539466 /* Water Lilies.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706A19B7F57900539466 /* Water Lilies.jpg */; };
+		422370D419B7F57900539466 /* Water.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706B19B7F57900539466 /* Water.jpg */; };
+		422370D519B7F57900539466 /* Wave.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706C19B7F57900539466 /* Wave.jpg */; };
+		422370D619B7F57900539466 /* Winter Sunrise.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706D19B7F57900539466 /* Winter Sunrise.jpg */; };
+		422370D719B7F57900539466 /* Zebra.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4223706E19B7F57900539466 /* Zebra.jpg */; };
+		422370DF19B7F71B00539466 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 422370DE19B7F71B00539466 /* QuartzCore.framework */; };
+		422370E519B7FB8B00539466 /* CCoverflowCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 422370E419B7FB8B00539466 /* CCoverflowCollectionViewLayout.m */; };
 		426107DD19B3ABD80000536C /* Profile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 426107DC19B3ABD80000536C /* Profile.xcassets */; };
 		426107DF19B42D930000536C /* Barbuttons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 426107DE19B42D930000536C /* Barbuttons.xcassets */; };
 		426107E319B4AA700000536C /* V8HorizontalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 426107E119B4AA700000536C /* V8HorizontalPickerView.m */; };
@@ -90,8 +197,6 @@
 		42236F1B19B7DEEE00539466 /* CBetterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBetterCollectionViewCell.m; sourceTree = "<group>"; };
 		42236F1C19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBetterCollectionViewLayoutAttributes.h; sourceTree = "<group>"; };
 		42236F1D19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBetterCollectionViewLayoutAttributes.m; sourceTree = "<group>"; };
-		42236F1E19B7DEEE00539466 /* CCoverflowCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCoverflowCollectionViewLayout.h; sourceTree = "<group>"; };
-		42236F1F19B7DEEE00539466 /* CCoverflowCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCoverflowCollectionViewLayout.m; sourceTree = "<group>"; };
 		42236F2019B7DEEE00539466 /* CInterpolator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CInterpolator.h; sourceTree = "<group>"; };
 		42236F2119B7DEEE00539466 /* CInterpolator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CInterpolator.mm; sourceTree = "<group>"; };
 		42236F2219B7DEEE00539466 /* CReflectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CReflectionView.h; sourceTree = "<group>"; };
@@ -100,6 +205,116 @@
 		42236F2519B7DEEE00539466 /* Interpolator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Interpolator.h; sourceTree = "<group>"; };
 		42236F2C19B7E05800539466 /* CDemoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDemoCollectionViewCell.h; sourceTree = "<group>"; };
 		42236F2D19B7E05800539466 /* CDemoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDemoCollectionViewCell.m; sourceTree = "<group>"; };
+		42236F2F19B7F30000539466 /* CDemoCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDemoCollectionViewController.h; sourceTree = "<group>"; };
+		42236F3019B7F30000539466 /* CDemoCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDemoCollectionViewController.m; sourceTree = "<group>"; };
+		4223700619B7F57800539466 /* Abstract 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Abstract 1.jpg"; sourceTree = "<group>"; };
+		4223700719B7F57800539466 /* Abstract 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Abstract 2.jpg"; sourceTree = "<group>"; };
+		4223700819B7F57800539466 /* Abstract 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Abstract 3.jpg"; sourceTree = "<group>"; };
+		4223700919B7F57800539466 /* Abstract 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Abstract 4.jpg"; sourceTree = "<group>"; };
+		4223700A19B7F57800539466 /* Abstract 5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Abstract 5.jpg"; sourceTree = "<group>"; };
+		4223700B19B7F57800539466 /* Abstract 6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Abstract 6.jpg"; sourceTree = "<group>"; };
+		4223700C19B7F57800539466 /* Abstract 7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Abstract 7.jpg"; sourceTree = "<group>"; };
+		4223700D19B7F57800539466 /* Abstract 8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Abstract 8.jpg"; sourceTree = "<group>"; };
+		4223700E19B7F57800539466 /* Agave.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Agave.jpg; sourceTree = "<group>"; };
+		4223700F19B7F57800539466 /* Andromeda Galaxy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Andromeda Galaxy.jpg"; sourceTree = "<group>"; };
+		4223701019B7F57800539466 /* Aqua Blue.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Aqua Blue.jpg"; sourceTree = "<group>"; };
+		4223701119B7F57800539466 /* Aqua Graphite.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Aqua Graphite.jpg"; sourceTree = "<group>"; };
+		4223701219B7F57800539466 /* Aurora.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Aurora.jpg; sourceTree = "<group>"; };
+		4223701319B7F57800539466 /* Bamboo Grove.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Bamboo Grove.jpg"; sourceTree = "<group>"; };
+		4223701419B7F57800539466 /* Beach.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Beach.jpg; sourceTree = "<group>"; };
+		4223701519B7F57800539466 /* Bristle Grass.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Bristle Grass.jpg"; sourceTree = "<group>"; };
+		4223701619B7F57800539466 /* Cirques.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Cirques.jpg; sourceTree = "<group>"; };
+		4223701719B7F57800539466 /* Classic Aqua Blue.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Classic Aqua Blue.jpg"; sourceTree = "<group>"; };
+		4223701819B7F57800539466 /* Classic Aqua Graphite.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Classic Aqua Graphite.jpg"; sourceTree = "<group>"; };
+		4223701919B7F57800539466 /* Clown Fish.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Clown Fish.jpg"; sourceTree = "<group>"; };
+		4223701A19B7F57800539466 /* Daisies.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Daisies.jpg; sourceTree = "<group>"; };
+		4223701B19B7F57800539466 /* Dancer on the Stage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Dancer on the Stage.jpg"; sourceTree = "<group>"; };
+		4223701C19B7F57800539466 /* Dandelion.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Dandelion.jpg; sourceTree = "<group>"; };
+		4223701D19B7F57800539466 /* Dew Drop.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Dew Drop.jpg"; sourceTree = "<group>"; };
+		4223701E19B7F57800539466 /* Ducks on a Misty Pond.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Ducks on a Misty Pond.jpg"; sourceTree = "<group>"; };
+		4223701F19B7F57800539466 /* Eagle & Waterfall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Eagle & Waterfall.jpg"; sourceTree = "<group>"; };
+		4223702019B7F57800539466 /* Earth Horizon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Earth Horizon.jpg"; sourceTree = "<group>"; };
+		4223702119B7F57800539466 /* Earth.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Earth.jpg; sourceTree = "<group>"; };
+		4223702219B7F57800539466 /* Elephant.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Elephant.jpg; sourceTree = "<group>"; };
+		4223702319B7F57800539466 /* Evening Reflections.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Evening Reflections.jpg"; sourceTree = "<group>"; };
+		4223702419B7F57800539466 /* Fall Leaves.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Fall Leaves.jpg"; sourceTree = "<group>"; };
+		4223702519B7F57800539466 /* Flamingos.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Flamingos.jpg; sourceTree = "<group>"; };
+		4223702619B7F57800539466 /* Floating Leaves.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Floating Leaves.jpg"; sourceTree = "<group>"; };
+		4223702719B7F57800539466 /* Flow 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Flow 1.jpg"; sourceTree = "<group>"; };
+		4223702819B7F57800539466 /* Flow 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Flow 2.jpg"; sourceTree = "<group>"; };
+		4223702919B7F57800539466 /* Flow 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Flow 3.jpg"; sourceTree = "<group>"; };
+		4223702A19B7F57800539466 /* Flowing Rock.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Flowing Rock.jpg"; sourceTree = "<group>"; };
+		4223702B19B7F57800539466 /* Forest in Mist.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Forest in Mist.jpg"; sourceTree = "<group>"; };
+		4223702C19B7F57800539466 /* Gentle Rapids.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Gentle Rapids.jpg"; sourceTree = "<group>"; };
+		4223702D19B7F57800539466 /* Golden Palace.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Golden Palace.jpg"; sourceTree = "<group>"; };
+		4223702E19B7F57800539466 /* Grass Blades.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Grass Blades.jpg"; sourceTree = "<group>"; };
+		4223702F19B7F57800539466 /* Horizon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Horizon.jpg; sourceTree = "<group>"; };
+		4223703019B7F57800539466 /* Iceberg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Iceberg.jpg; sourceTree = "<group>"; };
+		4223703119B7F57800539466 /* Isles.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Isles.jpg; sourceTree = "<group>"; };
+		4223703219B7F57800539466 /* Jaguar Aqua Blue.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Jaguar Aqua Blue.jpg"; sourceTree = "<group>"; };
+		4223703319B7F57800539466 /* Jaguar Aqua Graphite.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Jaguar Aqua Graphite.jpg"; sourceTree = "<group>"; };
+		4223703419B7F57800539466 /* Ladybug.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Ladybug.jpg; sourceTree = "<group>"; };
+		4223703519B7F57800539466 /* Lake.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lake.jpg; sourceTree = "<group>"; };
+		4223703619B7F57800539466 /* Lavender.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lavender.jpg; sourceTree = "<group>"; };
+		4223703719B7F57800539466 /* Leaf Curl.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Leaf Curl.jpg"; sourceTree = "<group>"; };
+		4223703819B7F57800539466 /* Leaves.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Leaves.jpg; sourceTree = "<group>"; };
+		4223703919B7F57800539466 /* Leopard Aurora.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Leopard Aurora.jpg"; sourceTree = "<group>"; };
+		4223703A19B7F57800539466 /* Lightning.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lightning.jpg; sourceTree = "<group>"; };
+		4223703B19B7F57800539466 /* Lines Blue.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Lines Blue.jpg"; sourceTree = "<group>"; };
+		4223703C19B7F57800539466 /* Lines Graphite.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Lines Graphite.jpg"; sourceTree = "<group>"; };
+		4223703D19B7F57800539466 /* Lines Moss.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Lines Moss.jpg"; sourceTree = "<group>"; };
+		4223703E19B7F57800539466 /* Lines Plum.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Lines Plum.jpg"; sourceTree = "<group>"; };
+		4223703F19B7F57800539466 /* Lion.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lion.jpg; sourceTree = "<group>"; };
+		4223704019B7F57800539466 /* Lotus.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Lotus.jpg; sourceTree = "<group>"; };
+		4223704119B7F57800539466 /* Maple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Maple.jpg; sourceTree = "<group>"; };
+		4223704219B7F57800539466 /* Mojave.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Mojave.jpg; sourceTree = "<group>"; };
+		4223704319B7F57800539466 /* Moon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Moon.jpg; sourceTree = "<group>"; };
+		4223704419B7F57800539466 /* Mt. Fuji.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Mt. Fuji.jpg"; sourceTree = "<group>"; };
+		4223704519B7F57800539466 /* Nighthawks.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Nighthawks.jpg; sourceTree = "<group>"; };
+		4223704619B7F57800539466 /* Panther Aqua Blue.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Panther Aqua Blue.jpg"; sourceTree = "<group>"; };
+		4223704719B7F57800539466 /* Panther Aqua Graphite.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Panther Aqua Graphite.jpg"; sourceTree = "<group>"; };
+		4223704819B7F57800539466 /* Peony.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Peony.jpg; sourceTree = "<group>"; };
+		4223704919B7F57800539466 /* Petals.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Petals.jpg; sourceTree = "<group>"; };
+		4223704A19B7F57800539466 /* Pier.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Pier.jpg; sourceTree = "<group>"; };
+		4223704B19B7F57800539466 /* Pink Forest.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Pink Forest.jpg"; sourceTree = "<group>"; };
+		4223704C19B7F57800539466 /* Pink Lotus Flower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Pink Lotus Flower.jpg"; sourceTree = "<group>"; };
+		4223704D19B7F57800539466 /* Pinstripe.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Pinstripe.jpg; sourceTree = "<group>"; };
+		4223704E19B7F57800539466 /* Pond Reeds.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Pond Reeds.jpg"; sourceTree = "<group>"; };
+		4223704F19B7F57800539466 /* Poppies Blooming.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Poppies Blooming.jpg"; sourceTree = "<group>"; };
+		4223705019B7F57800539466 /* Poppies.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Poppies.jpg; sourceTree = "<group>"; };
+		4223705119B7F57800539466 /* Purple Frond.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Purple Frond.jpg"; sourceTree = "<group>"; };
+		4223705219B7F57800539466 /* Red Bells.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Red Bells.jpg"; sourceTree = "<group>"; };
+		4223705319B7F57800539466 /* Redwoods.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Redwoods.jpg; sourceTree = "<group>"; };
+		4223705419B7F57800539466 /* Rings.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Rings.jpg; sourceTree = "<group>"; };
+		4223705519B7F57800539466 /* Ripples Blue.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Ripples Blue.jpg"; sourceTree = "<group>"; };
+		4223705619B7F57900539466 /* Ripples Moss.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Ripples Moss.jpg"; sourceTree = "<group>"; };
+		4223705719B7F57900539466 /* Ripples Purple.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Ripples Purple.jpg"; sourceTree = "<group>"; };
+		4223705819B7F57900539466 /* Rock Garden.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Rock Garden.jpg"; sourceTree = "<group>"; };
+		4223705919B7F57900539466 /* Rocks.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Rocks.jpg; sourceTree = "<group>"; };
+		4223705A19B7F57900539466 /* Saree.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Saree.jpg; sourceTree = "<group>"; };
+		4223705B19B7F57900539466 /* Sea Mist.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Sea Mist.jpg"; sourceTree = "<group>"; };
+		4223705C19B7F57900539466 /* Snow Leopard Prowl.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Snow Leopard Prowl.jpg"; sourceTree = "<group>"; };
+		4223705D19B7F57900539466 /* Snow Leopard.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Snow Leopard.jpg"; sourceTree = "<group>"; };
+		4223705E19B7F57900539466 /* Snowy Hills.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Snowy Hills.jpg"; sourceTree = "<group>"; };
+		4223705F19B7F57900539466 /* Stones.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Stones.jpg; sourceTree = "<group>"; };
+		4223706019B7F57900539466 /* Summer Leaves.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Summer Leaves.jpg"; sourceTree = "<group>"; };
+		4223706119B7F57900539466 /* Summit.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Summit.jpg; sourceTree = "<group>"; };
+		4223706219B7F57900539466 /* Sunday Afternoon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Sunday Afternoon.jpg"; sourceTree = "<group>"; };
+		4223706319B7F57900539466 /* Suprematism.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Suprematism.jpg; sourceTree = "<group>"; };
+		4223706419B7F57900539466 /* Tahoe.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Tahoe.jpg; sourceTree = "<group>"; };
+		4223706519B7F57900539466 /* The Great Wave.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "The Great Wave.jpg"; sourceTree = "<group>"; };
+		4223706619B7F57900539466 /* Tiles Blue.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles Blue.jpg"; sourceTree = "<group>"; };
+		4223706719B7F57900539466 /* Tiles Pine.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles Pine.jpg"; sourceTree = "<group>"; };
+		4223706819B7F57900539466 /* Tiles Warm Grey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles Warm Grey.jpg"; sourceTree = "<group>"; };
+		4223706919B7F57900539466 /* Tranquil Surface.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tranquil Surface.jpg"; sourceTree = "<group>"; };
+		4223706A19B7F57900539466 /* Water Lilies.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Water Lilies.jpg"; sourceTree = "<group>"; };
+		4223706B19B7F57900539466 /* Water.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Water.jpg; sourceTree = "<group>"; };
+		4223706C19B7F57900539466 /* Wave.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Wave.jpg; sourceTree = "<group>"; };
+		4223706D19B7F57900539466 /* Winter Sunrise.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Winter Sunrise.jpg"; sourceTree = "<group>"; };
+		4223706E19B7F57900539466 /* Zebra.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Zebra.jpg; sourceTree = "<group>"; };
+		422370DE19B7F71B00539466 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		422370E319B7FB8B00539466 /* CCoverflowCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCoverflowCollectionViewLayout.h; sourceTree = "<group>"; };
+		422370E419B7FB8B00539466 /* CCoverflowCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCoverflowCollectionViewLayout.m; sourceTree = "<group>"; };
 		426107DC19B3ABD80000536C /* Profile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Profile.xcassets; sourceTree = "<group>"; };
 		426107DE19B42D930000536C /* Barbuttons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Barbuttons.xcassets; sourceTree = "<group>"; };
 		426107E019B4AA700000536C /* V8HorizontalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = V8HorizontalPickerView.h; path = Libraries/V8HorizontalPickerView.h; sourceTree = "<group>"; };
@@ -170,6 +385,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				422370DF19B7F71B00539466 /* QuartzCore.framework in Frameworks */,
 				42DBCC6E19AC2BB000CE6C93 /* CoreLocation.framework in Frameworks */,
 				42DBCC7B19AC2DE200CE6C93 /* Social.framework in Frameworks */,
 				42DBCC7A19AC2CCC00CE6C93 /* libz.dylib in Frameworks */,
@@ -212,9 +428,11 @@
 				42236F1B19B7DEEE00539466 /* CBetterCollectionViewCell.m */,
 				42236F1C19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.h */,
 				42236F1D19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.m */,
-				42236F1E19B7DEEE00539466 /* CCoverflowCollectionViewLayout.h */,
-				42236F1F19B7DEEE00539466 /* CCoverflowCollectionViewLayout.m */,
+				42236F2F19B7F30000539466 /* CDemoCollectionViewController.h */,
+				42236F3019B7F30000539466 /* CDemoCollectionViewController.m */,
 				42236F2019B7DEEE00539466 /* CInterpolator.h */,
+				422370E319B7FB8B00539466 /* CCoverflowCollectionViewLayout.h */,
+				422370E419B7FB8B00539466 /* CCoverflowCollectionViewLayout.m */,
 				42236F2119B7DEEE00539466 /* CInterpolator.mm */,
 				42236F2219B7DEEE00539466 /* CReflectionView.h */,
 				42236F2319B7DEEE00539466 /* CReflectionView.m */,
@@ -222,6 +440,118 @@
 				42236F2519B7DEEE00539466 /* Interpolator.h */,
 			);
 			path = Coverflow;
+			sourceTree = "<group>";
+		};
+		4223700519B7F57800539466 /* Images2 */ = {
+			isa = PBXGroup;
+			children = (
+				4223700619B7F57800539466 /* Abstract 1.jpg */,
+				4223700719B7F57800539466 /* Abstract 2.jpg */,
+				4223700819B7F57800539466 /* Abstract 3.jpg */,
+				4223700919B7F57800539466 /* Abstract 4.jpg */,
+				4223700A19B7F57800539466 /* Abstract 5.jpg */,
+				4223700B19B7F57800539466 /* Abstract 6.jpg */,
+				4223700C19B7F57800539466 /* Abstract 7.jpg */,
+				4223700D19B7F57800539466 /* Abstract 8.jpg */,
+				4223700E19B7F57800539466 /* Agave.jpg */,
+				4223700F19B7F57800539466 /* Andromeda Galaxy.jpg */,
+				4223701019B7F57800539466 /* Aqua Blue.jpg */,
+				4223701119B7F57800539466 /* Aqua Graphite.jpg */,
+				4223701219B7F57800539466 /* Aurora.jpg */,
+				4223701319B7F57800539466 /* Bamboo Grove.jpg */,
+				4223701419B7F57800539466 /* Beach.jpg */,
+				4223701519B7F57800539466 /* Bristle Grass.jpg */,
+				4223701619B7F57800539466 /* Cirques.jpg */,
+				4223701719B7F57800539466 /* Classic Aqua Blue.jpg */,
+				4223701819B7F57800539466 /* Classic Aqua Graphite.jpg */,
+				4223701919B7F57800539466 /* Clown Fish.jpg */,
+				4223701A19B7F57800539466 /* Daisies.jpg */,
+				4223701B19B7F57800539466 /* Dancer on the Stage.jpg */,
+				4223701C19B7F57800539466 /* Dandelion.jpg */,
+				4223701D19B7F57800539466 /* Dew Drop.jpg */,
+				4223701E19B7F57800539466 /* Ducks on a Misty Pond.jpg */,
+				4223701F19B7F57800539466 /* Eagle & Waterfall.jpg */,
+				4223702019B7F57800539466 /* Earth Horizon.jpg */,
+				4223702119B7F57800539466 /* Earth.jpg */,
+				4223702219B7F57800539466 /* Elephant.jpg */,
+				4223702319B7F57800539466 /* Evening Reflections.jpg */,
+				4223702419B7F57800539466 /* Fall Leaves.jpg */,
+				4223702519B7F57800539466 /* Flamingos.jpg */,
+				4223702619B7F57800539466 /* Floating Leaves.jpg */,
+				4223702719B7F57800539466 /* Flow 1.jpg */,
+				4223702819B7F57800539466 /* Flow 2.jpg */,
+				4223702919B7F57800539466 /* Flow 3.jpg */,
+				4223702A19B7F57800539466 /* Flowing Rock.jpg */,
+				4223702B19B7F57800539466 /* Forest in Mist.jpg */,
+				4223702C19B7F57800539466 /* Gentle Rapids.jpg */,
+				4223702D19B7F57800539466 /* Golden Palace.jpg */,
+				4223702E19B7F57800539466 /* Grass Blades.jpg */,
+				4223702F19B7F57800539466 /* Horizon.jpg */,
+				4223703019B7F57800539466 /* Iceberg.jpg */,
+				4223703119B7F57800539466 /* Isles.jpg */,
+				4223703219B7F57800539466 /* Jaguar Aqua Blue.jpg */,
+				4223703319B7F57800539466 /* Jaguar Aqua Graphite.jpg */,
+				4223703419B7F57800539466 /* Ladybug.jpg */,
+				4223703519B7F57800539466 /* Lake.jpg */,
+				4223703619B7F57800539466 /* Lavender.jpg */,
+				4223703719B7F57800539466 /* Leaf Curl.jpg */,
+				4223703819B7F57800539466 /* Leaves.jpg */,
+				4223703919B7F57800539466 /* Leopard Aurora.jpg */,
+				4223703A19B7F57800539466 /* Lightning.jpg */,
+				4223703B19B7F57800539466 /* Lines Blue.jpg */,
+				4223703C19B7F57800539466 /* Lines Graphite.jpg */,
+				4223703D19B7F57800539466 /* Lines Moss.jpg */,
+				4223703E19B7F57800539466 /* Lines Plum.jpg */,
+				4223703F19B7F57800539466 /* Lion.jpg */,
+				4223704019B7F57800539466 /* Lotus.jpg */,
+				4223704119B7F57800539466 /* Maple.jpg */,
+				4223704219B7F57800539466 /* Mojave.jpg */,
+				4223704319B7F57800539466 /* Moon.jpg */,
+				4223704419B7F57800539466 /* Mt. Fuji.jpg */,
+				4223704519B7F57800539466 /* Nighthawks.jpg */,
+				4223704619B7F57800539466 /* Panther Aqua Blue.jpg */,
+				4223704719B7F57800539466 /* Panther Aqua Graphite.jpg */,
+				4223704819B7F57800539466 /* Peony.jpg */,
+				4223704919B7F57800539466 /* Petals.jpg */,
+				4223704A19B7F57800539466 /* Pier.jpg */,
+				4223704B19B7F57800539466 /* Pink Forest.jpg */,
+				4223704C19B7F57800539466 /* Pink Lotus Flower.jpg */,
+				4223704D19B7F57800539466 /* Pinstripe.jpg */,
+				4223704E19B7F57800539466 /* Pond Reeds.jpg */,
+				4223704F19B7F57800539466 /* Poppies Blooming.jpg */,
+				4223705019B7F57800539466 /* Poppies.jpg */,
+				4223705119B7F57800539466 /* Purple Frond.jpg */,
+				4223705219B7F57800539466 /* Red Bells.jpg */,
+				4223705319B7F57800539466 /* Redwoods.jpg */,
+				4223705419B7F57800539466 /* Rings.jpg */,
+				4223705519B7F57800539466 /* Ripples Blue.jpg */,
+				4223705619B7F57900539466 /* Ripples Moss.jpg */,
+				4223705719B7F57900539466 /* Ripples Purple.jpg */,
+				4223705819B7F57900539466 /* Rock Garden.jpg */,
+				4223705919B7F57900539466 /* Rocks.jpg */,
+				4223705A19B7F57900539466 /* Saree.jpg */,
+				4223705B19B7F57900539466 /* Sea Mist.jpg */,
+				4223705C19B7F57900539466 /* Snow Leopard Prowl.jpg */,
+				4223705D19B7F57900539466 /* Snow Leopard.jpg */,
+				4223705E19B7F57900539466 /* Snowy Hills.jpg */,
+				4223705F19B7F57900539466 /* Stones.jpg */,
+				4223706019B7F57900539466 /* Summer Leaves.jpg */,
+				4223706119B7F57900539466 /* Summit.jpg */,
+				4223706219B7F57900539466 /* Sunday Afternoon.jpg */,
+				4223706319B7F57900539466 /* Suprematism.jpg */,
+				4223706419B7F57900539466 /* Tahoe.jpg */,
+				4223706519B7F57900539466 /* The Great Wave.jpg */,
+				4223706619B7F57900539466 /* Tiles Blue.jpg */,
+				4223706719B7F57900539466 /* Tiles Pine.jpg */,
+				4223706819B7F57900539466 /* Tiles Warm Grey.jpg */,
+				4223706919B7F57900539466 /* Tranquil Surface.jpg */,
+				4223706A19B7F57900539466 /* Water Lilies.jpg */,
+				4223706B19B7F57900539466 /* Water.jpg */,
+				4223706C19B7F57900539466 /* Wave.jpg */,
+				4223706D19B7F57900539466 /* Winter Sunrise.jpg */,
+				4223706E19B7F57900539466 /* Zebra.jpg */,
+			);
+			path = Images2;
 			sourceTree = "<group>";
 		};
 		426107D519B2D35E0000536C /* Transitions */ = {
@@ -257,6 +587,7 @@
 		42DBCC2919AC20BB00CE6C93 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				422370DE19B7F71B00539466 /* QuartzCore.framework */,
 				42DBCC7C19AC2EC500CE6C93 /* Bolts.framework */,
 				42DBCC7919AC2CCC00CE6C93 /* libz.dylib */,
 				42DBCC7719AC2C0E00CE6C93 /* SystemConfiguration.framework */,
@@ -283,6 +614,7 @@
 		42DBCC3019AC20BB00CE6C93 /* Tinder */ = {
 			isa = PBXGroup;
 			children = (
+				4223700519B7F57800539466 /* Images2 */,
 				42DBCCE119AD01CB00CE6C93 /* View */,
 				42DBCCDA19ACDD7400CE6C93 /* Model */,
 				42DBCC8A19AC3DE700CE6C93 /* Libraries */,
@@ -508,12 +840,117 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				422370B619B7F57900539466 /* Pinstripe.jpg in Resources */,
+				4223709319B7F57900539466 /* Flowing Rock.jpg in Resources */,
+				4223708519B7F57900539466 /* Dandelion.jpg in Resources */,
+				4223707E19B7F57900539466 /* Bristle Grass.jpg in Resources */,
+				422370AB19B7F57900539466 /* Mojave.jpg in Resources */,
+				422370CE19B7F57900539466 /* The Great Wave.jpg in Resources */,
+				4223708219B7F57900539466 /* Clown Fish.jpg in Resources */,
+				4223707A19B7F57900539466 /* Aqua Graphite.jpg in Resources */,
+				422370B519B7F57900539466 /* Pink Lotus Flower.jpg in Resources */,
+				422370C619B7F57900539466 /* Snow Leopard.jpg in Resources */,
+				422370A119B7F57900539466 /* Leaves.jpg in Resources */,
+				4223707C19B7F57900539466 /* Bamboo Grove.jpg in Resources */,
+				4223709019B7F57900539466 /* Flow 1.jpg in Resources */,
+				4223709E19B7F57900539466 /* Lake.jpg in Resources */,
+				422370CF19B7F57900539466 /* Tiles Blue.jpg in Resources */,
+				4223707919B7F57900539466 /* Aqua Blue.jpg in Resources */,
 				42DBCC4319AC20BB00CE6C93 /* Images.xcassets in Resources */,
+				4223708719B7F57900539466 /* Ducks on a Misty Pond.jpg in Resources */,
+				4223709719B7F57900539466 /* Grass Blades.jpg in Resources */,
+				422370AF19B7F57900539466 /* Panther Aqua Blue.jpg in Resources */,
+				422370B719B7F57900539466 /* Pond Reeds.jpg in Resources */,
 				42DBCC3519AC20BB00CE6C93 /* InfoPlist.strings in Resources */,
+				422370C219B7F57900539466 /* Rocks.jpg in Resources */,
+				422370C319B7F57900539466 /* Saree.jpg in Resources */,
+				4223707F19B7F57900539466 /* Cirques.jpg in Resources */,
+				4223707619B7F57900539466 /* Abstract 8.jpg in Resources */,
+				4223707319B7F57900539466 /* Abstract 5.jpg in Resources */,
+				422370B019B7F57900539466 /* Panther Aqua Graphite.jpg in Resources */,
+				4223709519B7F57900539466 /* Gentle Rapids.jpg in Resources */,
+				4223708819B7F57900539466 /* Eagle & Waterfall.jpg in Resources */,
+				422370AC19B7F57900539466 /* Moon.jpg in Resources */,
+				4223708A19B7F57900539466 /* Earth.jpg in Resources */,
+				4223709C19B7F57900539466 /* Jaguar Aqua Graphite.jpg in Resources */,
+				4223709F19B7F57900539466 /* Lavender.jpg in Resources */,
+				422370C419B7F57900539466 /* Sea Mist.jpg in Resources */,
+				4223709119B7F57900539466 /* Flow 2.jpg in Resources */,
+				422370D419B7F57900539466 /* Water.jpg in Resources */,
+				422370A219B7F57900539466 /* Leopard Aurora.jpg in Resources */,
+				422370AE19B7F57900539466 /* Nighthawks.jpg in Resources */,
+				422370BF19B7F57900539466 /* Ripples Moss.jpg in Resources */,
+				422370BA19B7F57900539466 /* Purple Frond.jpg in Resources */,
+				422370CA19B7F57900539466 /* Summit.jpg in Resources */,
+				4223707119B7F57900539466 /* Abstract 3.jpg in Resources */,
+				4223706F19B7F57900539466 /* Abstract 1.jpg in Resources */,
+				422370D719B7F57900539466 /* Zebra.jpg in Resources */,
+				4223708919B7F57900539466 /* Earth Horizon.jpg in Resources */,
+				4223709819B7F57900539466 /* Horizon.jpg in Resources */,
+				4223708319B7F57900539466 /* Daisies.jpg in Resources */,
+				422370C919B7F57900539466 /* Summer Leaves.jpg in Resources */,
+				4223707219B7F57900539466 /* Abstract 4.jpg in Resources */,
+				4223707519B7F57900539466 /* Abstract 7.jpg in Resources */,
 				426107DF19B42D930000536C /* Barbuttons.xcassets in Resources */,
+				4223709A19B7F57900539466 /* Isles.jpg in Resources */,
+				4223708619B7F57900539466 /* Dew Drop.jpg in Resources */,
+				422370B819B7F57900539466 /* Poppies Blooming.jpg in Resources */,
+				4223709B19B7F57900539466 /* Jaguar Aqua Blue.jpg in Resources */,
+				4223708F19B7F57900539466 /* Floating Leaves.jpg in Resources */,
+				422370CC19B7F57900539466 /* Suprematism.jpg in Resources */,
+				422370A319B7F57900539466 /* Lightning.jpg in Resources */,
+				4223707819B7F57900539466 /* Andromeda Galaxy.jpg in Resources */,
+				422370B319B7F57900539466 /* Pier.jpg in Resources */,
+				422370AD19B7F57900539466 /* Mt. Fuji.jpg in Resources */,
 				42F5B28619B0C4CB0036938B /* Chat.xcassets in Resources */,
+				422370D519B7F57900539466 /* Wave.jpg in Resources */,
+				422370AA19B7F57900539466 /* Maple.jpg in Resources */,
+				422370D219B7F57900539466 /* Tranquil Surface.jpg in Resources */,
+				422370CB19B7F57900539466 /* Sunday Afternoon.jpg in Resources */,
+				422370A419B7F57900539466 /* Lines Blue.jpg in Resources */,
+				422370B119B7F57900539466 /* Peony.jpg in Resources */,
+				422370BC19B7F57900539466 /* Redwoods.jpg in Resources */,
+				4223708119B7F57900539466 /* Classic Aqua Graphite.jpg in Resources */,
+				4223707019B7F57900539466 /* Abstract 2.jpg in Resources */,
+				422370C819B7F57900539466 /* Stones.jpg in Resources */,
+				422370A619B7F57900539466 /* Lines Moss.jpg in Resources */,
+				422370BE19B7F57900539466 /* Ripples Blue.jpg in Resources */,
+				422370CD19B7F57900539466 /* Tahoe.jpg in Resources */,
+				422370B919B7F57900539466 /* Poppies.jpg in Resources */,
+				4223709919B7F57900539466 /* Iceberg.jpg in Resources */,
+				4223707419B7F57900539466 /* Abstract 6.jpg in Resources */,
+				4223708D19B7F57900539466 /* Fall Leaves.jpg in Resources */,
+				4223707B19B7F57900539466 /* Aurora.jpg in Resources */,
+				4223709D19B7F57900539466 /* Ladybug.jpg in Resources */,
+				4223708B19B7F57900539466 /* Elephant.jpg in Resources */,
+				4223709619B7F57900539466 /* Golden Palace.jpg in Resources */,
+				422370D619B7F57900539466 /* Winter Sunrise.jpg in Resources */,
+				422370D019B7F57900539466 /* Tiles Pine.jpg in Resources */,
+				422370C019B7F57900539466 /* Ripples Purple.jpg in Resources */,
+				422370B219B7F57900539466 /* Petals.jpg in Resources */,
+				422370A019B7F57900539466 /* Leaf Curl.jpg in Resources */,
+				4223707719B7F57900539466 /* Agave.jpg in Resources */,
+				422370A819B7F57900539466 /* Lion.jpg in Resources */,
+				422370BB19B7F57900539466 /* Red Bells.jpg in Resources */,
+				422370C119B7F57900539466 /* Rock Garden.jpg in Resources */,
 				42DBCC3E19AC20BB00CE6C93 /* Main.storyboard in Resources */,
+				4223708E19B7F57900539466 /* Flamingos.jpg in Resources */,
+				422370A719B7F57900539466 /* Lines Plum.jpg in Resources */,
+				422370D319B7F57900539466 /* Water Lilies.jpg in Resources */,
+				4223708019B7F57900539466 /* Classic Aqua Blue.jpg in Resources */,
+				4223707D19B7F57900539466 /* Beach.jpg in Resources */,
 				4281F25319B11CF7007724C6 /* Menu.xcassets in Resources */,
+				422370A919B7F57900539466 /* Lotus.jpg in Resources */,
+				422370C519B7F57900539466 /* Snow Leopard Prowl.jpg in Resources */,
+				422370A519B7F57900539466 /* Lines Graphite.jpg in Resources */,
+				4223708C19B7F57900539466 /* Evening Reflections.jpg in Resources */,
+				4223709419B7F57900539466 /* Forest in Mist.jpg in Resources */,
+				422370D119B7F57900539466 /* Tiles Warm Grey.jpg in Resources */,
+				422370C719B7F57900539466 /* Snowy Hills.jpg in Resources */,
+				4223709219B7F57900539466 /* Flow 3.jpg in Resources */,
+				4223708419B7F57900539466 /* Dancer on the Stage.jpg in Resources */,
+				422370BD19B7F57900539466 /* Rings.jpg in Resources */,
+				422370B419B7F57900539466 /* Pink Forest.jpg in Resources */,
 				426107DD19B3ABD80000536C /* Profile.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,13 +988,14 @@
 				426107E819B4AAA60000536C /* Animator.m in Sources */,
 				42236F2919B7DEEE00539466 /* CInterpolator.mm in Sources */,
 				0BA4ECB219AE1EE200302E92 /* SidebarTableViewController.m in Sources */,
-				42236F2819B7DEEE00539466 /* CCoverflowCollectionViewLayout.m in Sources */,
 				4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */,
 				42BD2AFE19AE5A1B00FCC817 /* UserTableViewCell.m in Sources */,
+				422370E519B7FB8B00539466 /* CCoverflowCollectionViewLayout.m in Sources */,
 				42DBCCD619ACD87000CE6C93 /* MessagesViewController.m in Sources */,
 				0BA4ECBB19AE232600302E92 /* CustomSignInViewController.m in Sources */,
 				42236F2A19B7DEEE00539466 /* CReflectionView.m in Sources */,
 				42DBCCC519AC4E4200CE6C93 /* StarterViewController.m in Sources */,
+				42236F3119B7F30000539466 /* CDemoCollectionViewController.m in Sources */,
 				42236F2619B7DEEE00539466 /* CBetterCollectionViewCell.m in Sources */,
 				4281F25C19B22F72007724C6 /* UserCollectionViewCell.m in Sources */,
 			);
