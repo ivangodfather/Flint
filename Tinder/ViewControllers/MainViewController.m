@@ -17,6 +17,7 @@
 #define labelHeight 20
 #define labelCushion 20
 #define MARGIN 50
+#define imageMargin 5
 
 #define buttonWidth 40
 #define buttonHeight 50
@@ -38,11 +39,19 @@
 @property NSMutableArray *posibleMatchesArray;
 @property NSMutableArray* willBeMatches;
 @property (strong, nonatomic) UIImageView* profileImage;
+@property (strong, nonatomic) UIImageView* profileImageAge;
+@property (strong, nonatomic) UIImageView* profileImageLocation;
 @property (strong, nonatomic) UIImageView* backgroundImage;
+@property (strong, nonatomic) UIImageView* backgroundImageAge;
+@property (strong, nonatomic) UIImageView* backgroundImageLocation;
 @property NSMutableArray* arrayOfPhotoDataForeground;
 @property NSMutableArray* arrayOfPhotoDataBackground;
 @property (strong, nonatomic) UILabel* foregroundLabel;
 @property (strong, nonatomic) UILabel* backgroundLabel;
+@property (strong, nonatomic) UILabel* foregroundLabelAge;
+@property (strong, nonatomic) UILabel* backgroundLabelAge;
+@property (strong, nonatomic) UILabel* foregroundLabelLocation;
+@property (strong, nonatomic) UILabel* backgroundLabelLocation;
 @property (strong, nonatomic) UILabel* foregroundDescriptionLabel;
 @property (strong, nonatomic) UILabel* backgroundDescriptionLabel;
 @property BOOL firstTime;
@@ -51,7 +60,7 @@
 @property CLLocationManager* locationManager;
 @property CLLocation* currentLocation;
 @property NSNumber* milesAway;
-@property UIView* gradiantView;
+@property UIImageView* background;
 @property UserParse* curUser;
 @end
 
@@ -73,7 +82,10 @@
     self.photoArrayIndex = 1;
     self.firstTime = YES;
     self.isRotating = YES;
-    self.view.backgroundColor = WHITE_COLOR;
+    self.background = [[UIImageView alloc] initWithFrame:self.view.frame];
+    self.background.image = [UIImage imageNamed:@"background"];
+    [self.view addSubview:self.background];
+    [self.view sendSubviewToBack:self.background];
 //    self.gradiantView = [[UIView alloc] initWithFrame:self.view.frame];
 //    CAGradientLayer *gradient = [CAGradientLayer layer];
 //    gradient.frame = self.view.bounds;
@@ -172,10 +184,11 @@
         [self.arrayOfPhotoDataForeground addObject:data];
         self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
         self.profileView.clipsToBounds = YES;
+        self.profileView.backgroundColor = [UIColor whiteColor];
 //        self.profileView.layer.cornerRadius = cornRadius;
         self.profileImage.tag = currentProfileView;
         [self.view addSubview:self.profileView];
-        self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-90)];
+        self.profileImage = [[UIImageView alloc] initWithFrame:[self createPhotoRect]];
         self.profileImage.contentMode = UIViewContentModeScaleAspectFill;
         self.profileImage.tag = currentProfileImage;
         self.profileImage.image = [UIImage imageWithData:data];
@@ -183,15 +196,13 @@
 //        self.profileImage.layer.cornerRadius = cornRadius;
         self.navigationItem.title = username;
         [self.profileView addSubview:self.profileImage];
-        self.foregroundLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.profileImage.frame.origin.x, self.profileImage.frame.size.height, self.profileImage.frame.size.width, labelHeight)];
-        self.foregroundLabel.textAlignment = NSTextAlignmentCenter;
+        self.foregroundLabel = [[UILabel alloc] initWithFrame:[self createLabelRect]];
         double distance = [aUser.geoPoint distanceInKilometersTo:self.curUser.geoPoint];
         if ([aUser.geoPoint distanceInKilometersTo:self.curUser.geoPoint] < 1) {
             distance = 1;
         }
-        self.foregroundLabel.text = [NSString stringWithFormat:@"%@ years old and %.0fkm from you", age, distance];
-        self.foregroundLabel.textColor = [UIColor whiteColor];
-        self.foregroundLabel.backgroundColor = ORANGE_COLOR;
+        self.foregroundLabel.text = [NSString stringWithFormat:@"%@", username];
+        self.foregroundLabel.textColor = BLUE_COLOR;
         self.foregroundLabel.clipsToBounds = YES;
 //        self.foregroundLabel.layer.cornerRadius = cornRadius;
         [self.foregroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
@@ -200,15 +211,38 @@
         [self.foregroundLabel setFont:newFont];
         [self.profileView addSubview:self.foregroundLabel];
         [self.profileView bringSubviewToFront:self.foregroundLabel];
-        self.foregroundDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.profileImage.frame.size.height+13, self.profileView.frame.size.width, 95)];
+        self.profileImageAge = [[UIImageView alloc] initWithFrame:[self createImageViewAge]];
+        self.profileImageAge.image = [UIImage imageNamed:@"birthday"];
+        [self.profileView addSubview:self.profileImageAge];
+        [self.profileView bringSubviewToFront:self.profileImageAge];
+        self.foregroundLabelAge = [[UILabel alloc] initWithFrame:[self createLabelAge]];
+        self.foregroundLabelAge.text = [NSString stringWithFormat:@"%@", age];
+        self.foregroundLabelAge.textColor = BLUE_COLOR;
+        [self.foregroundLabelAge setFont:newFont];
+        [self.profileView addSubview:self.foregroundLabelAge];
+        [self.profileView bringSubviewToFront:self.foregroundLabelAge];
+        self.profileImageLocation = [[UIImageView alloc] initWithFrame:[self createImageLocation]];
+        self.profileImageLocation.image = [UIImage imageNamed:@"location"];
+        [self.profileView addSubview:self.profileImageLocation];
+        self.foregroundLabelLocation = [[UILabel alloc] initWithFrame:[self createLabelLocation]];
+        self.foregroundLabelLocation.text = [NSString stringWithFormat:@"%.0fkm", distance];
+        self.foregroundLabelLocation.textColor = BLUE_COLOR;
+        [self.foregroundLabelLocation setFont:newFont];
+        [self.profileView addSubview:self.foregroundLabelLocation];
+        [self.profileView bringSubviewToFront:self.foregroundLabelLocation];
+        [self.profileView bringSubviewToFront:self.profileImageLocation];
+        UILabel* boundaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.profileImage.frame.size.height+self.foregroundLabel.frame.size.height+23, self.profileView.frame.size.width, 1)];
+        boundaryLabel.backgroundColor = [UIColor grayColor];
+        boundaryLabel.alpha = 0.6;
+        [self.profileView addSubview:boundaryLabel];
+        [self.profileView bringSubviewToFront:boundaryLabel];
+        self.foregroundDescriptionLabel = [[UILabel alloc] initWithFrame:[self createLabelDescription]];
         self.foregroundDescriptionLabel.numberOfLines = 0;
         self.foregroundDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.foregroundDescriptionLabel.text = aUser.desc;
         self.foregroundDescriptionLabel.textColor = BLUE_COLOR;
         [self.foregroundDescriptionLabel setFont:descFont];
-        NSLog(@"DESC %@",aUser.desc);
-        [self.view addSubview:self.foregroundDescriptionLabel];
-        NSLog(@"%@", self.foregroundLabel);
+        [self.profileView addSubview:self.foregroundDescriptionLabel];
         [self setPanGestureRecognizer];
         self.firstTime = NO;
         if ([aUser.photo1 isKindOfClass:[PFFile class]]) {
@@ -248,40 +282,68 @@
     NSString* username = aUser[@"username"];
     NSLog(@"background user %@", aUser.username);
     NSNumber* age = aUser[@"age"];
-    self.backgroundView = [[UIView alloc] initWithFrame:[self createMatchRect]];
-    self.backgroundView.backgroundColor = RED_COLOR;
+    self.backgroundView = [[UIView alloc] initWithFrame:[self createBackgroundMatchRect]];
     self.backgroundView.clipsToBounds = YES;
+    self.backgroundView.backgroundColor = [UIColor whiteColor];
 //    self.backgroundView.layer.cornerRadius = cornRadius;
     [self.view addSubview:self.backgroundView];
     [self.view sendSubviewToBack:self.backgroundView];
-    [self.view sendSubviewToBack:self.gradiantView];
+    [self.view sendSubviewToBack:self.background];
     NSLog(@"%@", self.backgroundView);
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         [self.arrayOfPhotoDataBackground addObject:data];
-        self.backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(MARGIN/2, MARGIN/2, self.backgroundView.frame.size.width-MARGIN, self.backgroundView.frame.size.height-230)];
+        self.backgroundImage = [[UIImageView alloc] initWithFrame:[self createBackgroundPhotoRect]];
         self.backgroundImage.image = [UIImage imageWithData:data];
         self.backgroundImage.clipsToBounds = YES;
         self.backgroundImage.layer.cornerRadius = cornRadius;
         [self.backgroundView addSubview:self.backgroundImage];
-        self.backgroundLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.backgroundImage.frame.origin.x, self.backgroundImage.frame.size.height+labelHeight, self.backgroundImage.frame.size.width, labelHeight)];
-        self.backgroundLabel.textAlignment = NSTextAlignmentCenter;
-        self.backgroundLabel.text = [NSString stringWithFormat:@"%@, %@", username, age];
-        self.backgroundLabel.textColor = [UIColor whiteColor];
-        self.backgroundLabel.backgroundColor = RED_COLOR;
+        self.backgroundLabel = [[UILabel alloc] initWithFrame:[self createBackgroundLabelRect]];
+        double distance = [aUser.geoPoint distanceInKilometersTo:self.curUser.geoPoint];
+        if ([aUser.geoPoint distanceInKilometersTo:self.curUser.geoPoint] < 1) {
+            distance = 1;
+        }
+        self.backgroundLabel.text = [NSString stringWithFormat:@"%@", username];
+        self.backgroundLabel.textColor = BLUE_COLOR;
         self.backgroundLabel.clipsToBounds = YES;
-        self.backgroundLabel.layer.cornerRadius = cornRadius;
-        [self.backgroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:20]];
+        //        self.backgroundLabel.layer.cornerRadius = cornRadius;
+        [self.backgroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
         UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.backgroundLabel.font.fontName] size:self.backgroundLabel.font.pointSize];
-        [self.backgroundLabel setFont:newFont];
         UIFont *descFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.backgroundLabel.font.fontName] size: 12];
+        [self.backgroundLabel setFont:newFont];
         [self.backgroundView addSubview:self.backgroundLabel];
-        self.backgroundDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.backgroundImage.frame.origin.x, self.backgroundLabel.frame.origin.y+self.backgroundLabel.frame.size.height, self.backgroundImage.frame.size.width, 150)];
+        self.backgroundDescriptionLabel = [[UILabel alloc] initWithFrame:[self createBackgroundLabelDescription]];
+        [self.profileView bringSubviewToFront:self.foregroundLabel];
+        self.backgroundImageAge = [[UIImageView alloc] initWithFrame:[self createBackgroundImageViewAge]];
+        self.backgroundImageAge.image = [UIImage imageNamed:@"birthday"];
+        [self.backgroundView addSubview:self.backgroundImageAge];
+        [self.backgroundView bringSubviewToFront:self.backgroundImageAge];
+        self.backgroundLabelAge = [[UILabel alloc] initWithFrame:[self createBackgroundLabelAge]];
+        self.backgroundLabelAge.text = [NSString stringWithFormat:@"%@", age];
+        self.backgroundLabelAge.textColor = BLUE_COLOR;
+        [self.backgroundLabelAge setFont:newFont];
+        [self.backgroundView addSubview:self.backgroundLabelAge];
+        [self.backgroundView bringSubviewToFront:self.backgroundLabelAge];
+        self.backgroundImageLocation = [[UIImageView alloc] initWithFrame:[self createBackgroundImageLocation]];
+        self.backgroundImageLocation.image = [UIImage imageNamed:@"location"];
+        [self.backgroundView addSubview:self.backgroundImageLocation];
+        self.backgroundLabelLocation = [[UILabel alloc] initWithFrame:[self createBackgroundLabelLocation]];
+        self.backgroundLabelLocation.text = [NSString stringWithFormat:@"%.0fkm", distance];
+        self.backgroundLabelLocation.textColor = BLUE_COLOR;
+        [self.backgroundLabelLocation setFont:newFont];
+        [self.backgroundView addSubview:self.backgroundLabelLocation];
+        [self.backgroundView bringSubviewToFront:self.backgroundLabelLocation];
+        [self.backgroundView bringSubviewToFront:self.backgroundLabelLocation];
+        UILabel* boundaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.backgroundImage.frame.size.height+self.backgroundLabel.frame.size.height+23, self.backgroundView.frame.size.width, 1)];
+        boundaryLabel.backgroundColor = [UIColor grayColor];
+        boundaryLabel.alpha = 0.6;
+        [self.backgroundView addSubview:boundaryLabel];
+        [self.backgroundView bringSubviewToFront:boundaryLabel];
+        self.backgroundDescriptionLabel = [[UILabel alloc] initWithFrame:[self createBackgroundLabelDescription]];
         self.backgroundDescriptionLabel.numberOfLines = 0;
         self.backgroundDescriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.backgroundDescriptionLabel.text = aUser.desc;
-        self.backgroundDescriptionLabel.textColor = [UIColor whiteColor];
+        self.backgroundDescriptionLabel.textColor = BLUE_COLOR;
         [self.backgroundDescriptionLabel setFont:descFont];
-        NSLog(@"DESC %@",aUser.desc);
         [self.backgroundView addSubview:self.backgroundDescriptionLabel];
     }];
     if ([aUser[@"photo1"] isKindOfClass:[PFFile class]]) {
@@ -310,11 +372,144 @@
     }
 }
 
+- (CGRect)createLabelDescription
+{
+    int x = imageMargin;
+    int y = self.profileImage.frame.size.height+self.foregroundLabel.frame.size.height+25;
+    int width = self.profileView.frame.size.width-imageMargin;
+    int height = 50;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createLabelLocation
+{
+    int x = self.foregroundLabel.frame.size.width+79;
+    int y = self.profileImage.frame.size.height+15;
+    int width = 68-imageMargin;
+    int height = labelHeight;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createImageLocation
+{
+    int x = self.foregroundLabel.frame.size.width+55;
+    int y = self.profileImage.frame.size.height+15;
+    int width = 20;
+    int height = labelHeight;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createLabelAge
+{
+    int x = self.foregroundLabel.frame.size.width+24;
+    int y = self.profileImage.frame.size.height+15;
+    int width = 30;
+    int height = labelHeight;
+    return CGRectMake(x, y, width, height);
+}
+- (CGRect)createImageViewAge
+{
+    int x = self.foregroundLabel.frame.size.width;
+    int y = self.profileImage.frame.size.height+15;
+    int width = 20;
+    int height = labelHeight;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createLabelRect
+{
+    int x = imageMargin+imageMargin;
+    int y = self.profileImage.frame.size.height+15;
+    int width = (self.profileImage.frame.size.width/2)+25;
+    int height = labelHeight;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createPhotoRect
+{
+    int x = imageMargin;
+    int width = self.profileView.frame.size.width - (x*2);
+    int y = imageMargin;
+    int height = 280;
+    return CGRectMake(x, y, width, height);
+}
+
 - (CGRect)createMatchRect
 {
-    int x = 10;
+    int x = imageMargin;
     int width = 320 - (x*2);
-    int y = 2;
+    int y = imageMargin;
+    int height = 380;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createBackgroundLabelDescription
+{
+    int x = imageMargin;
+    int y = self.backgroundImage.frame.size.height+self.backgroundLabel.frame.size.height+25;
+    int width = self.backgroundView.frame.size.width-imageMargin;
+    int height = 50;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createBackgroundLabelLocation
+{
+    int x = self.backgroundLabel.frame.size.width+79;
+    int y = self.backgroundImage.frame.size.height+15;
+    int width = 68-imageMargin;
+    int height = labelHeight;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createBackgroundImageLocation
+{
+    int x = self.backgroundLabel.frame.size.width+55;
+    int y = self.backgroundImage.frame.size.height+15;
+    int width = 20;
+    int height = labelHeight;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createBackgroundLabelAge
+{
+    int x = self.backgroundLabel.frame.size.width+24;
+    int y = self.backgroundImage.frame.size.height+15;
+    int width = 30;
+    int height = labelHeight;
+    return CGRectMake(x, y, width, height);
+}
+- (CGRect)createBackgroundImageViewAge
+{
+    int x = self.backgroundLabel.frame.size.width;
+    int y = self.backgroundImage.frame.size.height+15;
+    int width = 20;
+    int height = labelHeight;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createBackgroundLabelRect
+{
+    int x = imageMargin+imageMargin;
+    int y = self.backgroundImage.frame.size.height+15;
+    int width = (self.backgroundImage.frame.size.width/2)+25;
+    int height = labelHeight;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createBackgroundPhotoRect
+{
+    int x = imageMargin;
+    int width = self.backgroundView.frame.size.width - (x*2);
+    int y = imageMargin;
+    int height = 280;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createBackgroundMatchRect
+{
+    int x = imageMargin;
+    int width = 320 - (x*2);
+    int y = imageMargin;
     int height = 380;
     return CGRectMake(x, y, width, height);
 }
@@ -365,7 +560,7 @@
         data = [self.arrayOfPhotoDataForeground objectAtIndex:self.photoArrayIndex];
         self.photoArrayIndex++;
     }
-    self.profileImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.profileView.frame.size.width, self.profileView.frame.size.height-90)];
+    self.profileImage = [[UIImageView alloc] initWithFrame:[self createPhotoRect]];
     self.profileImage.tag = currentProfileImage;
     self.profileImage.image = [UIImage imageWithData:data];
     self.profileImage.clipsToBounds = YES;
