@@ -23,6 +23,11 @@
 #define buttonWidth 40
 #define buttonHeight 50
 
+#define cardBorder 1.0f
+
+#define boundaryBackground 8
+#define secondBackground 7
+#define firstBackground 6
 #define currentProfileView 5
 #define currentProfileImage 4
 #define profileViewTag 3
@@ -35,6 +40,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (strong, nonatomic) UIView *profileView;
 @property (strong, nonatomic) UIView* backgroundView;
+@property (strong, nonatomic) UIView* firstBox;
+@property (strong, nonatomic) UIView* secondBox;
 @property UserParse* currShowingProfile;
 @property UserParse* backgroundUserProfile;
 @property NSMutableArray *posibleMatchesArray;
@@ -125,7 +132,7 @@
     CLGeocoder* geocoder = [CLGeocoder new];
     [geocoder reverseGeocodeLocation:locations.firstObject completionHandler:^(NSArray *placemarks, NSError *error) {
         CLPlacemark* placemark = placemarks.firstObject;
-        self.activityLabel.text = [NSString stringWithFormat:@"Locating matches near %@, %@", placemark.locality, placemark.administrativeArea];
+        self.activityLabel.text = [NSString stringWithFormat:@"Locating matches near:\n %@, %@", placemark.locality, placemark.administrativeArea];
         self.activityLabel.textColor = [UIColor whiteColor];
     }];
     [UserParse currentUser].geoPoint = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude longitude:self.currentLocation.coordinate.longitude];
@@ -197,6 +204,12 @@
     self.profileView.tag = profileViewTag;
     if (self.posibleMatchesArray.firstObject != nil) {
         [self placeBackgroundProfile];
+    } else {
+        [self removeBackgroundMatchCards];
+        self.activityLabel.hidden = NO;
+        [self.activityIndicator startAnimating];
+        [self.view bringSubviewToFront:self.profileView];
+
     }
     PFFile* file = aUser.photo;
     NSString* username = aUser.username;
@@ -207,6 +220,8 @@
         self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
         self.profileView.clipsToBounds = YES;
         self.profileView.backgroundColor = WHITE_COLOR;
+        self.profileView.layer.borderColor = [UIColor grayColor].CGColor;
+        self.profileView.layer.borderWidth = cardBorder;
         //        self.profileView.layer.cornerRadius = cornRadius;
         self.profileImage.tag = currentProfileView;
         [self.view addSubview:self.profileView];
@@ -296,6 +311,8 @@
             }];
         }
         [self.activityIndicator stopAnimating];
+        self.activityLabel.hidden = YES;
+        [self placeBackgroundMatchCards];
     }];
 }
 
@@ -312,6 +329,8 @@
     self.backgroundView = [[UIView alloc] initWithFrame:[self createBackgroundMatchRect]];
     self.backgroundView.clipsToBounds = YES;
     self.backgroundView.backgroundColor = [UIColor whiteColor];
+    self.backgroundView.layer.borderColor = [UIColor grayColor].CGColor;
+    self.backgroundView.layer.borderWidth = cardBorder;
     //    self.backgroundView.layer.cornerRadius = cornRadius;
     [self.view addSubview:self.backgroundView];
     [self.view sendSubviewToBack:self.backgroundView];
@@ -373,6 +392,8 @@
         self.backgroundDescriptionLabel.textColor = BLUE_COLOR;
         [self.backgroundDescriptionLabel setFont:descFont];
         [self.backgroundView addSubview:self.backgroundDescriptionLabel];
+        [self.view sendSubviewToBack:self.firstBox];
+        [self.view sendSubviewToBack:self.secondBox];
     }];
     if ([aUser[@"photo1"] isKindOfClass:[PFFile class]]) {
         PFFile* photo1 = aUser[@"photo1"];
@@ -400,16 +421,50 @@
     }
 }
 
-//- (void)placeBackgroundMatchCards
-//{
-//    UIView* firstBox = [UIView alloc] initWithFrame:<#(CGRect)#>
-//}
-//
-//- (CGRect)createFirstBox
-//{
-//    int x = self.profileView.frame.origin.x-3;
-//    int y = self.profileView.frame.size.height;
-//}
+- (void)placeBackgroundMatchCards
+{
+    self.firstBox = [[UIView alloc] initWithFrame:[self createFirstBox]];
+    self.firstBox.tag = firstBackground;
+    self.firstBox.backgroundColor = [UIColor whiteColor];
+    self.firstBox.layer.borderColor = [UIColor grayColor].CGColor;
+    self.firstBox.layer.borderWidth = cardBorder;
+    self.secondBox = [[UIView alloc] initWithFrame:[self createSecondBox]];
+    self.secondBox.tag = secondBackground;
+    self.secondBox.backgroundColor = [UIColor whiteColor];
+    self.secondBox.layer.borderColor = [UIColor grayColor].CGColor;
+    self.secondBox.layer.borderWidth = cardBorder;
+    [self.view addSubview:self.firstBox];
+    [self.view sendSubviewToBack:self.firstBox];
+    [self.view addSubview:self.secondBox];
+    [self.view sendSubviewToBack:self.secondBox];
+}
+
+- (void)removeBackgroundMatchCards
+{
+    for (UIView* view in self.view.subviews) {
+        if (view.tag == firstBackground || view.tag == secondBackground) {
+            [view removeFromSuperview];
+        }
+    }
+}
+
+- (CGRect)createFirstBox
+{
+    int x = self.profileView.frame.origin.x-3;
+    int y = self.profileView.frame.origin.y+3;
+    int width = self.profileView.frame.size.width;
+    int height = self.profileView.frame.size.height;
+    return CGRectMake(x, y, width, height);
+}
+
+- (CGRect)createSecondBox
+{
+    int x = self.profileView.frame.origin.x-6;
+    int y = self.profileView.frame.origin.y+6;
+    int width = self.profileView.frame.size.width;
+    int height = self.profileView.frame.size.height;
+    return CGRectMake(x, y, width, height);
+}
 
 - (CGRect)createLabelDescription
 {
@@ -423,7 +478,7 @@
 - (CGRect)createLabelLocation
 {
     int x = self.foregroundLabel.frame.size.width+77;
-    int y = self.profileImage.frame.size.height+15;
+    int y = self.profileImage.frame.size.height+19;
     int width = 59-imageMargin;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
@@ -432,7 +487,7 @@
 - (CGRect)createImageLocation
 {
     int x = self.foregroundLabel.frame.size.width+55;
-    int y = self.profileImage.frame.size.height+15;
+    int y = self.profileImage.frame.size.height+19;
     int width = 16;
     int height = 16;
     return CGRectMake(x, y, width, height);
@@ -441,7 +496,7 @@
 - (CGRect)createLabelAge
 {
     int x = self.foregroundLabel.frame.size.width+24;
-    int y = self.profileImage.frame.size.height+15;
+    int y = self.profileImage.frame.size.height+19;
     int width = 30;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
@@ -449,7 +504,7 @@
 - (CGRect)createImageViewAge
 {
     int x = self.foregroundLabel.frame.size.width;
-    int y = self.profileImage.frame.size.height+15;
+    int y = self.profileImage.frame.size.height+19;
     int width = 16;
     int height = 16;
     return CGRectMake(x, y, width, height);
@@ -458,7 +513,7 @@
 - (CGRect)createLabelRect
 {
     int x = imageMargin;
-    int y = self.profileImage.frame.size.height+15;
+    int y = self.profileImage.frame.size.height+19;
     int width = (self.profileImage.frame.size.width/2)+30;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
@@ -494,7 +549,7 @@
 - (CGRect)createBackgroundLabelLocation
 {
     int x = self.backgroundLabel.frame.size.width+77;
-    int y = self.backgroundImage.frame.size.height+15;
+    int y = self.backgroundImage.frame.size.height+19;
     int width = 59-imageMargin;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
@@ -503,7 +558,7 @@
 - (CGRect)createBackgroundImageLocation
 {
     int x = self.backgroundLabel.frame.size.width+55;
-    int y = self.backgroundImage.frame.size.height+15;
+    int y = self.backgroundImage.frame.size.height+19;
     int width = 20;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
@@ -512,7 +567,7 @@
 - (CGRect)createBackgroundLabelAge
 {
     int x = self.backgroundLabel.frame.size.width+24;
-    int y = self.backgroundImage.frame.size.height+15;
+    int y = self.backgroundImage.frame.size.height+19;
     int width = 30;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
@@ -520,7 +575,7 @@
 - (CGRect)createBackgroundImageViewAge
 {
     int x = self.backgroundLabel.frame.size.width;
-    int y = self.backgroundImage.frame.size.height+15;
+    int y = self.backgroundImage.frame.size.height+19;
     int width = 20;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
@@ -529,7 +584,7 @@
 - (CGRect)createBackgroundLabelRect
 {
     int x = imageMargin;
-    int y = self.backgroundImage.frame.size.height+15;
+    int y = self.backgroundImage.frame.size.height+19;
     int width = (self.backgroundImage.frame.size.width/2)+30;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
@@ -701,6 +756,11 @@
                 [self setPanGestureRecognizer];
                 if (self.posibleMatchesArray.firstObject != nil) {
                     [self placeBackgroundProfile];
+                } else {
+                    [self removeBackgroundMatchCards];
+                    self.activityLabel.hidden = NO;
+                    [self.activityIndicator startAnimating];
+                    [self.view bringSubviewToFront:self.profileView];
                 }
             }
         }];
@@ -718,6 +778,11 @@
                 [self setPanGestureRecognizer];
                 if (self.posibleMatchesArray.firstObject != nil) {
                     [self placeBackgroundProfile];
+                } else {
+                    [self removeBackgroundMatchCards];
+                    self.activityLabel.hidden = NO;
+                    [self.activityIndicator startAnimating];
+                    [self.view bringSubviewToFront:self.profileView];
                 }
             }
         }];
@@ -759,6 +824,11 @@
                 [self setPanGestureRecognizer];
                 if (self.posibleMatchesArray.firstObject != nil) {
                     [self placeBackgroundProfile];
+                } else {
+                    [self removeBackgroundMatchCards];
+                    self.activityLabel.hidden = NO;
+                    [self.activityIndicator startAnimating];
+                    [self.view bringSubviewToFront:self.profileView];
                 }
             }
         }];
@@ -777,6 +847,11 @@
                 NSLog(@"here");
                 if (self.posibleMatchesArray.firstObject != nil) {
                     [self placeBackgroundProfile];
+                } else {
+                    [self removeBackgroundMatchCards];
+                    self.activityLabel.hidden = NO;
+                    [self.activityIndicator startAnimating];
+                    [self.view bringSubviewToFront:self.profileView];
                 }
             }
         }];
