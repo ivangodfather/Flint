@@ -161,7 +161,6 @@
         [userQuery whereKey:@"isMale" equalTo:@"false"];
     }
     [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-
         [self.posibleMatchesArray addObjectsFromArray:objects];
         [self.willBeMatches addObjectsFromArray:objects];
         NSLog(@"will be match - %@", objects);
@@ -179,7 +178,7 @@
         }
         NSLog(@"distance - %@", self.curUser.distance);
         if (self.curUser.distance.doubleValue == 0.0) {
-            self.curUser.distance = [NSNumber numberWithInt:1000];
+            self.curUser.distance = [NSNumber numberWithInt:10000];
         }
         [userQuery whereKey:@"geoPoint" nearGeoPoint:self.curUser.geoPoint withinKilometers:self.curUser.distance.doubleValue];
         [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {

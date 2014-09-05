@@ -122,7 +122,12 @@
     self.theUser.username = self.nameTextField.text;
     self.theUser.email = self.emailTextField.text;
     self.theUser.password = self.passwordTextField.text;
-
+    self.theUser.distance = [NSNumber numberWithInt:100];
+    self.theUser.sexuality = [NSNumber numberWithInt:2];
+    self.theUser.age = [NSNumber numberWithInt:30];
+    self.theUser.isMale = @"true";
+    self.theUser.desc = @"I'm new to Flint!";
+    self.theUser.photo = [PFFile fileWithData:UIImagePNGRepresentation([UIImage imageNamed:@"placeholderNew"])];
     [self.theUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             [self performSegueWithIdentifier:@"signup" sender:self];
