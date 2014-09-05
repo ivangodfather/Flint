@@ -130,21 +130,19 @@
 {
     NSLog(@"current user here %@", self.curUser);
     PFQuery *query = [PossibleMatch query];
-    [query whereKey:@"toUser" equalTo:[UserParse currentUser]];
+    [query whereKey:@"toUser" equalTo:self.curUser];
     [query whereKey:@"match" equalTo:@"YES"];
     [query whereKey:@"toUserApproved" equalTo:@"notDone"];
     PFQuery* userQuery = [UserParse query];
     if (self.curUser.distance.doubleValue == 0.0) {
-        [UserParse currentUser].distance = [NSNumber numberWithInt:100];
+        self.curUser.distance = [NSNumber numberWithInt:100];
     }
     [userQuery whereKey:@"geoPoint" nearGeoPoint:self.curUser.geoPoint withinKilometers:self.curUser.distance.doubleValue];
-    [userQuery whereKey:@"email" matchesKey:@"fromUserId" inQuery:query];
+    [userQuery whereKey:@"email" matchesKey:@"fromUserEmail" inQuery:query];
     if (self.curUser.sexuality.integerValue == 0) {
-        NSLog(@"Im here 0 ");
         [userQuery whereKey:@"isMale" equalTo:@"true"];
     }
     if (self.curUser.sexuality.integerValue == 1) {
-        NSLog(@"Im here 1");
         [userQuery whereKey:@"isMale" equalTo:@"false"];
     }
     [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -212,6 +210,7 @@
         //        self.profileImage.layer.cornerRadius = cornRadius;
         [self.profileView addSubview:self.profileImage];
         self.foregroundLabel = [[UILabel alloc] initWithFrame:[self createLabelRect]];
+        self.matchPhoto = self.profileImage.image;
         double distance = [aUser.geoPoint distanceInKilometersTo:self.curUser.geoPoint];
         if ([aUser.geoPoint distanceInKilometersTo:self.curUser.geoPoint] < 1) {
             distance = 1;
@@ -711,6 +710,7 @@
     self.profileView.gestureRecognizers = [NSArray new];
     [self.profileView removeFromSuperview];
     self.profileView = self.backgroundView;
+    self.matchPhoto = self.profileImage.image;
     self.profileImage = self.backgroundImage;
     self.foregroundLabel = self.backgroundLabel;
     self.foregroundDescriptionLabel = self.backgroundDescriptionLabel;
