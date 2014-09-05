@@ -153,7 +153,7 @@
         self.curUser.distance = [NSNumber numberWithInt:100];
     }
     [userQuery whereKey:@"geoPoint" nearGeoPoint:self.curUser.geoPoint withinKilometers:self.curUser.distance.doubleValue];
-    [userQuery whereKey:@"email" matchesKey:@"toUserEmail" inQuery:query];
+    [userQuery whereKey:@"email" matchesKey:@"fromUserEmail" inQuery:query];
     if (self.curUser.sexuality.integerValue == 0) {
         [userQuery whereKey:@"isMale" equalTo:@"true"];
     }
