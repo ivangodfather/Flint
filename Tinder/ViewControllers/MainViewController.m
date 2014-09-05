@@ -768,6 +768,7 @@
     UIImageView* likeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight)];
     likeImageView.tag = likeViewTag;
     likeImageView.image = [UIImage imageNamed:@"like.png"];
+    likeImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.profileView addSubview:likeImageView];
 }
 
@@ -776,6 +777,7 @@
     UIImageView* dislikeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.profileImage.frame.size.width - buttonWidth + (imageMargin*2), 0, buttonWidth, buttonHeight)];
     dislikeImageView.tag = dislikeViewTag;
     dislikeImageView.image = [UIImage imageNamed:@"dislike.png"];
+    dislikeImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.profileView addSubview:dislikeImageView];
     [self.profileView bringSubviewToFront:dislikeImageView];
 }

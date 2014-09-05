@@ -84,13 +84,13 @@
 
                         }];
 
-    for (int i = 1; i < 5; i++) {
+    for (int i = 1; i < 6; i++) {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
         CGRect cellFrame = cell.frame;
         cellFrame.origin.x -= cellFrame.size.width;
         cell.frame = cellFrame;
 
-        [UIView animateWithDuration:0.4
+        [UIView animateWithDuration:0.3
                               delay:i*0.2
              usingSpringWithDamping:0.5
               initialSpringVelocity:0.8
@@ -134,6 +134,13 @@
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellMessage.backgroundColor = [UIColor clearColor];
 
+    }
+    
+    if (indexPath.row == 5) {
+        [UserParse logOut];
+        NSLog(@"entro!!");
+        
+        return;
     }
     //UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
 

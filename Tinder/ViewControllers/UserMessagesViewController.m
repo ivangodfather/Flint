@@ -191,6 +191,7 @@
         } else {
             bubbleView.backgroundColor = GRAY_COLOR;
         }
+        bubbleView.alpha = 0.5;
         bubbleView.layer.cornerRadius = 10.0f;
         bubbleView.tag = 666;
 
@@ -232,10 +233,13 @@
     PFQuery *query1 = [MessageParse query];
     [query1 whereKey:@"fromUserParse" equalTo:[PFUser currentUser]];
     [query1 whereKey:@"toUserParse" equalTo:self.toUserParse];
+    [query1 whereKey:@"text" notEqualTo:@""];
 
     PFQuery *query2 = [MessageParse query];
     [query2 whereKey:@"fromUserParse" equalTo:self.toUserParse];
     [query2 whereKey:@"toUserParse" equalTo:[PFUser currentUser]];
+    [query2 whereKey:@"text" notEqualTo:@""];
+
 
     PFQuery *orQUery = [PFQuery orQueryWithSubqueries:@[query1, query2]];
     [orQUery orderByAscending:@"createdAt"];
@@ -310,10 +314,12 @@
 
 - (void)scrollCollectionView
 {
-    NSInteger item = [self.collectionView numberOfItemsInSection:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item -1 inSection:0];
+    if (self.messages.count > 0) {
+        NSInteger item = [self.collectionView numberOfItemsInSection:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item -1 inSection:0];
 
-    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+        [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+    }
 }
 
 - (void)hiddeKeyBoard
