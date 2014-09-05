@@ -396,16 +396,16 @@
 {
     int x = imageMargin;
     int y = self.profileImage.frame.size.height+self.foregroundLabel.frame.size.height+25;
-    int width = self.profileView.frame.size.width-imageMargin;
+    int width = self.profileView.frame.size.width-imageMargin-imageMargin;
     int height = 50;
     return CGRectMake(x, y, width, height);
 }
 
 - (CGRect)createLabelLocation
 {
-    int x = self.foregroundLabel.frame.size.width+79;
+    int x = self.foregroundLabel.frame.size.width+77;
     int y = self.profileImage.frame.size.height+15;
-    int width = 68-imageMargin;
+    int width = 59-imageMargin;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
 }
@@ -438,9 +438,9 @@
 
 - (CGRect)createLabelRect
 {
-    int x = imageMargin+imageMargin;
+    int x = imageMargin;
     int y = self.profileImage.frame.size.height+15;
-    int width = (self.profileImage.frame.size.width/2)+25;
+    int width = (self.profileImage.frame.size.width/2)+30;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
 }
@@ -467,16 +467,16 @@
 {
     int x = imageMargin;
     int y = self.backgroundImage.frame.size.height+self.backgroundLabel.frame.size.height+25;
-    int width = self.backgroundView.frame.size.width-imageMargin;
+    int width = self.backgroundView.frame.size.width-imageMargin-imageMargin;
     int height = 50;
     return CGRectMake(x, y, width, height);
 }
 
 - (CGRect)createBackgroundLabelLocation
 {
-    int x = self.backgroundLabel.frame.size.width+79;
+    int x = self.backgroundLabel.frame.size.width+77;
     int y = self.backgroundImage.frame.size.height+15;
-    int width = 68-imageMargin;
+    int width = 59-imageMargin;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
 }
@@ -509,9 +509,9 @@
 
 - (CGRect)createBackgroundLabelRect
 {
-    int x = imageMargin+imageMargin;
+    int x = imageMargin;
     int y = self.backgroundImage.frame.size.height+15;
-    int width = (self.backgroundImage.frame.size.width/2)+25;
+    int width = (self.backgroundImage.frame.size.width/2)+30;
     int height = labelHeight;
     return CGRectMake(x, y, width, height);
 }
@@ -584,6 +584,7 @@
     self.profileImage.tag = currentProfileImage;
     self.profileImage.image = [UIImage imageWithData:data];
     self.profileImage.clipsToBounds = YES;
+    self.profileImage.contentMode = UIViewContentModeScaleAspectFill;
     //    self.profileImage.layer.cornerRadius = cornRadius;
     [self.profileView addSubview:self.profileImage];
 }
