@@ -487,17 +487,17 @@
                                     <action selector="likeButtonHit:" destination="aqZ-SE-PFE" eventType="touchUpInside" id="OWl-VP-99n"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finding people near you." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CPW-2x-d8b">
-                                <rect key="frame" x="20" y="135" width="280" height="76"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" id="5S1-bf-Rlj">
-                                <rect key="frame" x="150" y="219" width="20" height="20"/>
+                                <rect key="frame" x="150" y="198" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Locating people near you." textAlignment="center" id="aVY-JI-f2V">
+                                <rect key="frame" x="20" y="124" width="280" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -512,7 +512,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="activityIndicator" destination="5S1-bf-Rlj" id="osY-Er-0h8"/>
-                        <outlet property="activityLabel" destination="CPW-2x-d8b" id="Kv4-37-X4I"/>
+                        <outlet property="activityLabel" destination="aVY-JI-f2V" id="COR-sD-u3h"/>
                         <outlet property="cyclePhotosButton" destination="NiW-E7-aAz" id="5dt-s9-L2n"/>
                         <outlet property="dislikeButton" destination="AeO-SB-QWK" id="Sqc-wg-DRG"/>
                         <outlet property="likeButton" destination="1J8-9X-ye5" id="Rkv-fM-0e9"/>

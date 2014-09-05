@@ -75,7 +75,7 @@
 @property UserParse* curUser;
 @property UIImage *userPhoto;
 @property UIImage *matchPhoto;
-@property (weak, nonatomic) IBOutlet UILabel *activityLabel;
+@property (weak, nonatomic) IBOutlet UITextView *activityLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property UserParse *otherUser;
 @end
