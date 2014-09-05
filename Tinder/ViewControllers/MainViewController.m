@@ -415,7 +415,7 @@
     int y = self.profileImage.frame.size.height+15;
     int width = 20;
     int height = labelHeight;
-    return CGRectMake(x, y, width, height);
+    return CGRectMake(x, y, 16, 16);
 }
 
 - (CGRect)createLabelAge
@@ -432,7 +432,7 @@
     int y = self.profileImage.frame.size.height+15;
     int width = 20;
     int height = labelHeight;
-    return CGRectMake(x, y, width, height);
+    return CGRectMake(x, y, 16, 16);
 }
 
 - (CGRect)createLabelRect
