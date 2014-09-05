@@ -268,7 +268,6 @@
             [photo1 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 [self.arrayOfPhotoDataForeground addObject:data];
                 self.matchPhoto = [UIImage imageWithData:data];
-                [self performSegueWithIdentifier:@"match" sender:nil];
         }];
         }
         if ([aUser.photo2 isKindOfClass:[PFFile class]]) {
@@ -718,6 +717,7 @@
     self.profileImage.tag = currentProfileImage;
     self.photoArrayIndex = 1;
     if ([self.willBeMatches containsObject:self.currShowingProfile]) {
+        [self performSegueWithIdentifier:@"match" sender:nil];
         MessageParse* message = [MessageParse object];
         message.fromUserParse = self.currShowingProfile;
         message.fromUserParseEmail = self.currShowingProfile.email;
