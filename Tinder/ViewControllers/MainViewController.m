@@ -146,7 +146,7 @@
         self.curUser.distance = [NSNumber numberWithInt:100];
     }
     [userQuery whereKey:@"geoPoint" nearGeoPoint:self.curUser.geoPoint withinKilometers:self.curUser.distance.doubleValue];
-    [userQuery whereKey:@"email" matchesKey:@"fromUserEmail" inQuery:query];
+    [userQuery whereKey:@"email" matchesKey:@"toUserEmail" inQuery:query];
     if (self.curUser.sexuality.integerValue == 0) {
         [userQuery whereKey:@"isMale" equalTo:@"true"];
     }
@@ -399,6 +399,17 @@
         }];
     }
 }
+
+//- (void)placeBackgroundMatchCards
+//{
+//    UIView* firstBox = [UIView alloc] initWithFrame:<#(CGRect)#>
+//}
+//
+//- (CGRect)createFirstBox
+//{
+//    int x = self.profileView.frame.origin.x-3;
+//    int y = self.profileView.frame.size.height;
+//}
 
 - (CGRect)createLabelDescription
 {
