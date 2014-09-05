@@ -13,11 +13,12 @@
 #import "MessageParse.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import "MatchViewController.h"
 
 #define labelHeight 20
 #define labelCushion 20
 #define MARGIN 50
-#define imageMargin 5
+#define imageMargin 10
 
 #define buttonWidth 40
 #define buttonHeight 50
@@ -65,6 +66,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *cyclePhotosButton;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property UserParse* curUser;
+@property UIImage *userPhoto;
+@property UIImage *matchPhoto;
+@property UserParse *otherUser;
 @end
 
 @implementation MainViewController
@@ -72,10 +76,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     PFQuery* curQuery = [UserParse query];
     [curQuery whereKey:@"username" equalTo:[UserParse currentUser].username];
     [curQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.curUser = objects.firstObject;
+        [self.curUser.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            self.userPhoto = [UIImage imageWithData:data];
+        }];
         [self currentLocationIdentifier];
     }];
     _sidebarButton.target = self.revealViewController;
@@ -88,16 +96,16 @@
     self.view.backgroundColor = BLUE_COLOR;
     self.navigationController.navigationBar.barTintColor = BLUE_COLOR;
     self.navigationItem.title = @"Flint";
-//    self.background = [[UIImageView alloc] initWithFrame:self.view.frame];
-//    self.background.image = [UIImage imageNamed:@"background"];
-//    [self.view addSubview:self.background];
-//    [self.view sendSubviewToBack:self.background];
-//    self.gradiantView = [[UIView alloc] initWithFrame:self.view.frame];
-//    CAGradientLayer *gradient = [CAGradientLayer layer];
-//    gradient.frame = self.view.bounds;
-//    gradient.colors = [NSArray arrayWithObjects:(id)BLUEDARK_COLOR.CGColor,(id)RED_COLOR.CGColor,nil];
-//    [self.gradiantView.layer insertSublayer:gradient atIndex:0];
-//    [self.view addSubview:self.gradiantView];
+    //    self.background = [[UIImageView alloc] initWithFrame:self.view.frame];
+    //    self.background.image = [UIImage imageNamed:@"background"];
+    //    [self.view addSubview:self.background];
+    //    [self.view sendSubviewToBack:self.background];
+    //    self.gradiantView = [[UIView alloc] initWithFrame:self.view.frame];
+    //    CAGradientLayer *gradient = [CAGradientLayer layer];
+    //    gradient.frame = self.view.bounds;
+    //    gradient.colors = [NSArray arrayWithObjects:(id)BLUEDARK_COLOR.CGColor,(id)RED_COLOR.CGColor,nil];
+    //    [self.gradiantView.layer insertSublayer:gradient atIndex:0];
+    //    [self.view addSubview:self.gradiantView];
 }
 
 -(void)currentLocationIdentifier
@@ -140,6 +148,7 @@
         [userQuery whereKey:@"isMale" equalTo:@"false"];
     }
     [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+
         [self.posibleMatchesArray addObjectsFromArray:objects];
         [self.willBeMatches addObjectsFromArray:objects];
         NSLog(@"will be match - %@", objects);
@@ -167,6 +176,7 @@
             if (self.firstTime) {
                 [self firstPlacement];
             }
+
         }];
     }];
 }
@@ -191,7 +201,7 @@
         self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
         self.profileView.clipsToBounds = YES;
         self.profileView.backgroundColor = WHITE_COLOR;
-//        self.profileView.layer.cornerRadius = cornRadius;
+        //        self.profileView.layer.cornerRadius = cornRadius;
         self.profileImage.tag = currentProfileView;
         [self.view addSubview:self.profileView];
         self.profileImage = [[UIImageView alloc] initWithFrame:[self createPhotoRect]];
@@ -199,7 +209,7 @@
         self.profileImage.tag = currentProfileImage;
         self.profileImage.image = [UIImage imageWithData:data];
         self.profileImage.clipsToBounds = YES;
-//        self.profileImage.layer.cornerRadius = cornRadius;
+        //        self.profileImage.layer.cornerRadius = cornRadius;
         [self.profileView addSubview:self.profileImage];
         self.foregroundLabel = [[UILabel alloc] initWithFrame:[self createLabelRect]];
         double distance = [aUser.geoPoint distanceInKilometersTo:self.curUser.geoPoint];
@@ -209,8 +219,8 @@
         self.foregroundLabel.text = [NSString stringWithFormat:@"%@", username];
         self.foregroundLabel.textColor = BLUE_COLOR;
         self.foregroundLabel.clipsToBounds = YES;
-//        self.foregroundLabel.layer.cornerRadius = cornRadius;
-        [self.foregroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+        //        self.foregroundLabel.layer.cornerRadius = cornRadius;
+        [self.foregroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:16]];
         UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.foregroundLabel.font.fontName] size:self.foregroundLabel.font.pointSize];
         UIFont *descFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.foregroundLabel.font.fontName] size: 12];
         [self.foregroundLabel setFont:newFont];
@@ -252,11 +262,14 @@
         [self.profileView addSubview:self.foregroundDescriptionLabel];
         [self setPanGestureRecognizer];
         self.firstTime = NO;
+
         if ([aUser.photo1 isKindOfClass:[PFFile class]]) {
             PFFile* photo1 = aUser.photo1;
             [photo1 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 [self.arrayOfPhotoDataForeground addObject:data];
-            }];
+                self.matchPhoto = [UIImage imageWithData:data];
+                [self performSegueWithIdentifier:@"match" sender:nil];
+        }];
         }
         if ([aUser.photo2 isKindOfClass:[PFFile class]]) {
             PFFile* photo2 = aUser.photo2;
@@ -292,7 +305,7 @@
     self.backgroundView = [[UIView alloc] initWithFrame:[self createBackgroundMatchRect]];
     self.backgroundView.clipsToBounds = YES;
     self.backgroundView.backgroundColor = [UIColor whiteColor];
-//    self.backgroundView.layer.cornerRadius = cornRadius;
+    //    self.backgroundView.layer.cornerRadius = cornRadius;
     [self.view addSubview:self.backgroundView];
     [self.view sendSubviewToBack:self.backgroundView];
     [self.view sendSubviewToBack:self.background];
@@ -313,7 +326,7 @@
         self.backgroundLabel.textColor = BLUE_COLOR;
         self.backgroundLabel.clipsToBounds = YES;
         //        self.backgroundLabel.layer.cornerRadius = cornRadius;
-        [self.backgroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:18]];
+        [self.backgroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:16]];
         UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.backgroundLabel.font.fontName] size:self.backgroundLabel.font.pointSize];
         UIFont *descFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.backgroundLabel.font.fontName] size: 12];
         [self.backgroundLabel setFont:newFont];
@@ -572,7 +585,7 @@
     self.profileImage.tag = currentProfileImage;
     self.profileImage.image = [UIImage imageWithData:data];
     self.profileImage.clipsToBounds = YES;
-//    self.profileImage.layer.cornerRadius = cornRadius;
+    //    self.profileImage.layer.cornerRadius = cornRadius;
     [self.profileView addSubview:self.profileImage];
 }
 
@@ -754,7 +767,6 @@
     UIImageView* likeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonHeight)];
     likeImageView.tag = likeViewTag;
     likeImageView.image = [UIImage imageNamed:@"like.png"];
-    likeImageView.alpha = 0.01;
     [self.profileView addSubview:likeImageView];
 }
 
@@ -763,7 +775,6 @@
     UIImageView* dislikeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.profileImage.frame.size.width - buttonWidth + (imageMargin*2), 0, buttonWidth, buttonHeight)];
     dislikeImageView.tag = dislikeViewTag;
     dislikeImageView.image = [UIImage imageNamed:@"dislike.png"];
-    dislikeImageView.alpha = 0.01;
     [self.profileView addSubview:dislikeImageView];
     [self.profileView bringSubviewToFront:dislikeImageView];
 }
@@ -853,6 +864,21 @@
             self.dislikeButton.enabled = YES;
             self.cyclePhotosButton.enabled = YES;
         }];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"match"]) {
+
+
+        MatchViewController *vc = segue.destinationViewController;
+        vc.modalTransitionStyle = UIModalTransitionStylePartialCurl;
+
+        vc.userImage = self.userPhoto;
+        vc.matchImage = self.matchPhoto;
+        vc.matchUser = self.otherUser;
+        vc.user = self.curUser;
     }
 }
 

@@ -30,6 +30,7 @@
 		4281F25319B11CF7007724C6 /* Menu.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4281F25219B11CF7007724C6 /* Menu.xcassets */; };
 		4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25519B22D0D007724C6 /* UserMessagesViewController.m */; };
 		4281F25C19B22F72007724C6 /* UserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25B19B22F72007724C6 /* UserCollectionViewCell.m */; };
+		4283BD8319B9584300AD1F63 /* MatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4283BD8219B9584300AD1F63 /* MatchViewController.m */; };
 		42BD2AFE19AE5A1B00FCC817 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */; };
 		42DBCC2B19AC20BB00CE6C93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC2A19AC20BB00CE6C93 /* Foundation.framework */; };
 		42DBCC2D19AC20BB00CE6C93 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC2C19AC20BB00CE6C93 /* CoreGraphics.framework */; };
@@ -121,6 +122,8 @@
 		4281F25519B22D0D007724C6 /* UserMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserMessagesViewController.m; path = ViewControllers/UserMessagesViewController.m; sourceTree = "<group>"; };
 		4281F25A19B22F72007724C6 /* UserCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserCollectionViewCell.h; path = View/UserCollectionViewCell.h; sourceTree = "<group>"; };
 		4281F25B19B22F72007724C6 /* UserCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserCollectionViewCell.m; path = View/UserCollectionViewCell.m; sourceTree = "<group>"; };
+		4283BD8119B9584300AD1F63 /* MatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchViewController.h; path = ViewControllers/MatchViewController.h; sourceTree = "<group>"; };
+		4283BD8219B9584300AD1F63 /* MatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchViewController.m; path = ViewControllers/MatchViewController.m; sourceTree = "<group>"; };
 		42BD2AFC19AE5A1B00FCC817 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserTableViewCell.h; path = View/UserTableViewCell.h; sourceTree = "<group>"; };
 		42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserTableViewCell.m; path = View/UserTableViewCell.m; sourceTree = "<group>"; };
 		42DBCC2719AC20BB00CE6C93 /* Tinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -370,6 +373,8 @@
 				42DBCCC719AC4E4B00CE6C93 /* MainViewController.m */,
 				42DBCCD019ACCD9A00CE6C93 /* ProfileViewController.h */,
 				42DBCCD119ACCD9A00CE6C93 /* ProfileViewController.m */,
+				4283BD8119B9584300AD1F63 /* MatchViewController.h */,
+				4283BD8219B9584300AD1F63 /* MatchViewController.m */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -543,6 +548,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42236F2B19B7DEEE00539466 /* Interpolator.cpp in Sources */,
+				4283BD8319B9584300AD1F63 /* MatchViewController.m in Sources */,
 				0B0F422919B62BE00056F04D /* PossibleMatch.m in Sources */,
 				42DBCCDD19ACDD9C00CE6C93 /* MessageParse.m in Sources */,
 				42236F2E19B7E05800539466 /* CDemoCollectionViewCell.m in Sources */,

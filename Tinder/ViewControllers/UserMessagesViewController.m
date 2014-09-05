@@ -106,8 +106,6 @@
     if ((message.sendImage || message.image) && [message.fromUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"fromCellImage" forIndexPath:indexPath];
         cell.userImageView.image = self.fromPhoto;
-        cell.photoImageView.layer.cornerRadius = cell.photoImageView.frame.size.width/2;
-        cell.photoImageView.clipsToBounds = YES;
         __block UIImage *image;
         if (message.sendImage) {
             image = message.sendImage;
@@ -131,8 +129,6 @@
     if (message.image && [message.fromUserParse.objectId isEqualToString:self.toUserParse.objectId]) {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"toCellImage" forIndexPath:indexPath];
         cell.userImageView.image = self.toPhoto;
-        cell.photoImageView.layer.cornerRadius = cell.photoImageView.frame.size.width/2;
-        cell.photoImageView.clipsToBounds = YES;
         cell.dateLabel.text = [dateFormatter stringFromDate:[message createdAt]];
         __block UIImage *image;
         [message.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
@@ -220,7 +216,7 @@
     if (message.image || message.sendImage) {
         return CGSizeMake(310, 142);
     } else {
-        return CGSizeMake(310, 100);
+        return CGSizeMake(310, 80);
     }
 }
 

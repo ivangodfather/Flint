@@ -18,6 +18,7 @@
 @interface ProfileViewController () <V8HorizontalPickerViewDataSource, V8HorizontalPickerViewDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *ageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *genderLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *charactersLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
@@ -58,6 +59,14 @@
     [self customize];
     [self createAgePickerView];
     self.navigationItem.title = [UserParse currentUser].username;
+
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+
+    [navigationBar setBackgroundImage:[UIImage imageNamed:@"nav"]
+                       forBarPosition:UIBarPositionAny
+                           barMetrics:UIBarMetricsDefault];
+
+    [navigationBar setShadowImage:[UIImage new]];
 }
 
 - (void)createAgePickerView
@@ -283,6 +292,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
+    self.descriptionLabel.text = self.descriptionTextView.text;
     self.user.desc =self.descriptionTextView.text;
     [self.user saveInBackground];
     [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -315,6 +325,11 @@
 
 - (IBAction)editProfile:(id)sender
 {
+    if (!self.editing) {
+        [self.editButton setTitle:@"Done"];
+    } else {
+        [self.editButton setTitle:@"Edit"];
+    }
     self.editing = !self.editing;
     if (self.editing) {
         [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseIn animations:^{
