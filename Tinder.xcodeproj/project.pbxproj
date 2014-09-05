@@ -493,6 +493,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = ivan;
 				TargetAttributes = {
+					42DBCC2619AC20BB00CE6C93 = {
+						DevelopmentTeam = VAR7436X2W;
+					};
 					42DBCC4719AC20BB00CE6C93 = {
 						TestTargetID = 42DBCC2619AC20BB00CE6C93;
 					};
@@ -702,7 +705,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ivan Ruiz Monjo (52TF5EV3KZ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -711,6 +715,7 @@
 				GCC_PREFIX_HEADER = "Tinder/Tinder-Prefix.pch";
 				INFOPLIST_FILE = "Tinder/Tinder-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -720,7 +725,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ivan Ruiz Monjo (52TF5EV3KZ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -729,6 +735,7 @@
 				GCC_PREFIX_HEADER = "Tinder/Tinder-Prefix.pch";
 				INFOPLIST_FILE = "Tinder/Tinder-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

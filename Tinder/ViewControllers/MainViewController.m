@@ -68,6 +68,8 @@
 @property UserParse* curUser;
 @property UIImage *userPhoto;
 @property UIImage *matchPhoto;
+@property (weak, nonatomic) IBOutlet UILabel *activityLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property UserParse *otherUser;
 @end
 
@@ -76,7 +78,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    [self.activityIndicator startAnimating];
     PFQuery* curQuery = [UserParse query];
     [curQuery whereKey:@"username" equalTo:[UserParse currentUser].username];
     [curQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -120,6 +122,12 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     self.currentLocation = [locations objectAtIndex:0];
+    CLGeocoder* geocoder = [CLGeocoder new];
+    [geocoder reverseGeocodeLocation:locations.firstObject completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark* placemark = placemarks.firstObject;
+        self.activityLabel.text = [NSString stringWithFormat:@"Locating matches near %@, %@", placemark.locality, placemark.administrativeArea];
+        self.activityLabel.textColor = [UIColor whiteColor];
+    }];
     [UserParse currentUser].geoPoint = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude longitude:self.currentLocation.coordinate.longitude];
     [[UserParse currentUser] saveEventually];
     [self.locationManager stopUpdatingLocation];
@@ -287,6 +295,7 @@
                 [self.arrayOfPhotoDataForeground addObject:data];
             }];
         }
+        [self.activityIndicator stopAnimating];
     }];
 }
 
@@ -413,9 +422,9 @@
 {
     int x = self.foregroundLabel.frame.size.width+55;
     int y = self.profileImage.frame.size.height+15;
-    int width = 20;
-    int height = labelHeight;
-    return CGRectMake(x, y, 16, 16);
+    int width = 16;
+    int height = 16;
+    return CGRectMake(x, y, width, height);
 }
 
 - (CGRect)createLabelAge
@@ -430,9 +439,9 @@
 {
     int x = self.foregroundLabel.frame.size.width;
     int y = self.profileImage.frame.size.height+15;
-    int width = 20;
-    int height = labelHeight;
-    return CGRectMake(x, y, 16, 16);
+    int width = 16;
+    int height = 16;
+    return CGRectMake(x, y, width, height);
 }
 
 - (CGRect)createLabelRect
