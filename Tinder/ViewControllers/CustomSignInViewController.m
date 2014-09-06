@@ -19,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *keyImageView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIView *containerViewPassword;
+#ifdef __APPLE__
+#include "TargetConditionals.h"
+#endif
 
 @end
 
@@ -45,16 +48,21 @@
 #pragma mark - login button pressed
 - (IBAction)enterTinderWorld:(id)sender
 {
+    NSLog(@"1");
     [PFUser logInWithUsernameInBackground:self.emailTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
         if (error) {
             [self showAlertForInvalidLogin];
         } else {
-            if ([PFUser currentUser]) {
+#if (TARGET_IPHONE_SIMULATOR)
+                NSLog(@"simulator");
+#else
                 PFInstallation *currentInstallation = [PFInstallation currentInstallation];
                 [currentInstallation setObject:[PFUser currentUser] forKey:@"user"];
                 [currentInstallation saveInBackground];
-            }
+#endif
+            NSLog(@"entro 6");
             [self performSegueWithIdentifier:@"login" sender:self];
+            NSLog(@"entro 7");
         }
     }];
 }
@@ -163,7 +171,7 @@
                             rect.origin.y += 80;
                             [self.view setFrame:rect];
                             NSLog(@"entro2");
-
+                            
                         } completion:^(BOOL finished) {
                             
                         }];

@@ -494,7 +494,7 @@
 				ORGANIZATIONNAME = ivan;
 				TargetAttributes = {
 					42DBCC2619AC20BB00CE6C93 = {
-						DevelopmentTeam = VAR7436X2W;
+						DevelopmentTeam = CPTD3EV4H4;
 					};
 					42DBCC4719AC20BB00CE6C93 = {
 						TestTargetID = 42DBCC2619AC20BB00CE6C93;

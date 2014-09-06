@@ -136,6 +136,7 @@
         self.activityLabel.textColor = [UIColor whiteColor];
     }];
     [UserParse currentUser].geoPoint = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude longitude:self.currentLocation.coordinate.longitude];
+    self.curUser.geoPoint = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude longitude:self.currentLocation.coordinate.longitude];
     [[UserParse currentUser] saveEventually];
     [self.locationManager stopUpdatingLocation];
     [self getMatches];
