@@ -79,7 +79,8 @@
     [self scrollCollectionView];
     PFQuery *query = [PFInstallation query];
     [query whereKey:@"user" equalTo:self.toUserParse];
-
+    [query orderByDescending:@"createdAt"];
+    [query setLimit:1];
 
     [PFPush sendPushMessageToQueryInBackground:query
                                    withMessage:message.text];
@@ -406,7 +407,8 @@
         [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             PFQuery *query = [PFInstallation query];
             [query whereKey:@"user" equalTo:self.toUserParse];
-
+            [query orderByDescending:@"createdAt"];
+            [query setLimit:1];
 
             [PFPush sendPushMessageToQueryInBackground:query
                                            withMessage:[NSString stringWithFormat:@"New image from %@",[PFUser currentUser].username]];
