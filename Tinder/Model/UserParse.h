@@ -22,4 +22,5 @@
 @property NSMutableArray* matches;
 @property NSString* address;
 @property PFGeoPoint* geoPoint;
+@property NSString* useAddress;
 @end

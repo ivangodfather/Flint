@@ -18,7 +18,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *messagesImageView;
 @property (weak, nonatomic) IBOutlet UILabel *messagesLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellShare;
-
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *locationImageView;
+@property (weak, nonatomic) IBOutlet UITableViewCell *cellLocation;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *matchLabel;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cellMatch;
@@ -114,33 +116,43 @@
         self.cellMessage.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
+        self.cellLocation.backgroundColor = [UIColor clearColor];
     }
     if (indexPath.row == 2) {
         self.cellMessage.backgroundColor = BLUE_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
+        self.cellLocation.backgroundColor = [UIColor clearColor];
     }
     if (indexPath.row == 3) {
         self.profileCell.backgroundColor = BLUE_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.cellShare.backgroundColor = [UIColor clearColor];
         self.cellMessage.backgroundColor = [UIColor clearColor];
-
+        self.cellLocation.backgroundColor = [UIColor clearColor];
     }
     if (indexPath.row == 4) {
         self.cellShare.backgroundColor = BLUE_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellMessage.backgroundColor = [UIColor clearColor];
-
+        self.cellLocation.backgroundColor = [UIColor clearColor];
     }
-    
+
     if (indexPath.row == 5) {
         [UserParse logOut];
         NSLog(@"entro!!");
         
         return;
+    }
+
+    if (indexPath.row == 6) {
+        self.cellLocation.backgroundColor = BLUE_COLOR;
+        self.cellMatch.backgroundColor = [UIColor clearColor];
+        self.profileCell.backgroundColor = [UIColor clearColor];
+        self.cellMessage.backgroundColor = [UIColor clearColor];
+        self.cellShare.backgroundColor = [UIColor clearColor];
     }
     //UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
 

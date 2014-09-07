@@ -12,6 +12,8 @@
 		0BA4ECB219AE1EE200302E92 /* SidebarTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB119AE1EE200302E92 /* SidebarTableViewController.m */; };
 		0BA4ECB519AE1F0A00302E92 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECB419AE1F0A00302E92 /* SWRevealViewController.m */; };
 		0BA4ECBB19AE232600302E92 /* CustomSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA4ECBA19AE232600302E92 /* CustomSignInViewController.m */; };
+		0BAE8A9A19BBBD75009B3A52 /* MatchLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BAE8A9919BBBD75009B3A52 /* MatchLocationViewController.m */; };
+		0BAE8A9C19BBC0F4009B3A52 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAE8A9B19BBC0F4009B3A52 /* MapKit.framework */; };
 		42236F2619B7DEEE00539466 /* CBetterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F1B19B7DEEE00539466 /* CBetterCollectionViewCell.m */; };
 		42236F2719B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 42236F1D19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.m */; };
 		42236F2919B7DEEE00539466 /* CInterpolator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 42236F2119B7DEEE00539466 /* CInterpolator.mm */; };
@@ -89,6 +91,9 @@
 		0BA4ECB419AE1F0A00302E92 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = Libraries/SWRevealViewController.m; sourceTree = "<group>"; };
 		0BA4ECB919AE232600302E92 /* CustomSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomSignInViewController.h; path = ViewControllers/CustomSignInViewController.h; sourceTree = "<group>"; };
 		0BA4ECBA19AE232600302E92 /* CustomSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomSignInViewController.m; path = ViewControllers/CustomSignInViewController.m; sourceTree = "<group>"; };
+		0BAE8A9819BBBD75009B3A52 /* MatchLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchLocationViewController.h; path = ViewControllers/MatchLocationViewController.h; sourceTree = "<group>"; };
+		0BAE8A9919BBBD75009B3A52 /* MatchLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchLocationViewController.m; path = ViewControllers/MatchLocationViewController.m; sourceTree = "<group>"; };
+		0BAE8A9B19BBC0F4009B3A52 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		42236F1A19B7DEEE00539466 /* CBetterCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBetterCollectionViewCell.h; sourceTree = "<group>"; };
 		42236F1B19B7DEEE00539466 /* CBetterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBetterCollectionViewCell.m; sourceTree = "<group>"; };
 		42236F1C19B7DEEE00539466 /* CBetterCollectionViewLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBetterCollectionViewLayoutAttributes.h; sourceTree = "<group>"; };
@@ -178,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BAE8A9C19BBC0F4009B3A52 /* MapKit.framework in Frameworks */,
 				422370DF19B7F71B00539466 /* QuartzCore.framework in Frameworks */,
 				42DBCC6E19AC2BB000CE6C93 /* CoreLocation.framework in Frameworks */,
 				42DBCC7B19AC2DE200CE6C93 /* Social.framework in Frameworks */,
@@ -268,6 +274,7 @@
 		42DBCC2919AC20BB00CE6C93 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0BAE8A9B19BBC0F4009B3A52 /* MapKit.framework */,
 				422370DE19B7F71B00539466 /* QuartzCore.framework */,
 				42DBCC7C19AC2EC500CE6C93 /* Bolts.framework */,
 				42DBCC7919AC2CCC00CE6C93 /* libz.dylib */,
@@ -375,6 +382,8 @@
 				42DBCCD119ACCD9A00CE6C93 /* ProfileViewController.m */,
 				4283BD8119B9584300AD1F63 /* MatchViewController.h */,
 				4283BD8219B9584300AD1F63 /* MatchViewController.m */,
+				0BAE8A9819BBBD75009B3A52 /* MatchLocationViewController.h */,
+				0BAE8A9919BBBD75009B3A52 /* MatchLocationViewController.m */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -565,6 +574,7 @@
 				42DBCC3719AC20BB00CE6C93 /* main.m in Sources */,
 				426107EC19B4E0B60000536C /* ImageViewController.m in Sources */,
 				426107E919B4AAA60000536C /* NavigationControllerDelegate.m in Sources */,
+				0BAE8A9A19BBBD75009B3A52 /* MatchLocationViewController.m in Sources */,
 				426107E319B4AA700000536C /* V8HorizontalPickerView.m in Sources */,
 				426107E819B4AAA60000536C /* Animator.m in Sources */,
 				42236F2919B7DEEE00539466 /* CInterpolator.mm in Sources */,
