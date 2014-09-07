@@ -175,7 +175,7 @@
     if (!message.image && !message.sendImage) {
         NSDictionary *attributes = @{NSFontAttributeName: cell.messageLabel.font};
         cell.messageLabel.numberOfLines = 0;
-        CGRect rect = [message.text boundingRectWithSize:CGSizeMake(150, 100)
+        CGRect rect = [message.text boundingRectWithSize:CGSizeMake(200, 130)
                                                  options:NSStringDrawingUsesLineFragmentOrigin
                                               attributes:attributes
                                                  context:nil];
@@ -383,6 +383,12 @@
 
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+
+        return self.textField.text.length + (string.length - range.length) <= 80;
+}
+
 #pragma mark - ImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -495,6 +501,18 @@
     }
 }
 
+
+//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+//{
+//    if ([text isEqualToString:@"\n"]) {
+//        [textView resignFirstResponder];
+//        [self.user saveInBackground];
+//        return NO;
+//    }
+//    self.descriptionLabel.text = textView.text;
+//    self.charactersLabel.text = [NSString stringWithFormat:@"%d/%d",textView.text.length,MAXLENGTH];
+//    return self.descriptionTextView.text.length + (text.length - range.length) <= MAXLENGTH;
+//}
 
 
 @end
