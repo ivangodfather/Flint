@@ -9,6 +9,7 @@
 #import "UserMessagesViewController.h"
 #import "UserCollectionViewCell.h"
 #import "ImageViewController.h"
+#import "Report.h"
 
 @interface UserMessagesViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 @property NSMutableArray *messages;
@@ -442,15 +443,20 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        int num = self.toUserParse.report.intValue;
-        if (!num) num = 0;
-        //user.report = [NSNumber numberWithInt:num + 1];
-        self.toUserParse.desc = @"A new description";
-        [self.toUserParse saveEventually:^(BOOL succeeded, NSError *error) {
-            NSLog(@"error %@", error);
-            if (succeeded) {
-                NSLog(@"saved!");
+        PFQuery *query = [Report query];
+        [query whereKey:@"user" equalTo:self.toUserParse];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            Report *report = objects.firstObject;
+            if (!report) {
+                Report *repo = [Report object];
+                report = repo;
+                report.user = self.toUserParse;
             }
+            report.report = [NSNumber numberWithInt:report.report.intValue + 1];
+            [report saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                NSLog(@"Saved!");
+            }];
+
         }];
     }
     if (buttonIndex == 1) {

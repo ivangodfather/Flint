@@ -33,6 +33,7 @@
 		4281F25619B22D0D007724C6 /* UserMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25519B22D0D007724C6 /* UserMessagesViewController.m */; };
 		4281F25C19B22F72007724C6 /* UserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4281F25B19B22F72007724C6 /* UserCollectionViewCell.m */; };
 		4283BD8319B9584300AD1F63 /* MatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4283BD8219B9584300AD1F63 /* MatchViewController.m */; };
+		4283BD8619BCB83A00AD1F63 /* Report.m in Sources */ = {isa = PBXBuildFile; fileRef = 4283BD8519BCB83A00AD1F63 /* Report.m */; };
 		42BD2AFE19AE5A1B00FCC817 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */; };
 		42DBCC2B19AC20BB00CE6C93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC2A19AC20BB00CE6C93 /* Foundation.framework */; };
 		42DBCC2D19AC20BB00CE6C93 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DBCC2C19AC20BB00CE6C93 /* CoreGraphics.framework */; };
@@ -129,6 +130,8 @@
 		4281F25B19B22F72007724C6 /* UserCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserCollectionViewCell.m; path = View/UserCollectionViewCell.m; sourceTree = "<group>"; };
 		4283BD8119B9584300AD1F63 /* MatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchViewController.h; path = ViewControllers/MatchViewController.h; sourceTree = "<group>"; };
 		4283BD8219B9584300AD1F63 /* MatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchViewController.m; path = ViewControllers/MatchViewController.m; sourceTree = "<group>"; };
+		4283BD8419BCB83A00AD1F63 /* Report.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Report.h; path = Model/Report.h; sourceTree = "<group>"; };
+		4283BD8519BCB83A00AD1F63 /* Report.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Report.m; path = Model/Report.m; sourceTree = "<group>"; };
 		42BD2AFC19AE5A1B00FCC817 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserTableViewCell.h; path = View/UserTableViewCell.h; sourceTree = "<group>"; };
 		42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserTableViewCell.m; path = View/UserTableViewCell.m; sourceTree = "<group>"; };
 		42DBCC2719AC20BB00CE6C93 /* Tinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -430,6 +433,8 @@
 				42DBCCDC19ACDD9C00CE6C93 /* MessageParse.m */,
 				42DBCCDE19ACDF7000CE6C93 /* UserParse.h */,
 				42DBCCDF19ACDF7000CE6C93 /* UserParse.m */,
+				4283BD8419BCB83A00AD1F63 /* Report.h */,
+				4283BD8519BCB83A00AD1F63 /* Report.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -583,6 +588,7 @@
 				42BD2AFE19AE5A1B00FCC817 /* UserTableViewCell.m in Sources */,
 				422370E519B7FB8B00539466 /* CCoverflowCollectionViewLayout.m in Sources */,
 				42DBCCD619ACD87000CE6C93 /* MessagesViewController.m in Sources */,
+				4283BD8619BCB83A00AD1F63 /* Report.m in Sources */,
 				0BA4ECBB19AE232600302E92 /* CustomSignInViewController.m in Sources */,
 				42236F2A19B7DEEE00539466 /* CReflectionView.m in Sources */,
 				42DBCCC519AC4E4200CE6C93 /* StarterViewController.m in Sources */,
