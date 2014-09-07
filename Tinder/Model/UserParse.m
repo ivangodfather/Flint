@@ -23,6 +23,7 @@
 @dynamic distance;
 @dynamic address;
 @dynamic geoPoint;
+@dynamic report;
 
 + (void)load {
     [self registerSubclass];

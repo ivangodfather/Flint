@@ -10,7 +10,7 @@
 #import "UserCollectionViewCell.h"
 #import "ImageViewController.h"
 
-@interface UserMessagesViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface UserMessagesViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 @property NSMutableArray *messages;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIView *messagesView;
@@ -427,6 +427,49 @@
         ImageViewController *vc = segue.destinationViewController;
         UIImageView *imageView = (UIImageView *)sender;
         vc.image = imageView.image;
+    }
+}
+
+
+- (IBAction)actionPressed:(id)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Report",@"Unmatch", nil];
+    [sheet showInView:self.view];
+}
+
+#pragma mark - ActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        int num = self.toUserParse.report.intValue;
+        if (!num) num = 0;
+        //user.report = [NSNumber numberWithInt:num + 1];
+        self.toUserParse.desc = @"A new description";
+        [self.toUserParse saveEventually:^(BOOL succeeded, NSError *error) {
+            NSLog(@"error %@", error);
+            if (succeeded) {
+                NSLog(@"saved!");
+            }
+        }];
+    }
+    if (buttonIndex == 1) {
+        PFQuery *query1 = [MessageParse query];
+        [query1 whereKey:@"fromUserParse" equalTo:[PFUser currentUser]];
+        [query1 whereKey:@"toUserParse" equalTo:self.toUserParse];
+        [query1 whereKey:@"text" notEqualTo:@""];
+
+        PFQuery *query2 = [MessageParse query];
+        [query2 whereKey:@"fromUserParse" equalTo:self.toUserParse];
+        [query2 whereKey:@"toUserParse" equalTo:[PFUser currentUser]];
+        [query2 whereKey:@"text" notEqualTo:@""];
+        
+        
+        PFQuery *orQUery = [PFQuery orQueryWithSubqueries:@[query1, query2]];
+        
+        [orQUery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            //[orQUery ]
+        }];
     }
 }
 
