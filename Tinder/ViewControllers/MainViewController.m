@@ -93,7 +93,11 @@
         [self.curUser.photo getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             self.userPhoto = [UIImage imageWithData:data];
         }];
-        [self currentLocationIdentifier];
+        if (self.curUser.geoPoint != nil) {
+            [self getMatches];
+        } else {
+            [self currentLocationIdentifier];
+        }
     }];
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
@@ -105,16 +109,6 @@
     self.view.backgroundColor = BLUE_COLOR;
     self.navigationController.navigationBar.barTintColor = BLUE_COLOR;
     self.navigationItem.title = @"Flint";
-    //    self.background = [[UIImageView alloc] initWithFrame:self.view.frame];
-    //    self.background.image = [UIImage imageNamed:@"background"];
-    //    [self.view addSubview:self.background];
-    //    [self.view sendSubviewToBack:self.background];
-    //    self.gradiantView = [[UIView alloc] initWithFrame:self.view.frame];
-    //    CAGradientLayer *gradient = [CAGradientLayer layer];
-    //    gradient.frame = self.view.bounds;
-    //    gradient.colors = [NSArray arrayWithObjects:(id)BLUEDARK_COLOR.CGColor,(id)RED_COLOR.CGColor,nil];
-    //    [self.gradiantView.layer insertSublayer:gradient atIndex:0];
-    //    [self.view addSubview:self.gradiantView];
 }
 
 -(void)currentLocationIdentifier
@@ -129,6 +123,7 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     self.currentLocation = [locations objectAtIndex:0];
+    [self.locationManager stopUpdatingLocation];
     CLGeocoder* geocoder = [CLGeocoder new];
     [geocoder reverseGeocodeLocation:locations.firstObject completionHandler:^(NSArray *placemarks, NSError *error) {
         CLPlacemark* placemark = placemarks.firstObject;
@@ -138,7 +133,6 @@
     [UserParse currentUser].geoPoint = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude longitude:self.currentLocation.coordinate.longitude];
     self.curUser.geoPoint = [PFGeoPoint geoPointWithLatitude:self.currentLocation.coordinate.latitude longitude:self.currentLocation.coordinate.longitude];
     [[UserParse currentUser] saveEventually];
-    [self.locationManager stopUpdatingLocation];
     [self getMatches];
 }
 
