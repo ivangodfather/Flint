@@ -18,9 +18,11 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *switchButton;
 @property (weak, nonatomic) IBOutlet UISwitch *theSwitch;
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property UserParse* curUser;
 @property BOOL switchCurrentLocation;
 @property CLLocation* currentLocation;
+@property (weak, nonatomic) IBOutlet UISlider *sliderRadius;
 @property CLLocationManager* locationManager;
 @end
 
@@ -58,7 +60,7 @@
     if ([self.curUser.useAddress isEqualToString:@"YES"]) {
         self.switchCurrentLocation = NO;
         self.theSwitch.on = NO;
-        self.searchButton.hidden = NO;
+        self.searchButton.imageView.image = [UIImage imageNamed:@"magnifying-glass"];
         self.searchTextField.enabled = YES;
         self.searchTextField.textAlignment = NSTextAlignmentCenter;
         annotation.title = @"Your Simulated Location";
@@ -71,7 +73,8 @@
     } else {
         self.switchCurrentLocation = YES;
         self.theSwitch.on = YES;
-        self.searchButton.hidden = YES;
+        self.searchButton.imageView.image = [UIImage imageNamed:@"location"];
+        self.searchButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.searchTextField.enabled = NO;
         annotation.title = @"Your Real Location";
         CLGeocoder* geocoder = [CLGeocoder new];
@@ -119,7 +122,8 @@
     [self.mapView removeAnnotations:self.mapView.annotations];
     [self.mapView removeOverlays:self.mapView.overlays];
     if (self.theSwitch.on) {
-        self.searchButton.hidden = YES;
+        self.searchButton.imageView.image = [UIImage imageNamed:@"location"];
+        self.searchButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.searchTextField.enabled = NO;
         [self currentLocationIdentifier];
         CLGeocoder* geocoder = [CLGeocoder new];
@@ -138,7 +142,7 @@
             }];
         }
     } else {
-        self.searchButton.hidden = NO;
+        self.searchButton.imageView.image = [UIImage imageNamed:@"magnifying-glass"];
         self.searchTextField.enabled = YES;
         self.searchTextField.text = @"";
         self.searchTextField.placeholder = @"Enter a location to match from.";
@@ -162,6 +166,11 @@
 
         }
     }];
+}
+
+- (IBAction)sliderMoved:(id)sender
+{
+    
 }
 
 - (IBAction)editBegan:(id)sender

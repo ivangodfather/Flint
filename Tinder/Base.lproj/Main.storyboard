@@ -518,6 +518,25 @@
                                     <action selector="searchDidEnd:" destination="UMI-xY-UYa" eventType="touchUpInside" id="We4-2k-OGV"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KSY-KY-VVs">
+                                <rect key="frame" x="266" y="65" width="53" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minValue="2" maxValue="100" id="ZaZ-PG-tXX">
+                                <rect key="frame" x="18" y="61" width="242" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="minimumTrackTintColor" red="0.83921575550000005" green="0.27843138579999999" blue="0.47843140360000003" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="maximumTrackTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="thumbTintColor" red="0.83921575550000005" green="0.27843138579999999" blue="0.47843140360000003" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <action selector="sliderMoved:" destination="UMI-xY-UYa" eventType="touchUpOutside" id="3lV-Rc-Kx7"/>
+                                    <action selector="sliderMoved:" destination="UMI-xY-UYa" eventType="touchUpInside" id="AU1-fM-T5h"/>
+                                    <action selector="sliderMoved:" destination="UMI-xY-UYa" eventType="valueChanged" id="zjN-lZ-m7J"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -539,10 +558,12 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="distanceLabel" destination="KSY-KY-VVs" id="FIu-ec-c0U"/>
                         <outlet property="mapView" destination="LYL-bK-F0h" id="R0E-F7-CgB"/>
                         <outlet property="searchButton" destination="h20-Ur-ZuP" id="8eA-k3-c3z"/>
                         <outlet property="searchTextField" destination="Pw1-EE-jGS" id="bMG-dr-BbA"/>
                         <outlet property="sideBarButton" destination="s3a-ER-NcF" id="Ezf-4z-BU0"/>
+                        <outlet property="sliderRadius" destination="ZaZ-PG-tXX" id="B9g-PQ-lZR"/>
                         <outlet property="switchButton" destination="rmh-0S-peC" id="UZh-Di-xwS"/>
                         <outlet property="theSwitch" destination="6rO-Ok-nd8" id="b0G-ec-5JT"/>
                     </connections>
