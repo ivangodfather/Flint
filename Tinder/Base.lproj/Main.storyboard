@@ -518,21 +518,21 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KSY-KY-VVs">
-                                <rect key="frame" x="266" y="65" width="53" height="21"/>
+                                <rect key="frame" x="266" y="61" width="54" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="16"/>
+                                <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minValue="2" maxValue="100" id="ZaZ-PG-tXX">
                                 <rect key="frame" x="18" y="61" width="242" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="minimumTrackTintColor" red="0.83921575550000005" green="0.27843138579999999" blue="0.47843140360000003" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="minimumTrackTintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="thumbTintColor" red="0.83921575550000005" green="0.27843138579999999" blue="0.47843140360000003" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="thumbTintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <action selector="sliderMoved:" destination="UMI-xY-UYa" eventType="touchUpOutside" id="3lV-Rc-Kx7"/>
-                                    <action selector="sliderMoved:" destination="UMI-xY-UYa" eventType="touchUpInside" id="AU1-fM-T5h"/>
+                                    <action selector="distanceChangeEnd:" destination="UMI-xY-UYa" eventType="touchUpInside" id="ZI8-Qn-vPj"/>
+                                    <action selector="distanceChangedOutside:" destination="UMI-xY-UYa" eventType="touchUpOutside" id="Sbc-q4-j1f"/>
                                     <action selector="sliderMoved:" destination="UMI-xY-UYa" eventType="valueChanged" id="zjN-lZ-m7J"/>
                                 </connections>
                             </slider>

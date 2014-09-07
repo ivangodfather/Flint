@@ -33,13 +33,22 @@
     [super viewDidLoad];
     _sideBarButton.target = self.revealViewController;
     _sideBarButton.action = @selector(revealToggle:);
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
+    self.searchTextField.leftView = paddingView;
+    self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
     self.searchTextField.backgroundColor = GRAY_COLOR;
+    self.distanceLabel.textColor = ORANGE_COLOR;
+    self.sliderRadius.tintColor = ORANGE_COLOR;
+    self.sliderRadius.thumbTintColor = ORANGE_COLOR;
+    self.sliderRadius.minimumTrackTintColor = ORANGE_COLOR;
+    self.theSwitch.onTintColor = ORANGE_COLOR;
     self.mapView.delegate = self;
     PFQuery* curQuery = [UserParse query];
     [curQuery whereKey:@"username" equalTo:[UserParse currentUser].username];
     [curQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         self.curUser = objects.firstObject;
-        NSLog(@"From map %f %f", self.curUser.geoPoint.latitude , self.curUser.geoPoint.longitude);
+        [self.sliderRadius setValue:self.curUser.distance.floatValue];
+        self.distanceLabel.text = [NSString stringWithFormat:@"%dkm",(int)self.sliderRadius.value];
         [self placeUserOnMap];
     }];
     // Do any additional setup after loading the view.
@@ -168,9 +177,26 @@
     }];
 }
 
-- (IBAction)sliderMoved:(id)sender
+- (IBAction)distanceChangeEnd:(UISlider *)sender
 {
-    
+    self.curUser.distance = [NSNumber numberWithInt:(int)sender.value];
+    [self.curUser saveEventually:^(BOOL succeeded, NSError *error) {
+        [self placeUserOnMap];
+    }];
+}
+
+- (IBAction)distanceChangedOutside:(UISlider *)sender
+{
+    self.curUser.distance = [NSNumber numberWithInt:(int)sender.value];
+    [self.curUser saveEventually:^(BOOL succeeded, NSError *error) {
+        [self placeUserOnMap];
+    }];
+}
+
+- (IBAction)sliderMoved:(UISlider *)sender
+{
+    self.distanceLabel.text = [NSString stringWithFormat:@"%dkm",(int)sender.value];
+
 }
 
 - (IBAction)editBegan:(id)sender
