@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *theSwitch;
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (weak, nonatomic) IBOutlet UIButton *centerButton;
 @property UserParse* curUser;
 @property BOOL switchCurrentLocation;
 @property CLLocation* currentLocation;
@@ -70,6 +71,7 @@
         self.switchCurrentLocation = NO;
         self.theSwitch.on = NO;
         self.searchButton.imageView.image = [UIImage imageNamed:@"magnifying-glass"];
+        self.searchButton.enabled = YES;
         self.searchTextField.enabled = YES;
         self.searchTextField.textAlignment = NSTextAlignmentCenter;
         annotation.title = @"Your Simulated Location";
@@ -78,11 +80,13 @@
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark* placemark = placemarks.firstObject;
             self.searchTextField.placeholder = [NSString stringWithFormat:@"Simulated Location: %@, %@", placemark.locality, placemark.administrativeArea];
+            self.centerButton.userInteractionEnabled = YES;
         }];
     } else {
         self.switchCurrentLocation = YES;
         self.theSwitch.on = YES;
         self.searchButton.imageView.image = [UIImage imageNamed:@"location"];
+        self.searchButton.enabled = NO;
         self.searchButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.searchTextField.enabled = NO;
         annotation.title = @"Your Real Location";
@@ -92,6 +96,7 @@
             CLPlacemark* placemark = placemarks.firstObject;
             self.searchTextField.text = [NSString stringWithFormat:@"Current Location: %@, %@", placemark.locality, placemark.administrativeArea];
             self.searchTextField.textAlignment = NSTextAlignmentCenter;
+            self.centerButton.userInteractionEnabled = YES;
         }];
     }
 }
@@ -100,8 +105,8 @@
 {
     MKCircle *circle = (MKCircle *)overlay;
     MKCircleRenderer* render = [[MKCircleRenderer alloc] initWithCircle:circle];
-    render.fillColor = BLUE_COLOR;
-    render.alpha = 0.6;
+    render.fillColor = ORANGE_COLOR;
+    render.alpha = 0.2;
     return render;
 }
 
@@ -202,6 +207,12 @@
 - (IBAction)editBegan:(id)sender
 {
     self.searchTextField.textAlignment = NSTextAlignmentLeft;
+}
+
+- (IBAction)tapCenterButton:(id)sender
+{
+    self.centerButton.userInteractionEnabled = NO;
+    [self placeUserOnMap];
 }
 
 @end
