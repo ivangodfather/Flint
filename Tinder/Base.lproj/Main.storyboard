@@ -100,6 +100,20 @@
                                     <action selector="signUpHit:" destination="6Cj-Sv-ykn" eventType="touchUpInside" id="LPk-G9-dID"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aH5-nh-NfH">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.3675926679" green="0.59252089669999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tot-HW-b7o">
+                                <rect key="frame" x="55" y="0.0" width="210" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="flint">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.72156862749999995" green="0.91372549020000005" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -111,6 +125,7 @@
                         <outlet property="passwordImageView" destination="XpZ-Np-6IZ" id="bJW-Qt-RmW"/>
                         <outlet property="passwordTextField" destination="GmN-GI-pYD" id="gdL-Xu-RS9"/>
                         <outlet property="signUpButton" destination="3eP-cs-wRf" id="VqG-DW-Hl4"/>
+                        <outlet property="topLabel" destination="aH5-nh-NfH" id="qOc-Qo-q46"/>
                         <segue destination="V6n-jb-GGN" kind="modal" identifier="signup" id="MHJ-Yn-gep"/>
                     </connections>
                 </viewController>
@@ -200,17 +215,24 @@
                                 <rect key="frame" x="42" y="329" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flint" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Muu-f4-ynF">
-                                <rect key="frame" x="20" y="94" width="280" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="24"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" id="Jc7-Dv-pqC">
                                 <rect key="frame" x="42" y="266" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a14-Rj-9hJ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="C1f-1H-ewL">
+                                <rect key="frame" x="55" y="0.0" width="210" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="flint">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -222,6 +244,7 @@
                         <outlet property="passwordTextField" destination="Gs4-fm-0R9" id="WiZ-oc-P73"/>
                         <outlet property="registerButton" destination="GR6-Ta-WpG" id="bRl-bo-Zw4"/>
                         <outlet property="signInButton" destination="6pN-0J-iDc" id="RzJ-KU-Fvm"/>
+                        <outlet property="topLabel" destination="a14-Rj-9hJ" id="m8R-9y-xUU"/>
                         <outlet property="userImageView" destination="Jc7-Dv-pqC" id="4EY-j7-zFL"/>
                         <segue destination="V6n-jb-GGN" kind="modal" identifier="login" modalTransitionStyle="crossDissolve" id="VlF-20-DHW"/>
                     </connections>
@@ -582,7 +605,7 @@
             </objects>
             <point key="canvasLocation" x="1116" y="-1518"/>
         </scene>
-        <!--Main View Controller - Welcome to Tinder!-->
+        <!--Main View Controller-->
         <scene sceneID="4Ni-qg-B73">
             <objects>
                 <viewController id="aqZ-SE-PFE" customClass="MainViewController" sceneMemberID="viewController">
@@ -632,8 +655,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Welcome to Tinder!" id="Xce-6S-nEr">
+                    <navigationItem key="navigationItem" id="Xce-6S-nEr">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="bubble" id="7Gj-y8-gJo"/>
+                        <button key="titleView" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4zQ-Qn-8ye">
+                            <rect key="frame" x="55" y="-23" width="210" height="90"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="flint">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                         <barButtonItem key="rightBarButtonItem" image="message" id="Gab-YO-xFG">
                             <connections>
                                 <segue destination="kXu-jt-bDQ" kind="push" identifier="" id="wPJ-po-nOG"/>
@@ -1547,6 +1578,7 @@
         <image name="dislike" width="80" height="80"/>
         <image name="email" width="128" height="128"/>
         <image name="female" width="28" height="28"/>
+        <image name="flint" width="250" height="150"/>
         <image name="genderselect" width="30" height="29"/>
         <image name="heartGo" width="30" height="27"/>
         <image name="key" width="100" height="100"/>
@@ -1569,10 +1601,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Qh3-Ge-Ehw"/>
-        <segue reference="VlF-20-DHW"/>
-        <segue reference="gkA-kl-DA7"/>
-        <segue reference="oXm-ri-1Lw"/>
         <segue reference="wPJ-po-nOG"/>
+        <segue reference="gkA-kl-DA7"/>
+        <segue reference="VlF-20-DHW"/>
+        <segue reference="J9J-1N-Njp"/>
+        <segue reference="oXm-ri-1Lw"/>
     </inferredMetricsTieBreakers>
 </document>
