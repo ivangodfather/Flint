@@ -11,7 +11,7 @@
 #import "ImageViewController.h"
 #import "Report.h"
 
-@interface UserMessagesViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface UserMessagesViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 @property NSMutableArray *messages;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIView *messagesView;
@@ -79,9 +79,10 @@
 
     [self scrollCollectionView];
     PFQuery *query = [PFInstallation query];
-    [query whereKey:@"user" equalTo:self.toUserParse];
-    [query orderByDescending:@"createdAt"];
-    [query setLimit:1];
+    [query whereKey:@"objectId" equalTo:self.toUserParse.installation.objectId];
+    NSLog(@"OBJECT ID %@", self.toUserParse.installation);
+    //[query orderByDescending:@"createdAt"];
+    // [query setLimit:1];
 
     [PFPush sendPushMessageToQueryInBackground:query
                                    withMessage:message.text];
@@ -438,11 +439,44 @@
     [sheet showInView:self.view];
 }
 
+- (void)deleteConversation
+{
+    PFQuery *query1 = [MessageParse query];
+    [query1 whereKey:@"fromUserParse" equalTo:[PFUser currentUser]];
+    [query1 whereKey:@"toUserParse" equalTo:self.toUserParse];
+
+    PFQuery *query2 = [MessageParse query];
+    [query2 whereKey:@"fromUserParse" equalTo:self.toUserParse];
+    [query2 whereKey:@"toUserParse" equalTo:[PFUser currentUser]];
+
+
+    PFQuery *orQUery = [PFQuery orQueryWithSubqueries:@[query1, query2]];
+
+    [orQUery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [MessageParse deleteAllInBackground:objects];
+        [self popVC];
+    }];
+}
+
 #pragma mark - ActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Report" message:@"Are you sure you want to report this user? The conversation will be deleted." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Report", nil];
+        [av show];
+    }
+    if (buttonIndex == 1) {
+        [self deleteConversation];
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self deleteConversation];
         PFQuery *query = [Report query];
         [query whereKey:@"user" equalTo:self.toUserParse];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -454,29 +488,13 @@
             }
             report.report = [NSNumber numberWithInt:report.report.intValue + 1];
             [report saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                NSLog(@"Saved!");
+                //[self popVC];
             }];
 
         }];
     }
-    if (buttonIndex == 1) {
-        PFQuery *query1 = [MessageParse query];
-        [query1 whereKey:@"fromUserParse" equalTo:[PFUser currentUser]];
-        [query1 whereKey:@"toUserParse" equalTo:self.toUserParse];
-        [query1 whereKey:@"text" notEqualTo:@""];
-
-        PFQuery *query2 = [MessageParse query];
-        [query2 whereKey:@"fromUserParse" equalTo:self.toUserParse];
-        [query2 whereKey:@"toUserParse" equalTo:[PFUser currentUser]];
-        [query2 whereKey:@"text" notEqualTo:@""];
-        
-        
-        PFQuery *orQUery = [PFQuery orQueryWithSubqueries:@[query1, query2]];
-        
-        [orQUery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            //[orQUery ]
-        }];
-    }
 }
+
+
 
 @end

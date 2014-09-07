@@ -36,7 +36,7 @@
 
 #define cornRadius 10
 
-@interface MainViewController () <UIGestureRecognizerDelegate, CLLocationManagerDelegate>
+@interface MainViewController () <UIGestureRecognizerDelegate, CLLocationManagerDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
 @property (strong, nonatomic) UIView *profileView;
 @property (strong, nonatomic) UIView* backgroundView;
@@ -85,6 +85,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+#if (TARGET_IPHONE_SIMULATOR)
+
+#else
+    [UserParse currentUser].installation = [PFInstallation currentInstallation];
+    [[UserParse currentUser] saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"updated pf installation");
+    }];
+
+#endif
+
     [self.activityIndicator startAnimating];
     PFQuery* curQuery = [UserParse query];
     [curQuery whereKey:@"username" equalTo:[UserParse currentUser].username];
@@ -99,6 +110,8 @@
             [self currentLocationIdentifier];
         }
     }];
+
+
     _sidebarButton.target = self.revealViewController;
     _sidebarButton.action = @selector(revealToggle:);
     self.posibleMatchesArray = [NSMutableArray new];
@@ -109,6 +122,24 @@
     self.view.backgroundColor = BLUE_COLOR;
     self.navigationController.navigationBar.barTintColor = BLUE_COLOR;
     self.navigationItem.title = @"Flint";
+}
+
+
+
+- (void)checkFirstTime
+{
+    if(![[NSUserDefaults standardUserDefaults] objectForKey:@"first"]) {
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"first"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Edit profile" message:@"Please edit your profile before matching" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Edit", nil];
+        [av show];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self checkFirstTime];
 }
 
 -(void)currentLocationIdentifier
@@ -973,6 +1004,21 @@
         vc.user = self.curUser;
     }
 }
+
+
+#pragma mark - AV delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"button %d", buttonIndex);
+    if(buttonIndex == 1) {
+        [self performSegueWithIdentifier:@"config" sender:nil];
+
+    }
+
+}
+
+
 
 
 @end

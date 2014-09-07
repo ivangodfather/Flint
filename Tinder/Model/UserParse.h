@@ -24,4 +24,5 @@
 @property PFGeoPoint* geoPoint;
 @property NSNumber *report;
 @property NSString* useAddress;
+@property PFInstallation *installation;
 @end

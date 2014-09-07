@@ -25,6 +25,7 @@
 @dynamic geoPoint;
 @dynamic report;
 @dynamic useAddress;
+@dynamic installation;
 
 + (void)load {
     [self registerSubclass];

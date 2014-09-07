@@ -41,7 +41,6 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedNotification:) name:receivedMessage object:nil];
 
-    [self loadChatPersons];
 
     [self customize];
 
@@ -59,7 +58,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.tableView reloadData];
+    [super viewWillAppear:YES];
+    [self loadChatPersons];
 }
 
 - (void)receivedNotification:(NSNotification *)notification
@@ -146,7 +146,7 @@
     MessageParse *message = [self.messages objectAtIndex:indexPath.row];
     cell.lastMessageLabel.text = message.text;
     if (!message.read && [message.toUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
-        cell.lastMessageLabel.textColor = RED_COLOR;
+        cell.lastMessageLabel.textColor = ORANGE_COLOR;
     } else {
         cell.lastMessageLabel.textColor = GRAY_COLOR;
     }

@@ -9,6 +9,7 @@
 #define emailIdentifier @"@"
 
 #import "CustomSignInViewController.h"
+#import "UserParse.h"
 
 @interface CustomSignInViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
@@ -48,21 +49,11 @@
 #pragma mark - login button pressed
 - (IBAction)enterTinderWorld:(id)sender
 {
-    NSLog(@"1");
     [PFUser logInWithUsernameInBackground:self.emailTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
         if (error) {
             [self showAlertForInvalidLogin];
         } else {
-#if (TARGET_IPHONE_SIMULATOR)
-                NSLog(@"simulator");
-#else
-                PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-                [currentInstallation setObject:[PFUser currentUser] forKey:@"user"];
-                [currentInstallation saveInBackground];
-#endif
-            NSLog(@"entro 6");
             [self performSegueWithIdentifier:@"login" sender:self];
-            NSLog(@"entro 7");
         }
     }];
 }
@@ -171,7 +162,7 @@
                             rect.origin.y += 80;
                             [self.view setFrame:rect];
                             NSLog(@"entro2");
-                            
+
                         } completion:^(BOOL finished) {
                             
                         }];

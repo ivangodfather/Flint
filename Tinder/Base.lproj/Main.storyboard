@@ -625,7 +625,7 @@
                         <barButtonItem key="leftBarButtonItem" image="bubble" id="7Gj-y8-gJo"/>
                         <barButtonItem key="rightBarButtonItem" image="message" id="Gab-YO-xFG">
                             <connections>
-                                <segue destination="kXu-jt-bDQ" kind="push" id="wPJ-po-nOG"/>
+                                <segue destination="kXu-jt-bDQ" kind="push" identifier="" id="wPJ-po-nOG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -638,11 +638,12 @@
                         <outlet property="likeButton" destination="1J8-9X-ye5" id="Rkv-fM-0e9"/>
                         <outlet property="sidebarButton" destination="7Gj-y8-gJo" id="2XD-pa-WrM"/>
                         <segue destination="rDU-7y-piv" kind="modal" identifier="match" id="BiY-fr-kOo"/>
+                        <segue destination="mLc-67-Pcw" kind="push" identifier="config" id="oXm-ri-1Lw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ki1-Uz-LU0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1726" y="395"/>
+            <point key="canvasLocation" x="1646" y="419"/>
         </scene>
         <!--Match View Controller-->
         <scene sceneID="rzi-BT-7fE">
@@ -1556,9 +1557,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="wPJ-po-nOG"/>
-        <segue reference="gkA-kl-DA7"/>
-        <segue reference="VlF-20-DHW"/>
         <segue reference="Qh3-Ge-Ehw"/>
+        <segue reference="VlF-20-DHW"/>
+        <segue reference="gkA-kl-DA7"/>
+        <segue reference="oXm-ri-1Lw"/>
+        <segue reference="wPJ-po-nOG"/>
     </inferredMetricsTieBreakers>
 </document>
