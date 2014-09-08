@@ -89,7 +89,7 @@
         CLLocation* location = [[CLLocation alloc]initWithLatitude:self.curUser.geoPoint.latitude longitude:self.curUser.geoPoint.longitude];
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark* placemark = placemarks.firstObject;
-            UIColor *color = ORANGE_COLOR;
+            UIColor *color = WHITE_COLOR;
             self.searchTextField.attributedPlaceholder =
             [[NSAttributedString alloc]
              initWithString:[NSString stringWithFormat:@"Simulated Location: %@", placemark.locality]
@@ -108,7 +108,7 @@
         CLLocation* location = [[CLLocation alloc]initWithLatitude:self.curUser.geoPoint.latitude longitude:self.curUser.geoPoint.longitude];
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark* placemark = placemarks.firstObject;
-            UIColor *color = ORANGE_COLOR;
+            UIColor *color = WHITE_COLOR;
             self.searchTextField.attributedPlaceholder =
             [[NSAttributedString alloc]
              initWithString:[NSString stringWithFormat:@"Current Location: %@", placemark.locality]
