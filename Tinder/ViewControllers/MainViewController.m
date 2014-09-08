@@ -196,9 +196,10 @@
         [queryTwo whereKey:@"toUser" equalTo:[UserParse currentUser]];
         [queryTwo whereKey:@"toUserApproved" equalTo:@"YES"];
         PFQuery* userQuery = [UserParse query];
+        PFQuery* checkQuery = [UserParse query];
         [userQuery whereKey:@"objectId" notEqualTo:[UserParse currentUser].objectId];
         [userQuery whereKey:@"email" doesNotMatchKey:@"toUserEmail" inQuery:query];
-        [userQuery whereKey:@"email" doesNotMatchKey:@"fromUserEmail" inQuery:queryTwo];
+        [checkQuery whereKey:@"email" matchesKey:@"fromUserEmail" inQuery:queryTwo];
         if (self.curUser.sexuality.integerValue == 0) {
             [userQuery whereKey:@"isMale" equalTo:@"true"];
         }
@@ -210,6 +211,7 @@
         if (self.curUser.distance.doubleValue == 0.0) {
             self.curUser.distance = [NSNumber numberWithInt:10000];
         }
+        [userQuery whereKey:@"objectId" doesNotMatchKey:@"objectId" inQuery:checkQuery];
         [userQuery whereKey:@"geoPoint" nearGeoPoint:self.curUser.geoPoint withinKilometers:self.curUser.distance.doubleValue];
         [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             [self.posibleMatchesArray addObjectsFromArray:objects];
@@ -1010,7 +1012,6 @@
     }
 }
 
-
 #pragma mark - AV delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -1022,8 +1023,5 @@
     }
 
 }
-
-
-
 
 @end
