@@ -100,15 +100,8 @@
                                     <action selector="signUpHit:" destination="6Cj-Sv-ykn" eventType="touchUpInside" id="LPk-G9-dID"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aH5-nh-NfH">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.3675926679" green="0.59252089669999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tot-HW-b7o">
-                                <rect key="frame" x="55" y="0.0" width="210" height="86"/>
+                                <rect key="frame" x="66" y="20" width="184" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="flint">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,7 +118,6 @@
                         <outlet property="passwordImageView" destination="XpZ-Np-6IZ" id="bJW-Qt-RmW"/>
                         <outlet property="passwordTextField" destination="GmN-GI-pYD" id="gdL-Xu-RS9"/>
                         <outlet property="signUpButton" destination="3eP-cs-wRf" id="VqG-DW-Hl4"/>
-                        <outlet property="topLabel" destination="aH5-nh-NfH" id="qOc-Qo-q46"/>
                         <segue destination="V6n-jb-GGN" kind="modal" identifier="signup" id="MHJ-Yn-gep"/>
                     </connections>
                 </viewController>
@@ -219,15 +211,8 @@
                                 <rect key="frame" x="42" y="266" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a14-Rj-9hJ">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="C1f-1H-ewL">
-                                <rect key="frame" x="55" y="0.0" width="210" height="86"/>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5E4-c0-LOl">
+                                <rect key="frame" x="69" y="20" width="184" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="flint">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -244,7 +229,6 @@
                         <outlet property="passwordTextField" destination="Gs4-fm-0R9" id="WiZ-oc-P73"/>
                         <outlet property="registerButton" destination="GR6-Ta-WpG" id="bRl-bo-Zw4"/>
                         <outlet property="signInButton" destination="6pN-0J-iDc" id="RzJ-KU-Fvm"/>
-                        <outlet property="topLabel" destination="a14-Rj-9hJ" id="m8R-9y-xUU"/>
                         <outlet property="userImageView" destination="Jc7-Dv-pqC" id="4EY-j7-zFL"/>
                         <segue destination="V6n-jb-GGN" kind="modal" identifier="login" modalTransitionStyle="crossDissolve" id="VlF-20-DHW"/>
                     </connections>
@@ -658,8 +642,8 @@
                     <navigationItem key="navigationItem" id="Xce-6S-nEr">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="bubble" id="7Gj-y8-gJo"/>
-                        <button key="titleView" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4zQ-Qn-8ye">
-                            <rect key="frame" x="55" y="-23" width="210" height="90"/>
+                        <button key="titleView" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="J8g-hy-7dZ">
+                            <rect key="frame" x="55" y="-7" width="210" height="57"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="flint">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1601,10 +1585,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="wPJ-po-nOG"/>
-        <segue reference="gkA-kl-DA7"/>
         <segue reference="VlF-20-DHW"/>
         <segue reference="J9J-1N-Njp"/>
+        <segue reference="gkA-kl-DA7"/>
+        <segue reference="wPJ-po-nOG"/>
         <segue reference="oXm-ri-1Lw"/>
     </inferredMetricsTieBreakers>
 </document>
