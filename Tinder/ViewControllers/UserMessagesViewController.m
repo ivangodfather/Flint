@@ -80,10 +80,6 @@
     [self scrollCollectionView];
     PFQuery *query = [PFInstallation query];
     [query whereKey:@"objectId" equalTo:self.toUserParse.installation.objectId];
-    NSLog(@"OBJECT ID %@", self.toUserParse.installation);
-    //[query orderByDescending:@"createdAt"];
-    // [query setLimit:1];
-
     [PFPush sendPushMessageToQueryInBackground:query
                                    withMessage:message.text];
     self.textField.text = @"";
@@ -414,12 +410,9 @@
         message.image = file;
         [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             PFQuery *query = [PFInstallation query];
-            [query whereKey:@"user" equalTo:self.toUserParse];
-            [query orderByDescending:@"createdAt"];
-            [query setLimit:1];
-
+            [query whereKey:@"objectId" equalTo:self.toUserParse.installation.objectId];
             [PFPush sendPushMessageToQueryInBackground:query
-                                           withMessage:[NSString stringWithFormat:@"New image from %@",[PFUser currentUser].username]];
+                                           withMessage:@"new image!"];
         }];
     }];
 }

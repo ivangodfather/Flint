@@ -33,7 +33,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                 <connections>
                                     <action selector="nameBegin:" destination="6Cj-Sv-ykn" eventType="editingDidBegin" id="aNc-0Q-eRM"/>
                                     <action selector="nameEnd:" destination="6Cj-Sv-ykn" eventType="editingDidEnd" id="c6s-hh-u4E"/>
@@ -45,7 +45,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                 <connections>
                                     <action selector="emailBegin:" destination="6Cj-Sv-ykn" eventType="editingDidBegin" id="GRq-hn-0DN"/>
                                     <action selector="emailEnd:" destination="6Cj-Sv-ykn" eventType="editingDidEnd" id="g56-pW-VN3"/>
@@ -57,7 +57,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                 <connections>
                                     <action selector="passwordBegin:" destination="6Cj-Sv-ykn" eventType="editingDidBegin" id="RcJ-KE-ULf"/>
                                     <action selector="passwordEnd:" destination="6Cj-Sv-ykn" eventType="editingDidEnd" id="MHj-1j-oT5"/>
@@ -155,7 +155,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                 <connections>
                                     <action selector="endUsername:" destination="0nu-LK-2zr" eventType="editingDidEnd" id="grr-Fn-UYa"/>
                                     <action selector="resignTheKeyboard:" destination="0nu-LK-2zr" eventType="editingDidEnd" id="2Po-C6-AEN"/>
@@ -169,7 +169,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                 <connections>
                                     <action selector="endPassword:" destination="0nu-LK-2zr" eventType="editingDidEnd" id="WEF-Dl-5cp"/>
                                     <action selector="passBegin:" destination="0nu-LK-2zr" eventType="editingDidBegin" id="mVo-59-Rev"/>
@@ -642,8 +642,8 @@
                     <navigationItem key="navigationItem" id="Xce-6S-nEr">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" image="bubble" id="7Gj-y8-gJo"/>
-                        <button key="titleView" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="J8g-hy-7dZ">
-                            <rect key="frame" x="55" y="-7" width="210" height="57"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="T8I-K2-bjb">
+                            <rect key="frame" x="55" y="-18" width="210" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="flint">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

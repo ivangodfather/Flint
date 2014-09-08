@@ -44,10 +44,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:newDeviceToken];
     currentInstallation.channels = @[@"global"];
-    if ([PFUser currentUser]) {
-        currentInstallation.channels = @[@"global",[@"user_" stringByAppendingString:[PFUser currentUser].objectId]];
-    }
     [currentInstallation saveInBackground];
+    NSLog(@"finish");
 #endif
 
 
