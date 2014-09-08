@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *centerButton;
+@property (weak, nonatomic) IBOutlet UIButton *arrowButton;
 @property UserParse* curUser;
 @property BOOL switchCurrentLocation;
 @property CLLocation* currentLocation;
@@ -34,6 +35,9 @@
     [super viewDidLoad];
     _sideBarButton.target = self.revealViewController;
     _sideBarButton.action = @selector(revealToggle:);
+    self.theSwitch.userInteractionEnabled = NO;
+    self.mapView.scrollEnabled = NO;
+    self.centerButton.backgroundColor = BLUE_COLOR;
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.searchTextField.leftView = paddingView;
     self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
@@ -67,39 +71,50 @@
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(self.curUser.geoPoint.latitude, self.curUser.geoPoint.longitude), self.curUser.distance.doubleValue*2100, self.curUser.distance.doubleValue*2100);
     [self.mapView setRegion:region];
     [self.mapView reloadInputViews];
+    self.searchButton.imageView.image = [UIImage imageNamed:@"magnifying-glass"];
+    self.searchButton.userInteractionEnabled = YES;
+    self.searchTextField.enabled = YES;
+    self.searchTextField.textAlignment = NSTextAlignmentCenter;
+    self.searchTextField.backgroundColor = GRAY_COLOR;
+    self.searchTextField.textColor = WHITE_COLOR;
+    self.searchTextField.text = @"";
     if ([self.curUser.useAddress isEqualToString:@"YES"]) {
         self.switchCurrentLocation = NO;
         self.theSwitch.on = NO;
+        self.arrowButton.hidden = NO;
         self.searchButton.imageView.image = [UIImage imageNamed:@"magnifying-glass"];
-        self.searchButton.userInteractionEnabled = YES;
-        self.searchTextField.enabled = YES;
-        self.searchTextField.textAlignment = NSTextAlignmentCenter;
-        self.searchTextField.backgroundColor = GRAY_COLOR;
-        self.searchTextField.textColor = WHITE_COLOR;
+        self.centerButton.backgroundColor = GRAY_COLOR;
         annotation.title = @"Your Simulated Location";
         CLGeocoder* geocoder = [CLGeocoder new];
         CLLocation* location = [[CLLocation alloc]initWithLatitude:self.curUser.geoPoint.latitude longitude:self.curUser.geoPoint.longitude];
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark* placemark = placemarks.firstObject;
-            self.searchTextField.placeholder = [NSString stringWithFormat:@"Simulated Location: %@, %@", placemark.locality, placemark.administrativeArea];
+            UIColor *color = ORANGE_COLOR;
+            self.searchTextField.attributedPlaceholder =
+            [[NSAttributedString alloc]
+             initWithString:[NSString stringWithFormat:@"Simulated Location: %@", placemark.locality]
+             attributes:@{NSForegroundColorAttributeName:color}];
+            [self.centerButton setTitle:[NSString stringWithFormat:@"Simulated Location: %@, %@", placemark.locality, placemark.administrativeArea] forState:UIControlStateNormal];
+            [self.centerButton setTitleColor:WHITE_COLOR forState:UIControlStateNormal];
             self.centerButton.userInteractionEnabled = YES;
         }];
     } else {
         self.switchCurrentLocation = YES;
         self.theSwitch.on = YES;
-        self.theSwitch.onImage = [UIImage imageNamed:@"location"];
-        self.searchButton.imageView.image = [UIImage imageNamed:@"location"];
-        self.searchButton.userInteractionEnabled = NO;
-        self.searchButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.searchTextField.enabled = NO;
-        self.searchTextField.backgroundColor = BLUE_COLOR;
-        self.searchTextField.textColor = ORANGE_COLOR;
+        self.arrowButton.hidden = YES;
+        self.centerButton.backgroundColor = ORANGE_COLOR;
         annotation.title = @"Your Real Location";
         CLGeocoder* geocoder = [CLGeocoder new];
         CLLocation* location = [[CLLocation alloc]initWithLatitude:self.curUser.geoPoint.latitude longitude:self.curUser.geoPoint.longitude];
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark* placemark = placemarks.firstObject;
-            self.searchTextField.text = [NSString stringWithFormat:@"Current Location: %@, %@", placemark.locality, placemark.administrativeArea];
+            UIColor *color = ORANGE_COLOR;
+            self.searchTextField.attributedPlaceholder =
+            [[NSAttributedString alloc]
+             initWithString:[NSString stringWithFormat:@"Current Location: %@", placemark.locality]
+             attributes:@{NSForegroundColorAttributeName:color}];
+            [self.centerButton setTitle:[NSString stringWithFormat:@"Current Location: %@, %@", placemark.locality, placemark.administrativeArea] forState:UIControlStateNormal];
+            [self.centerButton setTitleColor:WHITE_COLOR forState:UIControlStateNormal];
             self.searchTextField.textAlignment = NSTextAlignmentCenter;
             self.centerButton.userInteractionEnabled = YES;
         }];
@@ -141,17 +156,13 @@
     [self.mapView removeAnnotations:self.mapView.annotations];
     [self.mapView removeOverlays:self.mapView.overlays];
     if (self.theSwitch.on) {
-        self.searchButton.imageView.image = [UIImage imageNamed:@"location"];
-        self.searchButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.searchTextField.enabled = NO;
-        self.searchTextField.backgroundColor = BLUE_COLOR;
-        self.searchTextField.textColor = ORANGE_COLOR;
         [self currentLocationIdentifier];
         CLGeocoder* geocoder = [CLGeocoder new];
         CLLocation* location = [[CLLocation alloc]initWithLatitude:self.curUser.geoPoint.latitude longitude:self.curUser.geoPoint.longitude];
         [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark* placemark = placemarks.firstObject;
-            self.searchTextField.text = [NSString stringWithFormat:@"Current Location: %@, %@", placemark.locality, placemark.administrativeArea];
+            self.searchTextField.text = @"";
+            self.searchTextField.placeholder = [NSString stringWithFormat:@"Current Location: %@, %@", placemark.locality, placemark.administrativeArea];
             self.searchTextField.textAlignment = NSTextAlignmentCenter;
         }];
         if ([self.curUser.useAddress isEqualToString:@"YES"]) {
@@ -222,6 +233,32 @@
 {
     self.centerButton.userInteractionEnabled = NO;
     [self placeUserOnMap];
+}
+
+- (IBAction)currentLocationButton:(id)sender
+{
+    [self currentLocationIdentifier];
+    CLGeocoder* geocoder = [CLGeocoder new];
+    CLLocation* location = [[CLLocation alloc]initWithLatitude:self.curUser.geoPoint.latitude longitude:self.curUser.geoPoint.longitude];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark* placemark = placemarks.firstObject;
+        self.searchTextField.text = @"";
+        UIColor *color = ORANGE_COLOR;
+        self.searchTextField.attributedPlaceholder =
+        [[NSAttributedString alloc]
+         initWithString:[NSString stringWithFormat:@"Current Location: %@, %@", placemark.locality, placemark.administrativeArea]
+         attributes:@{NSForegroundColorAttributeName:color}];
+
+        self.searchTextField.textAlignment = NSTextAlignmentCenter;
+    }];
+    if ([self.curUser.useAddress isEqualToString:@"YES"]) {
+        self.curUser.useAddress = @"NO";
+        [self.curUser saveEventually:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [self currentLocationIdentifier];
+            }
+        }];
+    }
 }
 
 @end
