@@ -346,6 +346,7 @@
 
 - (IBAction)sendPhoto:(id)sender
 {
+    [self hiddeKeyBoard];
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
     imagePickerController.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
@@ -389,7 +390,6 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [self hiddeKeyBoard];
     [self dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     MessageParse *message = [MessageParse object];

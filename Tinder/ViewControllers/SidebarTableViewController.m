@@ -74,7 +74,7 @@
     frame.origin.y -= 100;
     self.profileImageView.frame = frame;
     [super viewWillAppear:animated];
-    [UIView animateWithDuration:2.5
+    [UIView animateWithDuration:1.5
                           delay:0
          usingSpringWithDamping:0.5
           initialSpringVelocity:0.2
@@ -86,14 +86,14 @@
 
                         }];
 
-    for (int i = 1; i < 6; i++) {
+    for (int i = 1; i < 7; i++) {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
         CGRect cellFrame = cell.frame;
         cellFrame.origin.x -= cellFrame.size.width;
         cell.frame = cellFrame;
 
-        [UIView animateWithDuration:0.3
-                              delay:i*0.2
+        [UIView animateWithDuration:0.2
+                              delay:i*0.12+0.3
              usingSpringWithDamping:0.5
               initialSpringVelocity:0.8
                             options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -140,14 +140,12 @@
         self.cellLocation.backgroundColor = [UIColor clearColor];
     }
 
-    if (indexPath.row == 5) {
+    if (indexPath.row == 6) {
         [UserParse logOut];
-        NSLog(@"entro!!");
-        
         return;
     }
 
-    if (indexPath.row == 6) {
+    if (indexPath.row == 5) {
         self.cellLocation.backgroundColor = BLUE_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
