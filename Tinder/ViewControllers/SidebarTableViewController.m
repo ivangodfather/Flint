@@ -140,18 +140,11 @@
         self.cellLocation.backgroundColor = [UIColor clearColor];
     }
 
-    if (indexPath.row == 6) {
+    if (indexPath.row == 5) {
         [UserParse logOut];
         return;
     }
 
-    if (indexPath.row == 5) {
-        self.cellLocation.backgroundColor = BLUE_COLOR;
-        self.cellMatch.backgroundColor = [UIColor clearColor];
-        self.profileCell.backgroundColor = [UIColor clearColor];
-        self.cellMessage.backgroundColor = [UIColor clearColor];
-        self.cellShare.backgroundColor = [UIColor clearColor];
-    }
     //UINavigationController *destViewController = (UINavigationController*)segue.destinationViewController;
 
 

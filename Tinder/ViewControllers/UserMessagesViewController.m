@@ -405,7 +405,7 @@
     [self scrollCollectionView];
 
 
-    PFFile *file = [PFFile fileWithData:UIImagePNGRepresentation(image)];
+    PFFile *file = [PFFile fileWithData:UIImageJPEGRepresentation(image, 0.9)];
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         message.image = file;
         [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

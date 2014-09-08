@@ -29,8 +29,6 @@
 @property (weak, nonatomic) IBOutlet V8HorizontalPickerView *agePickerView;
 @property (weak, nonatomic) IBOutlet UIView *genderSelect;
 @property (weak, nonatomic) IBOutlet UIView *genderLikeSelect;
-@property (weak, nonatomic) IBOutlet UISlider *distanceSlider;
-@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
@@ -95,11 +93,6 @@
     self.genderLikeSelect.backgroundColor = [UIColor clearColor];
     [self.genderLikeSelect.layer setBorderWidth:1];
     [self.genderLikeSelect.layer setBorderColor:BLUE_COLOR.CGColor];
-    [self.distanceSlider setThumbImage:[UIImage imageNamed:@"accesory"] forState:UIControlStateNormal];
-    self.distanceSlider.thumbTintColor = BLUE_COLOR;
-    self.distanceSlider.minimumTrackTintColor = BLUE_COLOR;
-    self.distanceSlider.maximumTrackTintColor = GRAY_COLOR;
-    self.distanceLabel.textColor = BLUE_COLOR;
     self.charactersLabel.textColor = ORANGE_COLOR;
     self.editView.frame = CGRectMake(0, self.view.frame.size.height, self.editView.frame.size.width, self.editView.frame.size.height);
     self.descriptionTextView.textColor = BLUE_COLOR;
@@ -117,13 +110,7 @@
 
 
          self.charactersLabel.text = [NSString stringWithFormat:@"%d/%d",self.user.desc.length,MAXLENGTH];
-         if (self.user.distance) {
-             self.distanceSlider.value = self.user.distance.intValue;
-             self.distanceLabel.text = [NSString stringWithFormat:@"%dkm",(int)self.user.distance.intValue];
-         } else {
-             self.distanceSlider.value = DEFAULT_DISTANCE;
-             self.distanceLabel.text = [NSString stringWithFormat:@"%dkm",(int)DEFAULT_DISTANCE];
-         }
+
          if (![self.user.desc isEqualToString:@""]) {
              self.descriptionLabel.text = self.user.desc;
          } else {
@@ -151,10 +138,7 @@
 
      }];
 }
-- (IBAction)distanceChanged:(UISlider *)sender
-{
-    self.distanceLabel.text = [NSString stringWithFormat:@"%dkm",(int)sender.value];
-}
+
 
 - (IBAction)distanceChangeEnd:(UISlider *)sender
 {
