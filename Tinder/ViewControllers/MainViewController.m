@@ -174,7 +174,13 @@
     [query whereKey:@"toUser" equalTo:self.curUser];
     [query whereKey:@"match" equalTo:@"YES"];
     [query whereKey:@"toUserApproved" equalTo:@"notDone"];
+    PFQuery *queryInside = [PossibleMatch query];
+    [queryInside whereKey:@"toUser" equalTo:[UserParse currentUser]];
+    [queryInside whereKey:@"toUserApproved" equalTo:@"YES"];
+    PFQuery* checkQuery = [UserParse query];
+    [checkQuery whereKey:@"email" matchesKey:@"fromUserEmail" inQuery:queryInside];
     PFQuery* userQuery = [UserParse query];
+    [userQuery whereKey:@"objectId" doesNotMatchKey:@"objectId" inQuery:checkQuery];
     if (self.curUser.distance.doubleValue == 0.0) {
         self.curUser.distance = [NSNumber numberWithInt:100];
     }
