@@ -71,9 +71,11 @@
         self.switchCurrentLocation = NO;
         self.theSwitch.on = NO;
         self.searchButton.imageView.image = [UIImage imageNamed:@"magnifying-glass"];
-        self.searchButton.enabled = YES;
+        self.searchButton.userInteractionEnabled = YES;
         self.searchTextField.enabled = YES;
         self.searchTextField.textAlignment = NSTextAlignmentCenter;
+        self.searchTextField.backgroundColor = GRAY_COLOR;
+        self.searchTextField.textColor = WHITE_COLOR;
         annotation.title = @"Your Simulated Location";
         CLGeocoder* geocoder = [CLGeocoder new];
         CLLocation* location = [[CLLocation alloc]initWithLatitude:self.curUser.geoPoint.latitude longitude:self.curUser.geoPoint.longitude];
@@ -85,10 +87,13 @@
     } else {
         self.switchCurrentLocation = YES;
         self.theSwitch.on = YES;
+        self.theSwitch.onImage = [UIImage imageNamed:@"location"];
         self.searchButton.imageView.image = [UIImage imageNamed:@"location"];
-        self.searchButton.enabled = NO;
+        self.searchButton.userInteractionEnabled = NO;
         self.searchButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.searchTextField.enabled = NO;
+        self.searchTextField.backgroundColor = BLUE_COLOR;
+        self.searchTextField.textColor = ORANGE_COLOR;
         annotation.title = @"Your Real Location";
         CLGeocoder* geocoder = [CLGeocoder new];
         CLLocation* location = [[CLLocation alloc]initWithLatitude:self.curUser.geoPoint.latitude longitude:self.curUser.geoPoint.longitude];
@@ -139,6 +144,8 @@
         self.searchButton.imageView.image = [UIImage imageNamed:@"location"];
         self.searchButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.searchTextField.enabled = NO;
+        self.searchTextField.backgroundColor = BLUE_COLOR;
+        self.searchTextField.textColor = ORANGE_COLOR;
         [self currentLocationIdentifier];
         CLGeocoder* geocoder = [CLGeocoder new];
         CLLocation* location = [[CLLocation alloc]initWithLatitude:self.curUser.geoPoint.latitude longitude:self.curUser.geoPoint.longitude];
@@ -158,6 +165,8 @@
     } else {
         self.searchButton.imageView.image = [UIImage imageNamed:@"magnifying-glass"];
         self.searchTextField.enabled = YES;
+        self.searchTextField.backgroundColor = GRAY_COLOR;
+        self.searchTextField.textColor = WHITE_COLOR;
         self.searchTextField.text = @"";
         self.searchTextField.placeholder = @"Enter a location to match from.";
     }
