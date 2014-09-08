@@ -192,9 +192,13 @@
         NSLog(@"will be match - %@", objects);
         PFQuery *query = [PossibleMatch query];
         [query whereKey:@"fromUser" equalTo:[UserParse currentUser]];
+        PFQuery *queryTwo = [PossibleMatch query];
+        [queryTwo whereKey:@"toUser" equalTo:[UserParse currentUser]];
+        [queryTwo whereKey:@"toUserApproved" equalTo:@"YES"];
         PFQuery* userQuery = [UserParse query];
         [userQuery whereKey:@"objectId" notEqualTo:[UserParse currentUser].objectId];
         [userQuery whereKey:@"email" doesNotMatchKey:@"toUserEmail" inQuery:query];
+        [userQuery whereKey:@"email" doesNotMatchKey:@"fromUserEmail" inQuery:queryTwo];
         if (self.curUser.sexuality.integerValue == 0) {
             [userQuery whereKey:@"isMale" equalTo:@"true"];
         }
@@ -229,12 +233,13 @@
     self.profileView.tag = profileViewTag;
     if (self.posibleMatchesArray.firstObject != nil) {
         [self placeBackgroundProfile];
+        self.cyclePhotosButton.userInteractionEnabled = YES;
     } else {
         [self removeBackgroundMatchCards];
         self.activityLabel.hidden = NO;
         [self.activityIndicator startAnimating];
         [self.view bringSubviewToFront:self.profileView];
-
+        self.cyclePhotosButton.userInteractionEnabled = NO;
     }
     PFFile* file = aUser.photo;
     NSString* username = aUser.username;
