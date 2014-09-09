@@ -38,7 +38,7 @@
     self.theSwitch.userInteractionEnabled = NO;
     self.mapView.scrollEnabled = NO;
     self.centerButton.backgroundColor = BLUE_COLOR;
-    UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, 33)];
+    UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 53, self.view.frame.size.width, 40)];
     backgroundView.backgroundColor = WHITE_COLOR;
     backgroundView.alpha = 0.7;
     backgroundView.clipsToBounds = YES;
