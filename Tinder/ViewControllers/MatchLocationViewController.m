@@ -38,6 +38,14 @@
     self.theSwitch.userInteractionEnabled = NO;
     self.mapView.scrollEnabled = NO;
     self.centerButton.backgroundColor = BLUE_COLOR;
+    UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, 33)];
+    backgroundView.backgroundColor = WHITE_COLOR;
+    backgroundView.alpha = 0.7;
+    backgroundView.clipsToBounds = YES;
+//    backgroundView.layer.cornerRadius = 20;
+    [self.view addSubview:backgroundView];
+    [self.view sendSubviewToBack:backgroundView];
+    [self.view sendSubviewToBack:self.mapView];
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 20)];
     self.searchTextField.leftView = paddingView;
     self.searchTextField.leftViewMode = UITextFieldViewModeAlways;
@@ -73,6 +81,7 @@
     [self.mapView reloadInputViews];
     self.searchButton.imageView.image = [UIImage imageNamed:@"magnifying-glass"];
     self.searchButton.userInteractionEnabled = YES;
+    self.arrowButton.hidden = NO;
     self.searchTextField.enabled = YES;
     self.searchTextField.textAlignment = NSTextAlignmentCenter;
     self.searchTextField.backgroundColor = GRAY_COLOR;
@@ -81,7 +90,8 @@
     if ([self.curUser.useAddress isEqualToString:@"YES"]) {
         self.switchCurrentLocation = NO;
         self.theSwitch.on = NO;
-        self.arrowButton.hidden = NO;
+        self.arrowButton.userInteractionEnabled = YES;
+        self.arrowButton.imageView.image = [UIImage imageNamed:@"arrow"];
         self.searchButton.imageView.image = [UIImage imageNamed:@"magnifying-glass"];
         self.centerButton.backgroundColor = GRAY_COLOR;
         annotation.title = @"Your Simulated Location";
@@ -101,7 +111,8 @@
     } else {
         self.switchCurrentLocation = YES;
         self.theSwitch.on = YES;
-        self.arrowButton.hidden = YES;
+        self.arrowButton.userInteractionEnabled = NO;
+        self.arrowButton.imageView.image = [UIImage imageNamed:@"arrowOutline"];
         self.centerButton.backgroundColor = ORANGE_COLOR;
         annotation.title = @"Your Real Location";
         CLGeocoder* geocoder = [CLGeocoder new];
