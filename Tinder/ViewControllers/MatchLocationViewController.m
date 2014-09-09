@@ -36,6 +36,7 @@
     _sideBarButton.target = self.revealViewController;
     _sideBarButton.action = @selector(revealToggle:);
     self.theSwitch.userInteractionEnabled = NO;
+
     self.mapView.scrollEnabled = NO;
     self.centerButton.backgroundColor = BLUE_COLOR;
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 53, self.view.frame.size.width, 40)];

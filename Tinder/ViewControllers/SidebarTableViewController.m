@@ -92,7 +92,7 @@
         cellFrame.origin.x -= cellFrame.size.width;
         cell.frame = cellFrame;
 
-        [UIView animateWithDuration:0.3
+        [UIView animateWithDuration:0.4
                               delay:i*0.12+0.2
              usingSpringWithDamping:0.5
               initialSpringVelocity:0.05

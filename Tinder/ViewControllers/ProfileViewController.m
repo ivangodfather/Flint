@@ -67,6 +67,12 @@
     [navigationBar setShadowImage:[UIImage new]];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationItem.title = [UserParse currentUser].username;
+}
+
 - (void)createAgePickerView
 {
     self.ages = [NSMutableArray new];
@@ -329,6 +335,11 @@
         }];
         
     }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    self.navigationItem.title = @"Profile";
 }
 
 @end
