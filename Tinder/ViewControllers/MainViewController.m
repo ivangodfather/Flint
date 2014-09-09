@@ -77,6 +77,7 @@
 @property UIImage *matchPhoto;
 @property (weak, nonatomic) IBOutlet UITextView *activityLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property UILabel* imageCountLabel;
 @property UserParse *otherUser;
 @end
 
@@ -255,6 +256,7 @@
     NSNumber* age = aUser.age;
     [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         [self.arrayOfPhotoDataForeground addObject:data];
+        self.imageCountLabel.text = [NSString stringWithFormat:@"1 of %lu", (unsigned long)self.arrayOfPhotoDataForeground.count];
         self.profileView = [[UIView alloc] initWithFrame:[self createMatchRect]];
         self.profileView.clipsToBounds = YES;
         self.profileView.backgroundColor = WHITE_COLOR;
@@ -270,6 +272,14 @@
         self.profileImage.clipsToBounds = YES;
         //        self.profileImage.layer.cornerRadius = cornRadius;
         [self.profileView addSubview:self.profileImage];
+        self.imageCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(220, 255, 70, 30)];
+        self.imageCountLabel.textColor = WHITE_COLOR;
+        self.imageCountLabel.textAlignment = NSTextAlignmentCenter;
+        [self.imageCountLabel setFont:[UIFont fontWithName:@"Helvetica" size:16]];
+        UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.imageCountLabel.font.fontName] size:self.imageCountLabel.font.pointSize];
+        [self.imageCountLabel setFont:newFont];
+        [self.profileImage addSubview:self.imageCountLabel];
+        [self.profileImage bringSubviewToFront:self.imageCountLabel];
         self.foregroundLabel = [[UILabel alloc] initWithFrame:[self createLabelRect]];
         self.matchPhoto = self.profileImage.image;
         double distance = [aUser.geoPoint distanceInKilometersTo:self.curUser.geoPoint];
@@ -281,7 +291,6 @@
         self.foregroundLabel.clipsToBounds = YES;
         //        self.foregroundLabel.layer.cornerRadius = cornRadius;
         [self.foregroundLabel setFont:[UIFont fontWithName:@"Helvetica" size:16]];
-        UIFont *newFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.foregroundLabel.font.fontName] size:self.foregroundLabel.font.pointSize];
         UIFont *descFont = [UIFont fontWithName:[NSString stringWithFormat:@"%@-Bold",self.foregroundLabel.font.fontName] size: 12];
         [self.foregroundLabel setFont:newFont];
         [self.profileView addSubview:self.foregroundLabel];
@@ -305,6 +314,7 @@
         self.foregroundLabelLocation.textColor = BLUE_COLOR;
         [self.foregroundLabelLocation setFont:newFont];
         [self.profileView addSubview:self.foregroundLabelLocation];
+        [self.profileView bringSubviewToFront:self.imageCountLabel];
         [self.profileView bringSubviewToFront:self.foregroundLabelLocation];
         [self.profileView bringSubviewToFront:self.profileImageLocation];
         UILabel* boundaryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.profileImage.frame.size.height+self.foregroundLabel.frame.size.height+23, self.profileView.frame.size.width, 1)];
@@ -328,26 +338,31 @@
             [photo1 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 [self.arrayOfPhotoDataForeground addObject:data];
                 self.matchPhoto = [UIImage imageWithData:data];
+                self.imageCountLabel.text = [NSString stringWithFormat:@"1 of %lu", (unsigned long)self.arrayOfPhotoDataForeground.count];
         }];
         }
         if ([aUser.photo2 isKindOfClass:[PFFile class]]) {
             PFFile* photo2 = aUser.photo2;
             [photo2 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 [self.arrayOfPhotoDataForeground addObject:data];
+                self.imageCountLabel.text = [NSString stringWithFormat:@"1 of %lu", (unsigned long)self.arrayOfPhotoDataForeground.count];
             }];
         }
         if ([aUser.photo3 isKindOfClass:[PFFile class]]) {
             PFFile* photo3 = aUser.photo3;
             [photo3 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 [self.arrayOfPhotoDataForeground addObject:data];
+                self.imageCountLabel.text = [NSString stringWithFormat:@"1 of %lu", (unsigned long)self.arrayOfPhotoDataForeground.count];
             }];
         }
         if ([aUser.photo4 isKindOfClass:[PFFile class]]) {
             PFFile* photo4 = aUser.photo4;
             [photo4 getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 [self.arrayOfPhotoDataForeground addObject:data];
+                self.imageCountLabel.text = [NSString stringWithFormat:@"1 of %lu", (unsigned long)self.arrayOfPhotoDataForeground.count];
             }];
         }
+        [self.profileImage bringSubviewToFront:self.imageCountLabel];
         [self.activityIndicator stopAnimating];
         self.activityLabel.hidden = YES;
         [self placeBackgroundMatchCards];
@@ -692,6 +707,7 @@
         data = [self.arrayOfPhotoDataForeground objectAtIndex:self.photoArrayIndex];
         self.photoArrayIndex++;
     }
+    self.imageCountLabel.text = [NSString stringWithFormat:@"%d of %lu", self.photoArrayIndex, (unsigned long)self.arrayOfPhotoDataForeground.count];
     self.profileImage = [[UIImageView alloc] initWithFrame:[self createPhotoRect]];
     self.profileImage.tag = currentProfileImage;
     self.profileImage.image = [UIImage imageWithData:data];
@@ -699,6 +715,8 @@
     self.profileImage.contentMode = UIViewContentModeScaleAspectFill;
     //    self.profileImage.layer.cornerRadius = cornRadius;
     [self.profileView addSubview:self.profileImage];
+    [self.profileImage addSubview:self.imageCountLabel];
+    [self.profileImage bringSubviewToFront:self.imageCountLabel];
 }
 
 - (void)removeOldProfileImage
@@ -777,11 +795,15 @@
     [self.profileView removeFromSuperview];
     self.profileView = self.backgroundView;
     self.profileImage = self.backgroundImage;
+
+    [self.profileImage bringSubviewToFront:self.imageCountLabel];
     self.foregroundLabel = self.backgroundLabel;
     self.foregroundDescriptionLabel = self.backgroundDescriptionLabel;
     self.profileImage.tag = currentProfileImage;
     self.photoArrayIndex = 1;
     self.arrayOfPhotoDataForeground = self.arrayOfPhotoDataBackground;
+    self.imageCountLabel.text = [NSString stringWithFormat:@"1 of %lu", (unsigned long)self.arrayOfPhotoDataForeground.count];
+    [self.profileImage addSubview:self.imageCountLabel];
     if ([self.willBeMatches containsObject:self.currShowingProfile]) {
         PFQuery* query = [PossibleMatch query];
         [query whereKey:@"fromUser" equalTo:self.currShowingProfile];
@@ -840,6 +862,8 @@
     self.arrayOfPhotoDataForeground = self.arrayOfPhotoDataBackground;
     self.profileImage.tag = currentProfileImage;
     self.photoArrayIndex = 1;
+    self.arrayOfPhotoDataForeground = self.arrayOfPhotoDataBackground;
+    self.imageCountLabel.text = [NSString stringWithFormat:@"1 of %lu", (unsigned long)self.arrayOfPhotoDataForeground.count];
     if ([self.willBeMatches containsObject:self.currShowingProfile]) {
         [self performSegueWithIdentifier:@"match" sender:nil];
         MessageParse* message = [MessageParse object];
