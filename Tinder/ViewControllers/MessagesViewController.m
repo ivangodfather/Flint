@@ -145,6 +145,9 @@
 
     MessageParse *message = [self.messages objectAtIndex:indexPath.row];
     cell.lastMessageLabel.text = message.text;
+    if (!message.text && message.image) {
+        cell.lastMessageLabel.text = @"Image";
+    }
     if (!message.read && [message.toUserParse.objectId isEqualToString:[UserParse currentUser].objectId]) {
         cell.lastMessageLabel.textColor = ORANGE_COLOR;
     } else {
@@ -259,16 +262,14 @@
             message.read = NO;
             message.image = file;
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:count inSection:0];
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            count++;
+            UserTableViewCell *cell = (UserTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            cell.lastMessageLabel.text = @"Image";
             [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                count++;
                 PFQuery *query = [PFInstallation query];
                 [query whereKey:@"objectId" equalTo:user.installation.objectId];
                 [PFPush sendPushMessageToQueryInBackground:query
                                                withMessage:@"new image!"];
-                if (count == self.usersParseArray.count) {
-                    [self.tableView reloadData];
-                }
 
             }];
 

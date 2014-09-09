@@ -110,13 +110,11 @@
             image = message.sendImage;
             cell.photoImageView.image = message.sendImage;
         } else {
-            cell.photoImageView.backgroundColor = [UIColor redColor];
             [message.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 image = [UIImage imageWithData:data];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    cell.photoImageView.image = image;
-                });
-
+                cell.photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+                cell.photoImageView.image = image;
+                cell.photoImageView.clipsToBounds = YES;
             }];
         }
         cell.photoImageView.userInteractionEnabled = YES;
@@ -134,6 +132,8 @@
             image = [UIImage imageWithData:data];
             dispatch_async(dispatch_get_main_queue(), ^{
                 cell.photoImageView.image = image;
+                cell.photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+                cell.photoImageView.clipsToBounds = YES;
             });
 
         }];
