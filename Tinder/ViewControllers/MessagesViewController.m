@@ -14,7 +14,7 @@
 
 #define SECONDS_DAY 24*60*60
 
-@interface MessagesViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MessagesViewController () <UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
@@ -204,6 +204,7 @@
 - (IBAction)sendPhoto:(id)sender
 {
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
     [self presentViewController:picker animated:YES completion:^{
 
     }];
@@ -226,7 +227,7 @@
                         }];
 }
 
--(void)keyboardDidHide:(NSNotification *)notification
+- (void)keyboardDidHide:(NSNotification *)notification
 {
     [UIView animateWithDuration:1.5
                           delay:0
@@ -239,5 +240,47 @@
                         } completion:^(BOOL finished) {
                             
                         }];
+}
+
+#pragma mark - PickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    PFFile *file = [PFFile fileWithData:UIImageJPEGRepresentation(image, 0.9)];
+
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        __block int count = 0;
+        for (UserParse *user in self.usersParseArray) {
+            MessageParse *message = [MessageParse object];
+            message.fromUserParse = [UserParse currentUser];
+            message.toUserParse = user;
+            message.read = NO;
+            message.image = file;
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:count inSection:0];
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                count++;
+                PFQuery *query = [PFInstallation query];
+                [query whereKey:@"objectId" equalTo:user.installation.objectId];
+                [PFPush sendPushMessageToQueryInBackground:query
+                                               withMessage:@"new image!"];
+                if (count == self.usersParseArray.count) {
+                    [self.tableView reloadData];
+                }
+
+            }];
+
+
+        }
+
+    }];
+
+
+
+
+
+
 }
 @end
