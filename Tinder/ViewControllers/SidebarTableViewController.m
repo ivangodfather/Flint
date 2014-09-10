@@ -133,11 +133,13 @@
         self.cellLocation.backgroundColor = [UIColor clearColor];
     }
     if (indexPath.row == 4) {
+        NSLog(@"Go 1");
         self.cellShare.backgroundColor = BLUE_COLOR;
         self.cellMatch.backgroundColor = [UIColor clearColor];
         self.profileCell.backgroundColor = [UIColor clearColor];
         self.cellMessage.backgroundColor = [UIColor clearColor];
         self.cellLocation.backgroundColor = [UIColor clearColor];
+        return;
     }
 
     if (indexPath.row == 5) {
@@ -167,9 +169,30 @@
     NSURL *url = [NSURL URLWithString:@"http://www.google.es"];
     UIImage *image = [UIImage imageNamed:@"logo_mini"];
 
-    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[text, url, image] applicationActivities:nil];
+    UIActivityIndicatorView *ai = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    ai.frame = CGRectMake(160, 240, ai.frame.size.width, ai.frame.size.height);
+    [self.view addSubview:ai];
+    [ai startAnimating];
 
-    [self presentViewController:controller animated:YES completion:nil];
+    // create new dispatch queue in background
+    dispatch_queue_t queue = dispatch_queue_create("openActivityIndicatorQueue", NULL);
+
+    // send initialization of UIActivityViewController in background
+    dispatch_async(queue, ^{
+
+        UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[text, url, image] applicationActivities:nil];
+
+        // when UIActivityViewController is finally initialized,
+        // hide indicator and present it on main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [ai stopAnimating];
+            [self presentViewController:controller animated:YES completion:nil];
+        });
+    });
+
+
+
+
 
 }
 

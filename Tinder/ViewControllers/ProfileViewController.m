@@ -33,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
-@property int selectedPhoto;
+@property NSUInteger selectedPhoto;
 
 @property (weak, nonatomic) IBOutlet UIView *editView;
 @property (weak, nonatomic) IBOutlet UIView *profileBackground;
@@ -115,7 +115,7 @@
          self.user = (UserParse *)object;
 
 
-         self.charactersLabel.text = [NSString stringWithFormat:@"%d/%d",self.user.desc.length,MAXLENGTH];
+         self.charactersLabel.text = [NSString stringWithFormat:@"%lu/%d",(unsigned long)self.user.desc.length,MAXLENGTH];
 
          if (![self.user.desc isEqualToString:@""]) {
              self.descriptionLabel.text = self.user.desc;
@@ -256,9 +256,9 @@
 }
 
 - (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {
-    self.user.age = [NSNumber numberWithInt:index+MIN_AGE];
+    self.user.age = [NSNumber numberWithInteger:index+MIN_AGE];
     [self.user saveInBackground];
-    self.ageLabel.text = [NSString stringWithFormat:@"Age: %@",[NSNumber numberWithInt:index+MIN_AGE]];
+    self.ageLabel.text = [NSString stringWithFormat:@"Age: %@",[NSNumber numberWithInteger:index+MIN_AGE]];
 }
 
 - (IBAction)logOut:(id)sender {
@@ -300,7 +300,7 @@
         return NO;
     }
     self.descriptionLabel.text = textView.text;
-    self.charactersLabel.text = [NSString stringWithFormat:@"%d/%d",textView.text.length,MAXLENGTH];
+    self.charactersLabel.text = [NSString stringWithFormat:@"%lu/%d",(unsigned long)textView.text.length,MAXLENGTH];
     return self.descriptionTextView.text.length + (text.length - range.length) <= MAXLENGTH;
 }
 

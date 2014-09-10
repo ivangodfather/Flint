@@ -129,7 +129,7 @@
     self.theUser.age = [NSNumber numberWithInt:30];
     self.theUser.isMale = @"true";
     self.theUser.desc = @"I'm new to Flint!";
-    self.theUser.photo = [PFFile fileWithData:UIImagePNGRepresentation([UIImage imageNamed:@"placeholderNew"])];
+    self.theUser.photo = [PFFile fileWithData:UIImageJPEGRepresentation([UIImage imageNamed:@"placeholderNew"],0.9)];
     [self.theUser signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             [self performSegueWithIdentifier:@"signup" sender:self];

@@ -56,6 +56,7 @@
 
     self.assets = [NSMutableArray new];
     PFQuery *query = [UserParse query];
+    self.collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
     [query getObjectInBackgroundWithId:[UserParse currentUser].objectId
                                  block:^(PFObject *object, NSError *error)
      {
@@ -125,7 +126,6 @@
     {
 		[theCell addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapCell:)]];
     }
-    NSLog(@"indexpath %d", indexPath.row);
 
     UIImage *theImage = [self.assets objectAtIndex:indexPath.row];
 //    theCell.imageView.layer.cornerRadius = theCell.imageView.frame.size.width/2;
@@ -146,8 +146,7 @@
 - (void)tapCell:(UITapGestureRecognizer *)inGestureRecognizer
 {
 	NSIndexPath *theIndexPath = [self.collectionView indexPathForCell:(UICollectionViewCell *)inGestureRecognizer.view];
-    NSLog(@"indexpath %d",theIndexPath.row);
-    self.selectedImage = theIndexPath.row;
+    self.selectedImage = (int)theIndexPath.row;
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take photo",@"Choose from library",nil];
     [sheet showInView:self.parentViewController.view];
 
@@ -184,7 +183,7 @@
     [self.assets replaceObjectAtIndex:self.selectedImage withObject:image];
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.selectedImage inSection:0];
     [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-    PFFile *file = [PFFile fileWithData:UIImagePNGRepresentation(image)];
+    PFFile *file = [PFFile fileWithData:UIImageJPEGRepresentation(image,0.9)];
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error) {
             return ;
