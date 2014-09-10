@@ -165,8 +165,8 @@
 
 - (IBAction)shareButton:(id)sender
 {
-    NSString *text = @"Discover people that likes you nearby!";
-    NSURL *url = [NSURL URLWithString:@"http://www.google.es"];
+    NSString *text = @"Discover people that like you nearby. Start Flintering today!";
+    NSURL *url = [NSURL URLWithString:@"http://www.mobilemarkers.co"];
     UIImage *image = [UIImage imageNamed:@"logo_mini"];
 
     UIActivityIndicatorView *ai = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];

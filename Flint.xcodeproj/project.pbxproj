@@ -134,21 +134,21 @@
 		4283BD8519BCB83A00AD1F63 /* Report.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Report.m; path = Model/Report.m; sourceTree = "<group>"; };
 		42BD2AFC19AE5A1B00FCC817 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserTableViewCell.h; path = View/UserTableViewCell.h; sourceTree = "<group>"; };
 		42BD2AFD19AE5A1B00FCC817 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserTableViewCell.m; path = View/UserTableViewCell.m; sourceTree = "<group>"; };
-		42DBCC2719AC20BB00CE6C93 /* Tinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		42DBCC2719AC20BB00CE6C93 /* Flint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42DBCC2A19AC20BB00CE6C93 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		42DBCC2C19AC20BB00CE6C93 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		42DBCC2E19AC20BB00CE6C93 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		42DBCC3219AC20BB00CE6C93 /* Tinder-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tinder-Info.plist"; sourceTree = "<group>"; };
+		42DBCC3219AC20BB00CE6C93 /* Flint-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Flint-Info.plist"; sourceTree = "<group>"; };
 		42DBCC3419AC20BB00CE6C93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		42DBCC3619AC20BB00CE6C93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		42DBCC3819AC20BB00CE6C93 /* Tinder-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tinder-Prefix.pch"; sourceTree = "<group>"; };
+		42DBCC3819AC20BB00CE6C93 /* Flint-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Flint-Prefix.pch"; sourceTree = "<group>"; };
 		42DBCC3919AC20BB00CE6C93 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		42DBCC3A19AC20BB00CE6C93 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		42DBCC3D19AC20BB00CE6C93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42DBCC4219AC20BB00CE6C93 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		42DBCC4819AC20BB00CE6C93 /* TinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		42DBCC4819AC20BB00CE6C93 /* FlintTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlintTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42DBCC4919AC20BB00CE6C93 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		42DBCC5119AC20BB00CE6C93 /* TinderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TinderTests-Info.plist"; sourceTree = "<group>"; };
+		42DBCC5119AC20BB00CE6C93 /* FlintTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlintTests-Info.plist"; sourceTree = "<group>"; };
 		42DBCC5319AC20BB00CE6C93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		42DBCC5519AC20BB00CE6C93 /* TinderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TinderTests.m; sourceTree = "<group>"; };
 		42DBCC5F19AC2B5700CE6C93 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -268,8 +268,8 @@
 		42DBCC2819AC20BB00CE6C93 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				42DBCC2719AC20BB00CE6C93 /* Tinder.app */,
-				42DBCC4819AC20BB00CE6C93 /* TinderTests.xctest */,
+				42DBCC2719AC20BB00CE6C93 /* Flint.app */,
+				42DBCC4819AC20BB00CE6C93 /* FlintTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -325,10 +325,10 @@
 			children = (
 				42DBCC3919AC20BB00CE6C93 /* AppDelegate.h */,
 				42DBCC3A19AC20BB00CE6C93 /* AppDelegate.m */,
-				42DBCC3219AC20BB00CE6C93 /* Tinder-Info.plist */,
+				42DBCC3219AC20BB00CE6C93 /* Flint-Info.plist */,
 				42DBCC3319AC20BB00CE6C93 /* InfoPlist.strings */,
 				42DBCC3619AC20BB00CE6C93 /* main.m */,
-				42DBCC3819AC20BB00CE6C93 /* Tinder-Prefix.pch */,
+				42DBCC3819AC20BB00CE6C93 /* Flint-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -345,7 +345,7 @@
 		42DBCC5019AC20BB00CE6C93 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				42DBCC5119AC20BB00CE6C93 /* TinderTests-Info.plist */,
+				42DBCC5119AC20BB00CE6C93 /* FlintTests-Info.plist */,
 				42DBCC5219AC20BB00CE6C93 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -463,9 +463,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		42DBCC2619AC20BB00CE6C93 /* Tinder */ = {
+		42DBCC2619AC20BB00CE6C93 /* Flint */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 42DBCC5919AC20BB00CE6C93 /* Build configuration list for PBXNativeTarget "Tinder" */;
+			buildConfigurationList = 42DBCC5919AC20BB00CE6C93 /* Build configuration list for PBXNativeTarget "Flint" */;
 			buildPhases = (
 				42DBCC2319AC20BB00CE6C93 /* Sources */,
 				42DBCC2419AC20BB00CE6C93 /* Frameworks */,
@@ -475,14 +475,14 @@
 			);
 			dependencies = (
 			);
-			name = Tinder;
+			name = Flint;
 			productName = Tinder;
-			productReference = 42DBCC2719AC20BB00CE6C93 /* Tinder.app */;
+			productReference = 42DBCC2719AC20BB00CE6C93 /* Flint.app */;
 			productType = "com.apple.product-type.application";
 		};
-		42DBCC4719AC20BB00CE6C93 /* TinderTests */ = {
+		42DBCC4719AC20BB00CE6C93 /* FlintTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 42DBCC5C19AC20BB00CE6C93 /* Build configuration list for PBXNativeTarget "TinderTests" */;
+			buildConfigurationList = 42DBCC5C19AC20BB00CE6C93 /* Build configuration list for PBXNativeTarget "FlintTests" */;
 			buildPhases = (
 				42DBCC4419AC20BB00CE6C93 /* Sources */,
 				42DBCC4519AC20BB00CE6C93 /* Frameworks */,
@@ -493,9 +493,9 @@
 			dependencies = (
 				42DBCC4E19AC20BB00CE6C93 /* PBXTargetDependency */,
 			);
-			name = TinderTests;
+			name = FlintTests;
 			productName = TinderTests;
-			productReference = 42DBCC4819AC20BB00CE6C93 /* TinderTests.xctest */;
+			productReference = 42DBCC4819AC20BB00CE6C93 /* FlintTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -515,7 +515,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 42DBCC2219AC20BB00CE6C93 /* Build configuration list for PBXProject "Tinder" */;
+			buildConfigurationList = 42DBCC2219AC20BB00CE6C93 /* Build configuration list for PBXProject "Flint" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -528,8 +528,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				42DBCC2619AC20BB00CE6C93 /* Tinder */,
-				42DBCC4719AC20BB00CE6C93 /* TinderTests */,
+				42DBCC2619AC20BB00CE6C93 /* Flint */,
+				42DBCC4719AC20BB00CE6C93 /* FlintTests */,
 			);
 		};
 /* End PBXProject section */
@@ -611,7 +611,7 @@
 /* Begin PBXTargetDependency section */
 		42DBCC4E19AC20BB00CE6C93 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 42DBCC2619AC20BB00CE6C93 /* Tinder */;
+			target = 42DBCC2619AC20BB00CE6C93 /* Flint */;
 			targetProxy = 42DBCC4D19AC20BB00CE6C93 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -728,9 +728,9 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tinder/Tinder-Prefix.pch";
-				INFOPLIST_FILE = "Tinder/Tinder-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Tinder/Flint-Prefix.pch";
+				INFOPLIST_FILE = "Tinder/Flint-Info.plist";
+				PRODUCT_NAME = Flint;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -748,9 +748,9 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tinder/Tinder-Prefix.pch";
-				INFOPLIST_FILE = "Tinder/Tinder-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Tinder/Flint-Prefix.pch";
+				INFOPLIST_FILE = "Tinder/Flint-Info.plist";
+				PRODUCT_NAME = Flint;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -771,8 +771,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "TinderTests/TinderTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "TinderTests/FlintTests-Info.plist";
+				PRODUCT_NAME = FlintTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -789,8 +789,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tinder/Tinder-Prefix.pch";
-				INFOPLIST_FILE = "TinderTests/TinderTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "TinderTests/FlintTests-Info.plist";
+				PRODUCT_NAME = FlintTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -799,7 +799,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		42DBCC2219AC20BB00CE6C93 /* Build configuration list for PBXProject "Tinder" */ = {
+		42DBCC2219AC20BB00CE6C93 /* Build configuration list for PBXProject "Flint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				42DBCC5719AC20BB00CE6C93 /* Debug */,
@@ -808,7 +808,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		42DBCC5919AC20BB00CE6C93 /* Build configuration list for PBXNativeTarget "Tinder" */ = {
+		42DBCC5919AC20BB00CE6C93 /* Build configuration list for PBXNativeTarget "Flint" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				42DBCC5A19AC20BB00CE6C93 /* Debug */,
@@ -817,7 +817,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		42DBCC5C19AC20BB00CE6C93 /* Build configuration list for PBXNativeTarget "TinderTests" */ = {
+		42DBCC5C19AC20BB00CE6C93 /* Build configuration list for PBXNativeTarget "FlintTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				42DBCC5D19AC20BB00CE6C93 /* Debug */,

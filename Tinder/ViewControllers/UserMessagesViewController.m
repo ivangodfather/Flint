@@ -78,10 +78,13 @@
     [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
 
     [self scrollCollectionView];
-    PFQuery *query = [PFInstallation query];
-    [query whereKey:@"objectId" equalTo:self.toUserParse.installation.objectId];
-    [PFPush sendPushMessageToQueryInBackground:query
-                                   withMessage:message.text];
+    if (self.toUserParse.installation.objectId) {
+        PFQuery *query = [PFInstallation query];
+        [query whereKey:@"objectId" equalTo:self.toUserParse.installation.objectId];
+        [PFPush sendPushMessageToQueryInBackground:query
+                                       withMessage:message.text];
+    }
+
     self.textField.text = @"";
 }
 
@@ -109,13 +112,15 @@
         if (message.sendImage) {
             image = message.sendImage;
             cell.photoImageView.image = message.sendImage;
+            cell.photoImageView.layer.cornerRadius = 8;
+            cell.photoImageView.clipsToBounds = YES;
         } else {
             [message.image getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 image = [UIImage imageWithData:data];
                 cell.photoImageView.contentMode = UIViewContentModeScaleAspectFill;
                 cell.photoImageView.image = image;
-                cell.photoImageView.clipsToBounds = YES;
-            }];
+                cell.photoImageView.layer.cornerRadius = 8;
+                cell.photoImageView.clipsToBounds = YES;            }];
         }
         cell.photoImageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedImage:)];
@@ -133,8 +138,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 cell.photoImageView.image = image;
                 cell.photoImageView.contentMode = UIViewContentModeScaleAspectFill;
-                cell.photoImageView.clipsToBounds = YES;
-            });
+                cell.photoImageView.layer.cornerRadius = 8;
+                cell.photoImageView.clipsToBounds = YES;            });
 
         }];
         cell.photoImageView.userInteractionEnabled = YES;
@@ -452,8 +457,9 @@
     PFQuery *orQUery = [PFQuery orQueryWithSubqueries:@[query1, query2]];
 
     [orQUery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [MessageParse deleteAllInBackground:objects];
-        [self popVC];
+        [MessageParse deleteAllInBackground:objects block:^(BOOL succeeded, NSError *error) {
+            [self popVC];
+        }];
     }];
 }
 
